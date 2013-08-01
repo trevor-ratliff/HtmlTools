@@ -1,0 +1,210 @@
+<!DOCTYPE html>    <!-- HTML 5.0 doctype -->
+
+<!--
+//====
+/// @file WordArtTool.htm
+/// @brief A word art creation tool for Aimee
+/// @author Trevor Ratliff
+/// @date 2013-02-06
+/// 
+/// This app will have the ability of generating word art images that can be 
+/// printed or saved to jpg, png, or pdf.  The user will be able to add letters
+/// one at a time using a drag and drop like interface.  They will have control 
+/// of the size, font, color, and possibly boarders and background colors/images
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2013-02-06  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  file 
+///         creation  |
+/// @endverbatim
+//====
+-->
+
+<html manifest="WordArtTool.appcache">
+    <head>
+        <meta charset="UTF-8">
+        <!-- link rel="alternate stylesheet" type="text/css" 
+            href="styles/WordArtToolAlt.css" title="alternate" / -->
+        <link rel="stylesheet" type="text/css" 
+            href="styles/WordArtTool.css" title="main" />
+        <link href='http://fonts.googleapis.com/css?family=Astloch:400,700|Alfa+Slab+One|Averia+Sans+Libre:300,400,700,300italic,400italic,700italic|Aguafina+Script|Abel|Arbutus+Slab|Average+Sans|Arvo:400,700,400italic,700italic|Antic+Slab|Average|Asset|ABeeZee:400,400italic|Acme|Andika|Anaheim|Armata|Almendra+Display|Arimo:400,700,400italic,700italic|Artifika|Allura|Atomic+Age|Averia+Serif+Libre:300,400,700,300italic,400italic,700italic|Anton|Antic+Didone|Asap:400,700,400italic,700italic|Antic|Amethysta|Aladin|Arbutus|Abril+Fatface|Aclonica|Actor|Adamina|Advent+Pro:100,200,300,400,500,600,700|Akronim|Aldrich|Alegreya:400italic,700italic,900italic,400,700,900|Alegreya+SC:400,400italic,700,700italic,900,900italic|Alice|Alike|Alike+Angular|Allan:400,700|Allerta|Allerta+Stencil|Almendra:400,400italic,700,700italic|Almendra+SC|Amatic+SC:400,700|Amarante|Amaranth:400,400italic,700,700italic|Andada|Annie+Use+Your+Telescope|Anonymous+Pro:400,400italic,700,700italic|Arapey:400italic,400|Architects+Daughter|Archivo+Black|Archivo+Narrow:400,400italic,700,700italic|Arizonia|Asul:400,700|Aubrey|Audiowide|Autour+One|Averia+Gruesa+Libre|Averia+Libre:300,300italic,400,400italic,700,700italic|Baumans' rel='stylesheet' type='text/css'>
+        
+        <!-- Use latest JQuery -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <!-- <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script> -->
+        <script type="text/javascript" src="scripts/WordArtTool.js"></script>
+        
+        <script type="text/javascript">
+            <!--
+            //----
+            // jquery initialization code
+            //----
+            //~ jQuery(document).ready(function(){
+                //~ $(document).mousemove(function(e){
+                    //~ $('#mousePos').html(e.pageX +', '+ e.pageY);
+                    //~ $('#debug_message').html(
+                        //~ 'hello');
+                //~ });
+            //~ });
+            //-->
+        </script>
+        
+        <noscript>
+            Turning JavaScript on in your browser makes for a much better experience!
+        </noscript>
+    </head>
+    
+    <body>
+        <div id="debug" class="debug">
+            <div id="mousePos">&nbsp;</div>
+            <div id="debug_message">&nbsp;</div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div id="toolbox">
+            <div><span class="label">Letters:</span></div>
+            
+            <div id="watContainerFont" class="tool">
+                Font:
+                <select type="select" id="watFont">
+                    <option value="arial" selected="true">arial</option>
+                    <option value="verdana">verdana</option>
+                    <option value="'Astloch', cursive">'Astloch', cursive</option>
+                    <option value="'Alfa Slab One', cursive">'Alfa Slab One', cursive</option>
+                    <option value="'Averia Sans Libre', cursive">'Averia Sans Libre', cursive</option>
+                    <option value="'Aguafina Script', cursive">'Aguafina Script', cursive</option>
+                    <option value="'Abel', sans-serif">'Abel', sans-serif</option>
+                    <option value="'Arbutus Slab', serif">'Arbutus Slab', serif</option>
+                    <option value="'Average Sans', sans-serif">'Average Sans', sans-serif</option>
+                    <option value="'Arvo', serif">'Arvo', serif</option>
+                    <option value="'Antic Slab', serif">'Antic Slab', serif</option>
+                    <option value="'Average', serif">'Average', serif</option>
+                    <option value="'Asset', cursive">'Asset', cursive</option>
+                    <option value="'ABeeZee', sans-serif">'ABeeZee', sans-serif</option>
+                    <option value="'Acme', sans-serif">'Acme', sans-serif</option>
+                    <option value="'Andika', sans-serif">'Andika', sans-serif</option>
+                    <option value="'Anaheim', sans-serif">'Anaheim', sans-serif</option>
+                    <option value="'Armata', sans-serif">'Armata', sans-serif</option>
+                    <option value="'Almendra Display', cursive">'Almendra Display', cursive</option>
+                    <option value="'Arimo', sans-serif">'Arimo', sans-serif</option>
+                    <option value="'Artifika', serif">'Artifika', serif</option>
+                    <option value="'Allura', cursive">'Allura', cursive</option>
+                    <option value="'Atomic Age', cursive">'Atomic Age', cursive</option>
+                    <option value="'Averia Serif Libre', cursive">'Averia Serif Libre', cursive</option>
+                    <option value="'Alex Brush', cursive">'Alex Brush', cursive</option>
+                    <option value="'Anton', sans-serif">'Anton', sans-serif</option>
+                    <option value="'Antic Didone', serif">'Antic Didone', serif</option>
+                    <option value="'Asap', sans-serif">'Asap', sans-serif</option>
+                    <option value="'Antic', sans-serif">'Antic', sans-serif</option>
+                    <option value="'Amethysta', serif">'Amethysta', serif</option>
+                    <option value="'Aladin', cursive">'Aladin', cursive</option>
+                    <option value="'Arbutus', cursive">'Arbutus', cursive</option>
+                    <option value="'Abril Fatface', cursive">'Abril Fatface', cursive</option>
+                    <option value="'Aclonica', sans-serif">'Aclonica', sans-serif</option>
+                    <option value="'Actor', sans-serif">'Actor', sans-serif</option>
+                    <option value="'Adamina', serif">'Adamina', serif</option>
+                    <option value="'Advent Pro', sans-serif">'Advent Pro', sans-serif</option>
+                    <option value="'Akronim', cursive">'Akronim', cursive</option>
+                    <option value="'Aldrich', sans-serif">'Aldrich', sans-serif</option>
+                    <option value="'Alegreya', serif">'Alegreya', serif</option>
+                    <option value="'Alegreya SC', serif">'Alegreya SC', serif</option>
+                    <option value="'Alice', serif">'Alice', serif</option>
+                    <option value="'Alike', serif">'Alike', serif</option>
+                    <option value="'Alike Angular', serif">'Alike Angular', serif</option>
+                    <option value="'Allan', cursive">'Allan', cursive</option>
+                    <option value="'Allerta', sans-serif">'Allerta', sans-serif</option>
+                    <option value="'Allerta Stencil', sans-serif">'Allerta Stencil', sans-serif</option>
+                    <option value="'Almendra', serif">'Almendra', serif</option>
+                    <option value="'Almendra SC', serif">'Almendra SC', serif</option>
+                    <option value="'Amatic SC', cursive">'Amatic SC', cursive</option>
+                    <option value="'Amarante', cursive">'Amarante', cursive</option>
+                    <option value="'Amaranth', sans-serif">'Amaranth', sans-serif</option>
+                    <option value="'Andada', serif">'Andada', serif</option>
+                    <option value="'Annie Use Your Telescope', cursive">'Annie Use Your Telescope', cursive</option>
+                    <option value="'Anonymous Pro', sans-serif">'Anonymous Pro', sans-serif</option>
+                    <option value="'Arapey', serif">'Arapey', serif</option>
+                    <option value="'Architects Daughter', cursive">'Architects Daughter', cursive</option>
+                    <option value="'Archivo Black', sans-serif">'Archivo Black', sans-serif</option>
+                    <option value="'Archivo Narrow', sans-serif">'Archivo Narrow', sans-serif</option>
+                    <option value="'Arizonia', cursive">'Arizonia', cursive</option>
+                    <option value="'Asul', sans-serif">'Asul', sans-serif</option>
+                    <option value="'Aubrey', cursive">'Aubrey', cursive</option>
+                    <option value="'Audiowide', cursive">'Audiowide', cursive</option>
+                    <option value="'Autour One', cursive">'Autour One', cursive</option>
+                    <option value="'Averia Gruesa Libre', cursive">'Averia Gruesa Libre', cursive</option>
+                    <option value="'Averia Libre', cursive">'Averia Libre', cursive</option>
+                    <option value="'Baumans', cursive">'Baumans', cursive</option>
+                                    </select>
+            </div>
+            
+            <div id="watContainerSize" class="tool">
+                Size:
+                <input type="text" id="watSize" value="9" />
+            </div>
+            
+            <div id="watContainerColor" class="tool">
+                Color:
+                <input type="color" id="watColor" value="#000000;" />
+            </div>
+            
+            <div><span class="label">Board:</span></div>
+            
+            <div id="watBoardSizeContainer" class="tool">
+                Size:
+                <select type="select" id="watBoardSize">
+                    <option value="4x6">4x6</option>
+                    <option value="6x4">6x4</option>
+                    <option value="5x7">5x7</option>
+                    <option value="7x5">7x5</option>
+                    <option value="8x10" selected>8x10</option>
+                    <option value="10x8">10x8</option>
+                    <option value="11x14">11x14</option>
+                    <option value="14x11">14x11</option>
+                </select>
+            </div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div id="alphaTray">
+            <div id="watA" class="letter"><span>a</span></div>
+            <div id="watB" class="letter"><span>b</span></div>
+            <div id="watC" class="letter"><span>c</span></div>
+            <div id="watD" class="letter"><span>d</span></div>
+            <div id="watE" class="letter"><span>e</span></div>
+            <div id="watF" class="letter"><span>f</span></div>
+            <div id="watG" class="letter"><span>g</span></div>
+            <div id="watH" class="letter"><span>h</span></div>
+            <div id="watI" class="letter"><span>i</span></div>
+            <div id="watJ" class="letter"><span>j</span></div>
+            <div id="watK" class="letter"><span>k</span></div>
+            <div id="watL" class="letter"><span>l</span></div>
+            <div id="watM" class="letter"><span>m</span></div>
+            <div id="watN" class="letter"><span>n</span></div>
+            <div id="watO" class="letter"><span>o</span></div>
+            <div id="watP" class="letter"><span>p</span></div>
+            <div id="watQ" class="letter"><span>q</span></div>
+            <div id="watR" class="letter"><span>r</span></div>
+            <div id="watS" class="letter"><span>s</span></div>
+            <div id="watT" class="letter"><span>t</span></div>
+            <div id="watU" class="letter"><span>u</span></div>
+            <div id="watV" class="letter"><span>v</span></div>
+            <div id="watW" class="letter"><span>w</span></div>
+            <div id="watX" class="letter"><span>x</span></div>
+            <div id="watY" class="letter"><span>y</span></div>
+            <div id="watZ" class="letter"><span>z</span></div>
+            <div id="watComma" class="letter"><span>,</span></div>
+            <div id="watQuote" class="letter"><span>"</span></div>
+            <div id="watPeriod" class="letter"><span>.</span></div>
+            <div id="watQuestion" class="letter"><span>?</span></div>
+            <div id="watExclamation" class="letter"><span>!</span></div>
+            <br style="clear: both;" />
+        </div>
+        
+        <div id="board">
+            <br style="clear: both;" />
+        </div>
+        <br style="clear: both;" />
+    </body>
+</html>
