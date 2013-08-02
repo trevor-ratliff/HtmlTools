@@ -16,60 +16,103 @@
 * classes
 ****/
 .label {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 
 .letter {
-    float: left;
-    clear: right;
-    width: 2ex;
-    margin: 3px;
-    border: 1px solid #006600;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    z-index: 10;
+	float: left;
+	clear: right;
+	width: 2ex;
+	margin: 3px;
+	border: 1px solid #006600;
+	background-color: #ffffff;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	z-index: 10;
 }
 
 
 .letter span {
-    z-index: -10;
+	z-index: -10;
 }
 
 
 .placedLetter {
-    float: left;
-    clear: right;
-    width: 2ex;
-    margin: 3px;
-    border: 1px solid #006600;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    z-index: 10;
+	float: left;
+	clear: right;
+	width: 2ex;
+	margin: 3px;
+	border: 1px solid #006600;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	z-index: 10;
 }
 
 
 .placedLetter span {
-    z-index: -10;
+	z-index: -10;
+}
+
+
+.rotateIcon, .deleteIcon {
+	display: none;
+	position: absolute;
+	top: 0.2ex;
+	width: 15px;
+	height: 15px;
+	color: #ffffff;
+	z-index: 20;
+}
+
+
+.rotateIcon {
+	left: 98%;
+	float: right;
+	background-image: url('../images/buttonGreen.png');
+	/*visibility: hidden;*/
+}
+
+
+.deleteIcon {
+	left: -12px;
+	float: left;
+	background-image: url('../images/buttonRed.png');
+}
+
+
+.rotateIcon span, .deleteIcon span
+{
+	position: absolute;
+	top: 0.1ex;
+	left: 0.46ex;
+	font-family: verdana;
+	font-size: 12px;
+}
+
+
+.sublabel {
+	font-size: 1.25ex;
+	font-weight: 700;
 }
 
 
 .tool {
-    float: left;
-    clear: right;
-    width: 8ex;
-    height: 8ex;
-    margin: 1ex;
-    border: 1px solid #660000;
-    text-align: center;
-    vertical-align: middle;
+	float: left;
+	clear: right;
+	width: 8ex;
+	height: 8ex;
+	margin: 1ex;
+	border: 1px solid #660000;
+	text-align: center;
+	vertical-align: middle;
 }
 
 
 .tool select,input {
-    width: 7ex;
+	width: 7ex;
 }
 
 
@@ -77,41 +120,48 @@
 * ids
 ****/
 #alphaTray {
-    float: left;
-    margin-right: 10px;
-    width: 7ex;
-    border: 1px solid #009900;
-    font-family: arial;
-    font-size: 10ex;
+	float: right;
+	margin-right: 10px;
+	width: 10ex;
+	border: 1px solid #009900;
+	font-family: arial;
+	font-size: 10ex;
 }
 
 
 #board {
-    float: left;
-    margin-right: 10px;
-    width: 8in;
-    height: 10in;
-    border: 1px solid #000000;
+	float: left;
+	margin-right: 10px;
+	width: 8in;
+	height: 10in;
+	border: 1px solid #000000;
 }
 
 
 #debug {
-    position: fixed;
-    left: 94%;
-    top: 5px;
-    /*float: right;*/
-    width: 10ex;
-    height: 10ex;
-    border: 1px solid #990000;
-    background-color: #cc0000;
+	display: none;
+	/*position: fixed;
+	left: 94%;
+	top: 5px;*/
+	float: right;
+	width: 10ex;
+	/*height: 10ex;*/
+	border: 1px solid #990000;
+	background-color: #cc0000;
 }
 
 
 #toolbox {
-    float: left;
-    margin-right: 10px;
-    width: 10ex;
-    border: 1px solid #990000;
+	float: right;
+	margin-right: 10px;
+	width: 10ex;
+	border: 1px solid #990000;
+}
+
+
+#watContainerColor, #watContainerBorder, #watContainerBoardBorder, 
+#watContainerBoardColor {
+	height: auto;
 }
 
 
@@ -119,8 +169,9 @@
 * tags
 ****/
 body {
-    font-family: arial;
-    font-size: 2ex;
+	font-family: arial;
+	font-size: 2ex;
+	-webkit-print-color-adjust:exact;
 }
 
 
@@ -128,7 +179,7 @@ body {
 * special scenarios
 ****/
 @media print {
-    #alphaTray { display: none; }
-    #debug { display: none; }
-    #toolbox { display: none; }
+	#alphaTray { display: none; }
+	#debug { display: none; }
+	#toolbox { display: none; }
 }
