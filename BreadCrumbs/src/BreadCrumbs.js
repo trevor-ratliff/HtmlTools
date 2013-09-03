@@ -23,6 +23,7 @@
 //      robjArgs -- arguments passed in as an object needs to have:
 //          'BaseURL' property holding the sites base address
 //          'Separator' property holding the text to use as a separator of crumbs
+//          'BreadCrumbs' property holding the crumbs
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
@@ -33,11 +34,12 @@
 function BreadCrumb(robjArgs) {
     this.BaseURL = robjArgs.BaseURL;
     this.Separator = robjArgs.Separator;
+    this.BreadCrumbs = {BaseURL: "", Crumbs: []};
     
     //----
     // set defaults if needed
     //----
-    if (typeof this.BaseURL == "undefined") this.BaseURL = document.location.href;
+    if (typeof this.BaseURL == "undefined") this.BaseURL = window.location.toString();
     if (typeof this.Separator == "undefined") this.Separator = " -> ";
     
     //----
@@ -48,7 +50,10 @@ function BreadCrumb(robjArgs) {
         //----
         // setup session storage
         //----
-        sessionStorage[''] = { BaseURL: this.BaseURL, Crumbs: [] };
+        this.BreadCrumbs.BaseURL = this.BaseURL;
+        this.BreadCrumbs.Crumbs = [];
+        
+        sessionStorage['trevor-ratliff_BreadCrumb'] = JSON.stringify(this.BreadCrumbs);
     }
     
     
@@ -77,19 +82,26 @@ function BreadCrumb(robjArgs) {
         //----
         try {
             //----
+            // parse session storage to this.BreadCrumbs
+            //----
+            this.BreadCrumbs = JSON.parse(sessionStorage['trevor-ratliff_BreadCrumb']);
+            
+            //----
             // check for existance of this crumb (from end) and remove anything after it
             //----
-            for (var lintII = (sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs.length - 1); lintII > -1; lintII--) {
-                if (sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs[lintII].href == vstrRef) {
-                    sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs = 
-                        sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs.slice(0, (lintII - 1));
+            for (var lintII = (this.BreadCrumbs.Crumbs.length - 1); lintII > -1; lintII--) {
+                if (this.BreadCrumbs.Crumbs[lintII].ref == vstrRef) {
+                    this.BreadCrumbs.Crumbs = 
+                        this.BreadCrumbs.Crumbs.slice(0, (lintII));
+                    break;
                 }
             }
             
             //----
             // add current page and set flag
             //----
-            sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs.push({ ref: vstrRef, name: vstrName });
+            this.BreadCrumbs.Crumbs.push({ ref: vstrRef, name: vstrName });
+            sessionStorage['trevor-ratliff_BreadCrumb'] = JSON.stringify(this.BreadCrumbs);
             lblnReturn = true;
             
         } catch (err) {
@@ -122,6 +134,12 @@ function BreadCrumb(robjArgs) {
     this.Generate = function (vstrType) {
         var lstrReturn = "";
         var lstrText = "";
+        var lobjReturn = null;
+        
+        //----
+        // get data from session storage
+        //----
+        this.BreadCrumbs = JSON.parse(sessionStorage['trevor-ratliff_BreadCrumb']);
         
         //----
         // switch generation techniques based on vstrType
@@ -131,21 +149,31 @@ function BreadCrumb(robjArgs) {
                 //----
                 // generate simple text bread crumbs
                 //----
-                lstrReturn = this.GenerateText(this.Separator);
+                lobjReturn = this.GenerateText(this.Separator);
+                
                 break;
                 
             case 'style':
                 //----
                 // generate stylable html bread crumbs
                 //----
-                lstrReturn = this.GenerateStyle(this.Separator);
+                lobjReturn = this.GenerateStyle(this.Separator);
                 break;
             
             default:
                 //----
                 // generates simple links
                 //----
-                lstrReturn = this.GenerateSimple(this.Separator);
+                lobjReturn = this.GenerateSimple(this.Separator);
+        }
+        
+        //----
+        // test for success
+        //----
+        if (lobjReturn.Success) {
+            lstrReturn = lobjReturn.CrumbString;
+        } else {
+            lstrReturn = "There was an error in generating the breadcrumbs";
         }
         
         return lstrReturn;
@@ -178,8 +206,10 @@ function BreadCrumb(robjArgs) {
             //----
             var lstrText = "";
             
-            for (lobjCrumb in sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs) {
-                lstrText += '<a href="'+ lobjCrumb.ref +'">' + lobjCrumb.name + 
+            //~ for (var lobjCrumb in this.BreadCrumbs.Crumbs) {
+            for(var lintII = 0; lintII < this.BreadCrumbs.Crumbs.length; lintII++) {
+                lstrText += '<a href="'+ this.BreadCrumbs.Crumbs[lintII].ref + 
+                    '">' + this.BreadCrumbs.Crumbs[lintII].name + 
                     '</a>' + vstrSeparator;
             }
             
@@ -239,10 +269,12 @@ function BreadCrumb(robjArgs) {
             //----
             var lstrText = "";
             
-            //~ for (lobjCrumb in sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs) {
-            for (var lintII = 0; lintII < sessionStorage['trevor-ratliff_BreadCrumb'].Crumbs.length; lintII++) {
-                lstrText += '<span class="crumb-holder"><a href="'+ lobjCrumb.ref +
-                    '" class="crumb-link">' + lobjCrumb.name + 
+            //~ for (lobjCrumb in this.BreadCrumbs.Crumbs) {
+            for (var lintII = 0; lintII < this.BreadCrumbs.Crumbs.length; lintII++) {
+                lstrText += '<span class="crumb-holder"><a href="'+ 
+                    this.BreadCrumbs.Crumbs[lintII].ref +
+                    '" class="crumb-link">' + 
+                    this.BreadCrumbs.Crumbs[lintII].name + 
                     '</a></span>' + vstrSeparator;
             }
             
@@ -301,8 +333,9 @@ function BreadCrumb(robjArgs) {
             //----
             var lstrText = "";
             
-            for (lobjCrumb in sessionStorage['trevor-ratliff_BreadCrumb']) {
-                lstrText += lobjCrumb.name + vstrSeparator;
+            //~ for (var lobjCrumb in this.BreadCrumbs.Crumbs) {
+            for(var lintII = 0; lintII < this.BreadCrumbs.Crumbs.length; lintII++) {
+                lstrText += this.BreadCrumbs.Crumbs[lintII].name + vstrSeparator;
             }
             
             //----
