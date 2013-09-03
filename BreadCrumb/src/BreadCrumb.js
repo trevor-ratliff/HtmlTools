@@ -275,14 +275,15 @@ function BreadCrumb(robjArgs) {
                     this.BreadCrumbs.Crumbs[lintII].ref +
                     '" class="crumb-link">' + 
                     this.BreadCrumbs.Crumbs[lintII].name + 
-                    '</a></span>' + vstrSeparator;
+                    '</a></span><span class="crumb-separator">' + vstrSeparator +
+                    '</span>';
             }
             
             //----
             // remove last separator
             //----
             lstrText = lstrText.substring(0, lstrText.length - 
-                vstrSeparator.length);
+                (vstrSeparator.length + 37));   // length of separator and span around it
             
             //----
             // set return string
