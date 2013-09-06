@@ -1,0 +1,215 @@
+<!DOCTYPE html>    <!-- HTML 5.0 doctype -->
+<!--
+//====
+/// @file 
+/// @brief 
+/// @author 
+/// @date 
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+/// @endverbatim
+//====
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- <link rel="alternate stylesheet" type="text/css" href="styles/MY_CSS.css" title="alternate" />
+        <link rel="stylesheet" type="text/css" href="styles/MY_CSS.css" title="main" />
+        
+        <script type="text/javascript" src="scripts/MY_SCRIPT.js"></script> -->
+        
+        <!-- <script type="text/javascript"> -->
+            <!--
+            //----
+            // PUT SCRIPT HERE
+            //----
+            
+            //-->
+        <!-- </script> -->
+        
+        <style type="text/css">
+            html, body {
+                height: 100%;
+                margin: 0ex;
+                overflow: hidden;
+                padding: 0ex;
+                width: 100%;
+            }
+            
+            #container {
+                background-color: #000000;
+                height: 80%;
+                /* left: 10%; */
+                margin: 0% auto 0%;
+                position: relative;
+                top: 10%;
+                width: 80%;
+            }
+            
+            .area {
+                background-color: #888888;
+                border-radius: 20px;
+                margin: 0ex auto 3ex;
+                max-height: 60%;
+                position: relative;
+                top: 3ex;
+                width: 90%;
+            }
+            
+            .area-l {
+                background-color: rgba(255, 175, 0, 0.2);
+                border: 0px solid #609060;
+                bottom: 0ex;
+                position: absolute;
+                top: 0ex;
+                width: 20px;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ffaf00', endColorstr='#33ffaf00'); /* IE */
+            }
+            
+            .area-m {
+                background-color: rgba(175, 0, 255, 0.2);
+                border: 0px solid #906060;
+                bottom: 0ex;
+                left: 20px;
+                margin-right: 40px;
+                position: relative;
+                top: 0ex;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33af00ff', endColorstr='#33af00ff'); /* IE */
+            }
+            
+            .area-r {
+                background-color: rgba(0, 255, 175, 0.2);
+                border: 0px solid #606090;
+                bottom: 0ex;
+                left: auto;
+                position: absolute;
+                right: 0px;
+                top: 0ex;
+                width: 20px;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ffaf', endColorstr='#3300ffaf'); /* IE */
+            }
+            
+            .area-top {
+                background-color: rgba(255, 0, 0, 0.2);
+                border: 0px solid #306030;
+                border-radius: 20px 20px 0px 0px;
+                bottom: auto;
+                height: 20px;
+                position: relative;
+                top: 0ex;
+                width: 100%;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ff0000', endColorstr='#33ff0000'); /* IE */
+            }
+            
+            .area-top .area-l {
+                border-radius: 20px 0px 0px 0px;
+            }
+            
+            .area-top .area-m {
+                height: 20px;
+            }
+            
+            .area-top .area-r {
+                border-radius: 0px 20px 0px 0px;
+            }
+            
+            .area-middle {
+                background-color: rgba(0, 255, 0, 0.2);
+                border: 0px solid #603030;
+                bottom: auto;
+                position: relative;
+                top: 0ex;
+                width: 100%;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ff00', endColorstr='#3300ff00'); /* IE */
+            }
+            
+            .area-bottom {
+                background-color: rgba(0, 0, 255, 0.2);
+                border: 0px solid #303060;
+                border-radius: 0px 0px 20px 20px;
+                bottom: 0ex;
+                height: 20px;
+                position: relative;
+                top: auto;
+                width: 100%;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#330000ff', endColorstr='#330000ff'); /* IE */
+            }
+            
+            .area-bottom .area-l {
+                border-radius: 0px 0px 0px 20px;
+            }
+            
+            .area-bottom .area-m {
+                height: 20px;
+            }
+            
+            .area-bottom .area-r {
+                border-radius: 0px 0px 20px 0px;
+            
+            }
+        </style>
+        
+        <noscript>
+            Turning JavaScript on in your browser makes for a much better experience!
+        </noscript>
+        
+        <title>Test</title>
+    </head>
+    
+    <body>
+        <div id="container">
+        
+            <div id="block1" class="area">
+                <div class="area-top">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-middle">
+                    <div class="area-l"></div>
+                    <div class="area-m">
+                        <br>
+                        <br>
+                        do some content here
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-bottom">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+            </div>
+            
+            <div id="block2" class="area">
+                <div class="area-top">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-middle">
+                    <div class="area-l"></div>
+                    <div class="area-m">do some different content here</div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-bottom">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+            </div>
+        
+        </div>
+    </body>
+</html>
