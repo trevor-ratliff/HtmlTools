@@ -66,7 +66,7 @@ function BreadCrumb(robjArgs) {
         //----
         this.BreadCrumbs.BaseURL = this.BaseURL;
         //~ this.BreadCrumbs.Crumbs = [];
-        this.BreadCrumbs.Crumbs.push({ref: lstrDefaultRef, name: lstrDefaultName);
+        this.BreadCrumbs.Crumbs.push({ref: lstrDefaultRef, name: lstrDefaultName});
         
         sessionStorage['trevor-ratliff_BreadCrumb'] = JSON.stringify(this.BreadCrumbs);
     }
