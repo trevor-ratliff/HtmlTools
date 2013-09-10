@@ -20,18 +20,30 @@
 /// @return object
 //  
 //  Definitions:
-//      robjArgs -- arguments passed in as an object needs to have:
+//      robjArgs -- arguments passed in as an object; can have:
 //          'BaseURL' property holding the sites base address
 //          'Separator' property holding the text to use as a separator of crumbs
-//          'BreadCrumbs' property holding the crumbs
+//          'DefaultRef' property holding the url of a default crumb
+//          'DefaultName' property holding the name of a default crumb
+//      lstrDefaultRef -- URL for a default crumb
+//      lstrDefaultName -- name for a default crumb
+//      this.BaseURL -- property holding the sites base address
+//      this.Separator -- property holding the text to use as a separator of crumbs
+//      this.BreadCrumbs -- property holding the crumbs
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
 ///     2013-08-29  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
 ///         function creation  |
+///     2013-09-10  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         added a feature to allow defining of a default crumb if the session 
+///         storage doesn't exist  |
 /// @endverbatim
 //====
 function BreadCrumb(robjArgs) {
+    var lstrDefaultRef = robjArgs.DefaultRef;
+    var lstrDefaultName = robjArgs.DefaultName;
+    
     this.BaseURL = robjArgs.BaseURL;
     this.Separator = robjArgs.Separator;
     this.BreadCrumbs = {BaseURL: "", Crumbs: []};
@@ -41,6 +53,8 @@ function BreadCrumb(robjArgs) {
     //----
     if (typeof this.BaseURL == "undefined") this.BaseURL = window.location.toString();
     if (typeof this.Separator == "undefined") this.Separator = " -> ";
+    if (typeof lstrDefaultRef == "undefined") lstrDefaultRef = this.BaseURL;
+    if (typeof lstrDefaultName == "undefined") lstrDefaultName = "Main";
     
     //----
     // create sessionStorage object for crumbs
@@ -51,7 +65,8 @@ function BreadCrumb(robjArgs) {
         // setup session storage
         //----
         this.BreadCrumbs.BaseURL = this.BaseURL;
-        this.BreadCrumbs.Crumbs = [];
+        //~ this.BreadCrumbs.Crumbs = [];
+        this.BreadCrumbs.Crumbs.push({ref: lstrDefaultRef, name: lstrDefaultName);
         
         sessionStorage['trevor-ratliff_BreadCrumb'] = JSON.stringify(this.BreadCrumbs);
     }
