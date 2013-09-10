@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<style>
+		body {
+			font-family: verdana;
+			font-size: 1em;
+		}
+		
+		.aside-1 {
+			background: gold;
+		}
+
+		.aside-2 {
+			background: hotpink;
+		}
+
+		.header {
+			background: tomato;
+			min-height: 7ex;
+			position: relative;
+		}
+
+		.footer {
+			background: lightgreen;
+		}
+
+		.logo {
+			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
+			height: 50px;
+			left: 2ex;
+			position: absolute;
+			top: 1ex;
+			width: 50px;
+		}
+
+		.main {
+			text-align: left;
+			background: deepskyblue;
+		}
+
+		.navigation {
+			list-style: none;
+			margin: 0; 
+			
+			background: deepskyblue;
+			border-bottom: 2px solid hotpink;
+			box-shadow: 7px 10px 4px rgba(0,0,0,0.2);
+			
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			
+			position: absolute;
+			top: 1ex;
+			left: 80px;
+			right: 2ex;
+			
+			-webkit-flex-flow: row wrap;
+			justify-content: flex-end;
+			zoom: 1;
+		}
+
+		.navigation ul, .navigation li {
+			display: inherit;
+			list-style: inherit;
+			margin: inherit;
+		}
+
+		.navigation a {
+			color: #333;
+			text-decoration: none;
+			display: block;
+			padding: 15px;
+			color: white;
+			font-weight: bold;
+		}
+
+		.navigation a:hover {
+			background: darken(deepskyblue, 2%);
+		}
+
+		.wrapper {
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;  
+			
+			-webkit-flex-flow: row wrap;
+			
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.wrapper > * {
+			border-radius: 1ex;
+			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
+			margin: 1ex;
+			padding: 10px;
+			flex: 1 100%;
+		}
+
+		@media all and (min-width: 600px) {
+			.aside { flex: 1 auto; }
+		}
+
+		@media all and (min-width: 800px) {
+			.main    { flex: 2 0px; }
+			.aside-1 { order: 1; } 
+			.main    { order: 2; }
+			.aside-2 { order: 3; }
+			.footer  { order: 4; }
+		}
+
+		@media all and (max-width: 800px) {
+			.navigation {
+				justify-content: space-around;
+			}
+		}
+
+		@media all and (max-width: 600px) {
+			.navigation {
+				-webkit-flex-flow: column wrap;
+				padding: 0;
+			}
+
+			.navigation a { 
+				text-align: center; 
+				padding: 10px;
+				border-top: 1px solid rgba(255,255,255,0.3); 
+				border-bottom: 1px solid rgba(0,0,0,0.1); 
+			}
+
+			
+			.navigation li:last-of-type a {
+				border-bottom: none;
+			}
+		}
+		</style>
+		<!--[if lte IE 9]>
+		<style>
+			.aside-1 {
+				position: absolute;
+				top: 10.6ex;
+				left: 0ex;
+				right: auto;
+				bottom: 10ex;
+				width: 18%;
+			}
+			
+			.aside-2 {
+				position: absolute;
+				top: 10.6ex;
+				left: auto;
+				right: 0ex;
+				bottom: 10ex;
+				width: 18%;
+			}
+			
+			.header {
+				margin: 0ex;
+			}
+			
+			.footer {
+				position: absolute;
+				top: auto;
+				left: 0ex;
+				right: 0ex;
+				bottom: 1ex;
+				height: 5ex;
+			}
+
+			.main {
+				position: absolute;
+				top: 10.6ex;
+				left: 22%;
+				right: 22%;
+				bottom: 10ex;
+				overflow: auto;
+			}
+			
+			.navigation ul {
+				position: relative;
+				margin: 0ex 0ex 0ex auto;
+				width: 45ex;
+			}
+			
+			.navigation li {
+				display: block;
+				float: left;
+			}
+			
+			.navigation li:last-of-type {
+				clear: right;
+			}
+		</style>
+		<![endif]-->
+	<title>flexbox test</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<img class="logo" alt="logo" />
+			<div class="navigation">
+				<ul>
+					<li><a href="#">Main</a></li>
+					<li><a href="#">News</a></li>
+					<li><a href="#">Community</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			<div>
+			<br style="clear: both;">
+		</header>
+		<article class="main">
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>  
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>  
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>  
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>  
+		</article>
+		<aside class="aside aside-1">Aside 1</aside>
+		<aside class="aside aside-2">Aside 2</aside>
+		<footer class="footer">Footer</footer>
+	</div>
+</body>
+</html>
