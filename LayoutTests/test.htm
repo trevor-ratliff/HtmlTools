@@ -17,22 +17,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <!-- <link rel="alternate stylesheet" type="text/css" href="styles/MY_CSS.css" title="alternate" />
-        <link rel="stylesheet" type="text/css" href="styles/MY_CSS.css" title="main" />
-        
-        <script type="text/javascript" src="scripts/MY_SCRIPT.js"></script> -->
-        
-        <!-- <script type="text/javascript"> -->
-            <!--
-            //----
-            // PUT SCRIPT HERE
-            //----
-            
-            //-->
-        <!-- </script> -->
         
         <style type="text/css">
             html, body {
+                font-family: verdana;
                 height: 100%;
                 margin: 0ex;
                 overflow: hidden;
@@ -85,7 +73,6 @@
                 position: absolute;
                 top: 0ex;
                 width: 20px;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ffaf00', endColorstr='#33ffaf00'); /* IE */
             }
             
             .area-m {
@@ -99,7 +86,6 @@
                 padding: 0px 2ex;
                 position: relative;
                 top: 0ex;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33af00ff', endColorstr='#33af00ff'); /* IE */
             }
             
             .area-r {
@@ -111,7 +97,6 @@
                 right: 0px;
                 top: 0ex;
                 width: 20px;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ffaf', endColorstr='#3300ffaf'); /* IE */
             }
             
             .area-top {
@@ -124,7 +109,6 @@
                 position: relative;
                 top: 0ex;
                 width: 100%;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ff0000', endColorstr='#33ff0000'); /* IE */
             }
             
             .area-top .area-l {
@@ -147,7 +131,6 @@
                 position: relative;
                 top: 0ex;
                 width: 100%;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ff00', endColorstr='#3300ff00'); /* IE */
             }
             
             .area-bottom {
@@ -159,7 +142,6 @@
                 position: relative;
                 top: auto;
                 width: 100%;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#330000ff', endColorstr='#330000ff'); /* IE */
             }
             
             .area-bottom .area-l {
@@ -175,12 +157,35 @@
             
             }
         </style>
+        <!--[if lt IE 9]>
+        <style type="text/css">
+            .area-l {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ffaf00', endColorstr='#33ffaf00');
+            }
+            
+            .area-m {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33af00ff', endColorstr='#33af00ff');
+            }
+            
+            .area-r {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ffaf', endColorstr='#3300ffaf');
+            }
+            
+            .area-top {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#33ff0000', endColorstr='#33ff0000');
+            }
+            
+            .area-middle {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3300ff00', endColorstr='#3300ff00');
+            }
+            
+            .area-bottom {
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#330000ff', endColorstr='#330000ff');
+            }
+        </style>
+        <![endif]-->
         
-        <noscript>
-            Turning JavaScript on in your browser makes for a much better experience!
-        </noscript>
-        
-        <title>Test</title>
+        <title>layout Test</title>
     </head>
     
     <body>
@@ -219,6 +224,30 @@
                     <div class="area-l"></div>
                     <div class="area-m">
                         do<br> some<br> content<br> here
+                    </div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-bottom">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+            </div>
+            
+            <div id="block2" class="area" style="clear: both">
+                <div class="area-top">
+                    <div class="area-l"></div>
+                    <div class="area-m"></div>
+                    <div class="area-r"></div>
+                </div>
+                
+                <div class="area-middle">
+                    <div class="area-l"></div>
+                    <div class="area-m">
+Article 5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur varius tellus magna, ut dapibus enim venenatis vitae. Nulla felis tortor, egestas eget luctus vel, ullamcorper sit amet sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus vitae neque vitae posuere. In hac habitasse platea dictumst. Mauris fringilla arcu at nunc interdum, eu gravida augue scelerisque. Aenean porta id diam sed elementum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur semper enim sit amet augue tincidunt blandit.
+<br><br>
+Pellentesque dignissim magna nec elementum consectetur. Nam ornare, massa id blandit fringilla, est est aliquet lorem, non blandit libero metus nec erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
                     </div>
                     <div class="area-r"></div>
                 </div>
