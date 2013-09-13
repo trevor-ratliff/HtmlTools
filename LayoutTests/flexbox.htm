@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<!-- based on http://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
 <html>
 <head>
 	<style>
@@ -50,32 +51,25 @@
 
 		.navigation {
 			list-style: none;
-			margin: 0; 
-			
+			margin: 0;
 			background: #005daa;
 			border-top: 2px solid #ff6699;
-			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
-			
+			box-shadow: 0 3px 2px rgba(0, 0, 0, 0.1);
 			display: -webkit-box;
 			display: -moz-box;
 			display: -ms-flexbox;
 			display: -webkit-flex;
 			display: flex;
-			
-			position: absolute;
-			top: 1ex;
-			left: 80px;
-			right: 2ex;
-			
 			-webkit-flex-flow: row wrap;
+			flex-flow: row wrap;
 			justify-content: flex-end;
-			zoom: 1;
+			position: relative;
+			left: 80px;
+			margin-right: 80px;
 		}
 
 		.navigation ul, .navigation li {
-			display: inherit;
 			list-style: inherit;
-			margin: inherit;
 		}
 
 		.navigation a {
@@ -88,8 +82,7 @@
 		}
 
 		.navigation a:hover {
-			background-color: #daedfd;
-			color: #000;
+			background: #0079dd;
 		}
 
 		.wrapper {
@@ -100,6 +93,7 @@
 			display: flex;  
 			
 			-webkit-flex-flow: row wrap;
+			flex-flow: row wrap;
 			
 			font-weight: bold;
 			text-align: center;
@@ -122,21 +116,20 @@
 				justify-content: space-around;
 			}
 		}
-
 		@media all and (max-width: 600px) {
 			.navigation {
 				-webkit-flex-flow: column wrap;
+				flex-flow: column wrap;
 				padding: 0;
 			}
 
-			.navigation a { 
-				text-align: center; 
+			.navigation a {
+				text-align: center;
 				padding: 10px;
-				border-top: 1px solid rgba(255,255,255,0.3); 
-				border-bottom: 1px solid rgba(0,0,0,0.1); 
+				border-top: 1px solid rgba(255, 255, 255, 0.3);
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 			}
 
-			
 			.navigation li:last-of-type a {
 				border-bottom: none;
 			}
@@ -184,10 +177,12 @@
 				overflow: auto;
 			}
 
-			.navigation ul {
-				position: relative;
+			.navigation {
+				position: absolute;
 				margin: 0ex 0ex 0ex auto;
-				width: 45ex;
+				min-height: 3em;
+				right: 2ex;
+				/* width: 45ex; */
 			}
 
 			.navigation li {
@@ -212,15 +207,14 @@
 	<div class="wrapper">
 		<header class="header">
 			<img class="logo" alt="logo" />
-			<div class="navigation">
-				<ul>
+				<ul class="navigation">
 					<li><a href="#">Main</a></li>
 					<li><a href="#">News</a></li>
 					<li><a href="#">Community</a></li>
 					<li><a href="#">About</a></li>
+					<div style="clear: both; height: 0px;"></div>
 				</ul>
-			<div>
-			<br style="clear: both;">
+			<div style="clear: both; height: 0px;"></div>
 		</header>
 		<article class="main">
 			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>  
