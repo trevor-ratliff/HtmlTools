@@ -7,22 +7,31 @@
 			font-size: 1em;
 		}
 		
+		.wrapper > * {
+			border-radius: 1ex;
+			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
+			margin: 1ex;
+			padding: 10px;
+			flex: 1 100%;
+		}
+
 		.aside-1 {
-			background: gold;
+			background: #ffeecc;
 		}
 
 		.aside-2 {
-			background: hotpink;
+			background: #ffcc99;
 		}
 
 		.header {
-			background: tomato;
+			background: #5CB5FF;
+			box-shadow: 7px 10px 4px rgba(0,0,0,0.2);
 			min-height: 7ex;
 			position: relative;
 		}
 
 		.footer {
-			background: lightgreen;
+			background: #cc9966;
 		}
 
 		.logo {
@@ -36,16 +45,16 @@
 
 		.main {
 			text-align: left;
-			background: deepskyblue;
+			background: #DAEDFD;
 		}
 
 		.navigation {
 			list-style: none;
 			margin: 0; 
 			
-			background: deepskyblue;
-			border-bottom: 2px solid hotpink;
-			box-shadow: 7px 10px 4px rgba(0,0,0,0.2);
+			background: #005daa;
+			border-top: 2px solid #ff6699;
+			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
 			
 			display: -webkit-box;
 			display: -moz-box;
@@ -79,7 +88,8 @@
 		}
 
 		.navigation a:hover {
-			background: darken(deepskyblue, 2%);
+			background-color: #daedfd;
+			color: #000;
 		}
 
 		.wrapper {
@@ -93,14 +103,6 @@
 			
 			font-weight: bold;
 			text-align: center;
-		}
-
-		.wrapper > * {
-			border-radius: 1ex;
-			box-shadow: 3px 5px 4px rgba(0,0,0,0.2);
-			margin: 1ex;
-			padding: 10px;
-			flex: 1 100%;
 		}
 
 		@media all and (min-width: 600px) {
@@ -150,7 +152,7 @@
 				bottom: 10ex;
 				width: 18%;
 			}
-			
+
 			.aside-2 {
 				position: absolute;
 				top: 10.6ex;
@@ -159,11 +161,11 @@
 				bottom: 10ex;
 				width: 18%;
 			}
-			
+
 			.header {
 				margin: 0ex;
 			}
-			
+
 			.footer {
 				position: absolute;
 				top: auto;
@@ -181,21 +183,26 @@
 				bottom: 10ex;
 				overflow: auto;
 			}
-			
+
 			.navigation ul {
 				position: relative;
 				margin: 0ex 0ex 0ex auto;
 				width: 45ex;
 			}
-			
+
 			.navigation li {
 				display: block;
 				float: left;
 			}
-			
+
 			.navigation li:last-of-type {
 				clear: right;
 			}
+
+			.navigation a:hover {
+				background-color: #daedfd;
+				color: #000;
+		}
 		</style>
 		<![endif]-->
 	<title>flexbox test</title>
