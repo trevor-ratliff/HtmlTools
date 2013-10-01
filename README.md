@@ -72,9 +72,9 @@ querySelector('#breadcrumbs').innerHTML = strCrumbs;
 
 ### Other methods ###
 
-BreadCrumb.Clear() -- removes all crumbs
+BreadCrumb.Clear() -- removes all crumbs without affecting anything else.
 
-BreadCrumb.Delete() -- removes the session storage
+BreadCrumb.Delete() -- removes the BreadCrumb object from the session storage.
 
 
 ## LayoutTests ##
