@@ -127,7 +127,75 @@ function BreadCrumb(robjArgs) {
         // return success flag
         //----
         return lblnReturn;
-    }
+    };
+    
+    
+    //====
+    /// @fn Clear()
+    /// @brief Removes all crumbs 
+    /// @author Trevor Ratliff
+    /// @date 2013-10-01
+    /// @return boolean
+    //  
+    //  Definitions:
+    //  
+    /// @verbatim
+    /// History:  Date  |  Programmer  |  Contact  |  Description  |
+    ///     2013-10-01  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+    ///         function creation  |
+    /// @endverbatim
+    //====
+    this.Clear = function () {
+        var lblnReturn = false;
+        
+        try {
+            //----
+            // clear the crumbs
+            //----
+            this.BreadCrumbs.Crumbs = [];
+            
+            //----
+            // regenerate the session storage
+            //----
+            sessionStorage['trevor-ratliff_BreadCrumb'] = JSON.stringify(this.BreadCrumbs);
+            lblnReturn = true;
+            
+        } catch (err) {
+            lblnReturn = false;
+        }
+        
+        return lblnReturn;
+    };
+    
+    
+    //====
+    /// @fn Delete()
+    /// @brief removes the session storage
+    /// @author Trevor Ratliff
+    /// @date 2013-10-01
+    /// @return boolean
+    //  
+    //  Definitions:
+    //  
+    /// @verbatim
+    /// History:  Date  |  Programmer  |  Contact  |  Description  |
+    ///     2013-10-01  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+    ///         function creation  |
+    /// @endverbatim
+    //====
+    this.Delete = function () {
+        var lblnReturn = false;
+        
+        try {
+            sessionStorage.removeItem('trevor-ratliff_BreadCrumb');
+            lblnSuccess = true;
+            
+        } catch (err) {
+            lblnReturn = false;
+        }
+        
+        return lblnReturn;
+    };
     
     
     //====

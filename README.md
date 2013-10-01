@@ -66,10 +66,14 @@ strCrumbs = objBreadCrumb.Generate('style');
 
 Place the crumbs in the page
 
-```
+```javascript
 querySelector('#breadcrumbs').innerHTML = strCrumbs;
 ```
 
+### Other methods ###
+
+BreadCrumb.Clear() -- removes all crumbs
+BreadCrumb.Delete() -- removes the session storage
 
 
 ## LayoutTests ##
