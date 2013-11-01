@@ -80,3 +80,8 @@ BreadCrumb.Delete() -- removes the BreadCrumb object from the session storage.
 ## LayoutTests ##
 
 These are various layout tests I've played with over the years ... hopefully I'll add more of them soon
+
+
+## SimpleEncode ##
+
+A simple encoding and decoding library to obfuscate 'sensitive' data
