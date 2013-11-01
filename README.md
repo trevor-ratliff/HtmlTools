@@ -94,10 +94,22 @@ Basic encoding for a string:
 var encoded = SimpleEncode.EncodeString('bob');
 ```
 
+Basic decoding for a string:
+
+```javascript
+var decoded = SimpleEncode.DecodeString('162175162');
+```
+
 Basic encoding for an object:
 
 ```javascript
 var encoded = SimpleEncode.Encode({ name_first: 'Bob', name_last: 'Ferrapples' });
+```
+
+Basic decoding for an object:
+
+```javascript
+var decoded = SimpleEncode.Decode('187098174161173165159166169178179180098122098130175162098108098174161173165159172161179180098122098134165178178161176176172165179098189');
 ```
 
 #### Syntax ####
