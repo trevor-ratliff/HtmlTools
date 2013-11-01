@@ -85,3 +85,43 @@ These are various layout tests I've played with over the years ... hopefully I'l
 ## SimpleEncode ##
 
 A simple encoding and decoding library to obfuscate 'sensitive' data
+
+### Use ###
+
+Basic encoding for a string:
+
+```javascript
+var encoded = SimpleEncode.EncodeString('bob');
+```
+
+Basic encoding for an object:
+
+```javascript
+var encoded = SimpleEncode.Encode({ name_first: 'Bob', name_last: 'Ferrapples' });
+```
+
+==== Syntax ====
+
+SimpleEncode.Encode( Data, Offset, Width ) -- encodes an object (using JSON.stringify)
+ - parameters
+  - Data: the data object to convert to an encoded string
+  - Offset: amount to shift the calculated value by
+  - Width: the width of the encoded 'characters'
+
+SimpleEncode.EncodeString ( Data, Offset, Width ) -- encodes a string
+ - parameters
+  - Data: the string to encoded
+  - Offset: amount to shift the calculated value by
+  - Width: the width of the encoded 'characters'
+
+SimpleEncode.Decode( Data, Offset, Width) -- decodes to an object (using JSON.parse)
+ - parameters
+  - Data: the string to decode
+  - Offset: amount to shift by to get the calculated value
+  - Width: the width of the encoded 'characters'
+
+SimpleEncode.DecodeString( Data, Offset, Width) -- decodes to an string
+ - parameters
+  - Data: the string to decode
+  - Offset: amount to shift by to get the calculated value
+  - Width: the width of the encoded 'characters'
