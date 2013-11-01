@@ -100,7 +100,7 @@ Basic encoding for an object:
 var encoded = SimpleEncode.Encode({ name_first: 'Bob', name_last: 'Ferrapples' });
 ```
 
-==== Syntax ====
+#### Syntax ####
 
 SimpleEncode.Encode( Data, Offset, Width ) -- encodes an object (using JSON.stringify)
  - parameters
