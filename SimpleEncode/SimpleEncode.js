@@ -289,9 +289,9 @@ var SimpleEncode = {
         //----
         // set defaults
         //----
-        vblnRight = typeof vblnRight !== "boolean" ? false : vblnRight;
-        vintNum = typeof vintNum !== "number" ? 2 : vintNum;
         vstrChar = typeof vstrChar !== "string" ? "0" : vstrChar;
+        vintNum = typeof vintNum !== "number" ? 2 : vintNum;
+        vblnRight = typeof vblnRight !== "boolean" ? false : vblnRight;
         
         //----
         // pad out the value
@@ -305,5 +305,35 @@ var SimpleEncode = {
         }
         
         return lstrReturn;
+    },
+    
+    
+    //====
+    /// @fn ToSortableDate(vobjDate)
+    /// @brief converts a passed in datevalue into a sortable date string
+    /// @author Trevor Ratliff
+    /// @date 2013-11-20
+    /// @param vobjDate -- something that can be parsed with new 'Date(vobjDate)'
+    /// @return string
+    //  
+    //  Definitions:
+    //  
+    /// @verbatim
+    /// History:  Date  |  Programmer  |  Contact  |  Description  |
+    ///     2013-11-20  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+    ///         function creation  |
+    /// @endverbatim
+    //====
+    ToSortableDate: function (vobjDate) {
+        var lobjDate = new Date(vobjDate);
+        var lstrDate = "";
+        
+        lstrDate = "" + this.Pad(lobjDate.getFullYear());
+        lstrDate += "-" + this.Pad(lobjDate.getMonth()+1);
+        lstrDate += "-" + this.Pad(lobjDate.getDate());
+        lstrDate += "T" + this.Pad(lobjDate.getHours());
+        lstrDate += ":" + this.Pad(lobjDate.getMinutes());
+        
+        return lstrDate;
     }
 };
