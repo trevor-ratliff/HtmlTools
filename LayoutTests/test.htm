@@ -43,7 +43,7 @@
                 background-color: #888888;
                 border-radius: 20px;
                 margin: 0ex auto 3ex;
-                max-height: 390px;
+                /* max-height: 390px; */
                 position: relative;
                 top: 3ex;
                 width: 90%;
@@ -55,7 +55,7 @@
                 cursor: pointer;
                 float: left;
                 margin: 0ex 0% 3ex 5%;
-                max-height: 390px;
+                /* max-height: 390px; */
                 position: relative;
                 top: 3ex;
                 width: 42.5%;
@@ -155,6 +155,27 @@
             .area-bottom .area-r {
                 border-radius: 0px 0px 20px 0px;
             
+            }
+            
+            @media screen and (max-height: 480px) {
+                #container {
+                    height: 100%;
+                    top: 0%;
+                }
+                
+                .area-c {
+                    max-height: 110px;
+                }
+            }
+            
+            @media screen and (max-width: 640px) {
+                #container {
+                    width: 100%;
+                }
+                
+                .area-clickable {
+                    width: 90%;
+                }
             }
         </style>
         <!--[if lt IE 9]>
