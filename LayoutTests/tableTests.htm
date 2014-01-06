@@ -25,14 +25,26 @@
         
         <script type="text/javascript" src="scripts/MY_SCRIPT.js"></script> -->
         <style type="text/css">
+            html, body {
+                height: 100%;
+                margin: 0px;
+                overflow: auto;
+                padding: 0px;
+            }
+            
             body {
                 font-family: verdana;
                 font-size: 1em;
             }
             
+            #table1, #table2 {
+                margin: 1em;
+            }
+            
             .ttabler {
                 border: 1px solid #000000;
                 border-collapse: collapse;
+                height: calc( 45% - 0.6em );
                 padding: 3px;
                 white-space: nowrap;
             }
@@ -54,7 +66,7 @@
             .tbodier {
                 /* border: 1px solid #990000;
                 border-collapse: collapse; */
-                height: 15em;
+                height: calc( 100% - 2.15em ); /* 15em; */
                 overflow: auto;
                 /* padding: 3px; */
             }
@@ -70,6 +82,10 @@
                 border-width: 1px 0px;
                 /* padding: 3px; */
                 white-space: nowrap;
+            }
+            
+            div.tbodier .trower .tceller:nth-child(odd) {
+                background-color: rgba(255,255,255,0.1);
             }
             
             .tceller {
@@ -122,7 +138,22 @@
                 var lobjRows = document.querySelectorAll('.tbodier .trower');
                 for (var lintII = 0; lintII < lobjRows.length; lintII++) {
                     if (lobjRows[lintII]) {
+                        var lstrHeight = lobjRows[lintII].clientHeight + 'px';
+                        var lobjCells = lobjRows[lintII].querySelectorAll('.tceller');
+                        
+                        //----
+                        // set row widths
+                        //----
                         lobjRows[lintII].style.width = lobjRows[lintII].scrollWidth + 'px';
+                        
+                        //----
+                        // set cell heights
+                        //----
+                        for (var lintNN = 0; lintNN < lobjCells.length; lintNN++) {
+                            if (lobjCells[lintNN]) {
+                                lobjCells[lintNN].style.height = lstrHeight;
+                            }
+                        }
                     }
                 }
             }, false);
