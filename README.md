@@ -77,6 +77,11 @@ BreadCrumb.Clear() -- removes all crumbs without affecting anything else.
 BreadCrumb.Delete() -- removes the BreadCrumb object from the session storage.
 
 
+## ColorFinder ##
+
+This is a tool for finding a color and it's shades, tones and tints
+
+
 ## LayoutTests ##
 
 These are various layout tests I've played with over the years ... hopefully I'll add more of them soon

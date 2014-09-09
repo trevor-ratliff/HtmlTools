@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<!--
+//====
+/// @file ColorFinder.html
+/// @brief allows you to play with color to find what you're looking for
+/// @author Trevor Ratliff
+/// @date 2014-09-09
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+/// @endverbatim
+//====
+-->
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="styles/ColorFinder.css" title="main" />
+		
+		<script type="text/javascript" src="scripts/ColorFinder.js"></script>
+		
+		<noscript>
+			Turning JavaScript on in your browser makes for a much better experience!
+		</noscript>
+	</head>
+
+	<body>
+		<aside>
+			<h3><span id="title">ColorFinder</span></h3>
+			<span>This tool will help you find a color and it's shades, tones and tints</span>
+
+			<div id="color">
+				<!--<div id="colorDisplay" class="display"></div>-->
+			</div>
+		</aside>
+
+		<article>
+			<div id="hue" class="tile">
+				<div id="hueDisplay" class="display">
+					<span>Hue:</span><br>
+					<input type="hidden" id="hdnHueValue" value="" />
+					#<span id="hueWeb" class="web"></span><br>
+					rgb(<span id="hueRgb" class="rgb"></span>)<br>
+					hsl(<span id="hueHsl" class="hsl"></span>)<br>
+				</div>
+				<div id="hueColor" class="color"></div>
+				<div id="hueControls" class="controls">
+					<div id="hueMark" class="mark"></div>
+				</div>
+			</div>
+
+			<div id="shade" class="tile">
+				<div id="shadeDisplay" class="display">
+					<span>Shade:</span><br>
+					<input type="hidden" id="hdnShadeValue" value="" />
+					#<span id="shadeWeb" class="web"></span><br>
+					rgb(<span id="shadeRgb" class="rgb"></span>)<br>
+					hsl(<span id="shadeHsl" class="hsl"></span>)<br>
+				</div>
+				<div id="shadeColor" class="color"></div>
+				<div id="shadeControls" class="controls">
+					<div id="shadeMark" class="mark"></div>
+				</div>
+			</div>
+
+			<div id="tone" class="tile">
+				<div id="toneDisplay" class="display">
+					<span>Tone:</span><br>
+					<input type="hidden" id="hdnToneValue" value="" />
+					#<span id="toneWeb" class="web"></span><br>
+					rbg(<span id="toneRgb" class="rgb"></span>)<br>
+					hsl(<span id="toneHsl" class="hsl"></span>)<br>
+				</div>
+				<div id="toneColor" class="color"></div>
+				<div id="toneControls" class="controls">
+					<div id="toneMark" class="mark"></div>
+				</div>
+			</div>
+
+			<div id="tint" class="tile">
+				<div id="tintDisplay" class="display">
+					<span>Tint:</span><br>
+					<input type="hidden" id="hdnTintValue" value="" />
+					#<span id="tintWeb" class="web"></span><br>
+					rgb(<span id="tintRgb" class="rgb"></span>)<br>
+					hsl(<span id="tintHsl" class="hsl"></span>)<br>
+				</div>
+				<div id="tintColor" class="color"></div>
+				<div id="tintControls" class="controls">
+					<div id="tintMark" class="mark"></div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
