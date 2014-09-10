@@ -20,6 +20,7 @@ html {
 
 body {
 	box-sizing: border-box;
+	font-family: verdana, arial;
 	font-size: 0.5cm;
 	height: 100%;
 	padding: 2ex;
@@ -81,14 +82,22 @@ aside {
 }
 
 .mark {
-	border-bottom: 1ex solid hsla(0, 50%, 50%, 1.0);
+	border-bottom: 2.6ex solid hsla(0, 50%, 50%, 1.0);
 	border-left: 0.5ex solid hsla(0, 50%, 50%, 0.0);
 	border-right: 0.5ex solid hsla(0, 50%, 50%, 0.0);
-	border-top: 1.5ex solid hsla(0, 50%, 50%, 0.0);
+	border-top: 0ex solid hsla(0, 50%, 50%, 0.0);
 	height: 0ex;
+	left: -5px;
 	position: relative;
 	width: 0ex;
 	z-index: 10;
+}
+
+.mark:hover {
+	border-bottom: 2.6ex solid hsla(210, 50%, 50%, 1.0);
+	border-left: 0.5ex solid hsla(210, 50%, 50%, 0.0);
+	border-right: 0.5ex solid hsla(210, 50%, 50%, 0.0);
+	border-top: 0ex solid hsla(210, 50%, 50%, 0.0);
 }
 
 .tile {
