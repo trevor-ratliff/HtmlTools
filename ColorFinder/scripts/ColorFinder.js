@@ -106,9 +106,6 @@ function MarkerRemoveMouseMove() {
 //====
 function MoveMarker(){
 	var event = (typeof(event) == "undefined") ? arguments[0] : event;
-	var lobjE = this.querySelector('.mark');
-	var lintMin = parseInt(lobjE.getAttribute('markmin'));
-	var lintMax = parseInt(lobjE.getAttribute('markmax'));
 	
 	//----
 	// debug
@@ -117,6 +114,10 @@ function MoveMarker(){
 		console.log(this);
 		if(!!event) console.log(event);
 	}
+	
+	var lobjE = this.querySelector('.mark');
+	var lintMin = parseInt(lobjE.getAttribute('markmin'));
+	var lintMax = parseInt(lobjE.getAttribute('markmax'));
 	var lintX = lobjE.style.left == '' ? gintMarkerOffset : parseInt(lobjE.style.left);
 	var lintOffsetX = event.clientX - gintMouseX;
 	

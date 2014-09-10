@@ -33,14 +33,48 @@
 			<span>This tool will help you find a color and it's shades, tones and tints</span>
 
 			<div id="color">
-				<!--<div id="colorDisplay" class="display"></div>-->
+				<div>
+					<span>Contrast Offset:&nbsp;&nbsp;</span><input type="text" id="txtContrastOffset" value="" class="value" />
+				</div>
+				<div id="contrast" class="tile">
+					<div>Contrast</div>
+					<div id="contrastDisplay" class="display">
+						<input type="hidden" id="hdnContrastValue" value="" />
+						#<span    id="contrastWeb" class="web"></span><br>
+						rgb(<span id="contrastRgb" class="rgb"></span>)<br>
+						hsl(<span id="contrastHsl" class="hsl"></span>)<br>
+					</div>
+					<div id="contrastColor" class="color"></div>
+				</div>
+
+				<div id="contrastLeft" class="tile">
+					<div>Contrast Left</div>
+					<div id="contrastLeftDisplay" class="display">
+						<input type="hidden" id="hdnContrastLeftValue" value="" />
+						#<span    id="contrastLeftWeb" class="web"></span><br>
+						rgb(<span id="contrastLeftRgb" class="rgb"></span>)<br>
+						hsl(<span id="contrastLeftHsl" class="hsl"></span>)<br>
+					</div>
+					<div id="contrastLeftColor" class="color"></div>
+				</div>
+
+				<div id="contrastRight" class="tile">
+					<div>Contrast Right</div>
+					<div id="contrastRightDisplay" class="display">
+						<input type="hidden" id="hdnContrastRightValue" value="" />
+						#<span    id="contrastRightWeb" class="web"></span><br>
+						rgb(<span id="contrastRightRgb" class="rgb"></span>)<br>
+						hsl(<span id="contrastRightHsl" class="hsl"></span>)<br>
+					</div>
+					<div id="contrastRightColor" class="color"></div>
+				</div>
 			</div>
 		</aside>
 
 		<article>
 			<div id="hue" class="tile">
 				<div id="hueDisplay" class="display">
-					<span>Hue:</span><br>
+					<span>Hue:</span><input type="text" id="txtHueValue" class="value" /><br>
 					<input type="hidden" id="hdnHueValue" value="" />
 					#<span id="hueWeb" class="web"></span><br>
 					rgb(<span id="hueRgb" class="rgb"></span>)<br>
@@ -54,7 +88,7 @@
 
 			<div id="shade" class="tile">
 				<div id="shadeDisplay" class="display">
-					<span>Shade:</span><br>
+					<span>Shade:</span><input type="text" id="txtShadeValue" class="value" /><br>
 					<input type="hidden" id="hdnShadeValue" value="" />
 					#<span id="shadeWeb" class="web"></span><br>
 					rgb(<span id="shadeRgb" class="rgb"></span>)<br>
@@ -68,7 +102,7 @@
 
 			<div id="tone" class="tile">
 				<div id="toneDisplay" class="display">
-					<span>Tone:</span><br>
+					<span>Tone:</span><input type="text" id="txtToneValue" class="value" /><br>
 					<input type="hidden" id="hdnToneValue" value="" />
 					#<span id="toneWeb" class="web"></span><br>
 					rbg(<span id="toneRgb" class="rgb"></span>)<br>
@@ -82,7 +116,7 @@
 
 			<div id="tint" class="tile">
 				<div id="tintDisplay" class="display">
-					<span>Tint:</span><br>
+					<span>Tint:</span><input type="text" id="txtTintValue" class="value" /><br>
 					<input type="hidden" id="hdnTintValue" value="" />
 					#<span id="tintWeb" class="web"></span><br>
 					rgb(<span id="tintRgb" class="rgb"></span>)<br>

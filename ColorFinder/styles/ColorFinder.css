@@ -43,6 +43,16 @@ aside {
 /****
 * ids
 ****/
+#color {
+	color: hsla(120, 90%, 10%, 1.0);
+	font-size: 0.95ex;
+	margin-top: 2ex;
+}
+
+#color .tile {
+	color: hsla(120, 90%, 10%, 1.0);
+}
+
 #hue .controls {
 	width: 360px;
 }
@@ -110,4 +120,8 @@ aside {
 	margin: 0ex 1ex 1ex 0ex;
 	padding: 0.4ex;
 	width: 35ex;
+}
+
+.value {
+	width: 13ex;
 }
