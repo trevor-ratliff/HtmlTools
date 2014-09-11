@@ -28,25 +28,17 @@
 	</head>
 
 	<body>
+		<div id="title">
+			<h3><span id="titleText">ColorFinder</span></h3>
+			<span id="titleDescription">This tool will help you find a color and it's shades, tones and tints</span>
+		</div>
+
 		<aside>
-			<h3><span id="title">ColorFinder</span></h3>
-			<span>This tool will help you find a color and it's shades, tones and tints</span>
 
 			<div id="color">
 				<h4>These colors will go well with the main color</h4>
 				<div>
-					<span>Contrast Offset:&nbsp;&nbsp;</span><input type="text" id="txtContrastOffset" value="30" class="value" />
-				</div>
-
-				<div id="contrastLeft" class="tile">
-					<div>Contrast Left</div>
-					<div id="contrastLeftDisplay" class="display">
-						<input type="hidden" id="hdnContrastLeftValue" value="" />
-						<span id="contrastLeftWeb" class="web"></span><br>
-						<span id="contrastLeftRgb" class="rgb"></span><br>
-						<span id="contrastLeftHsl" class="hsl"></span><br>
-					</div>
-					<div id="contrastLeftColor" class="color"></div>
+					<span>Contrast Offset:&nbsp;&nbsp;</span><input type="text" id="txtContrastOffset" value="45" class="value" />
 				</div>
 
 				<div id="contrast" class="tile">
@@ -58,6 +50,17 @@
 						<span id="contrastHsl" class="hsl"></span><br>
 					</div>
 					<div id="contrastColor" class="color"></div>
+				</div>
+
+				<div id="contrastLeft" class="tile">
+					<div>Contrast Left</div>
+					<div id="contrastLeftDisplay" class="display">
+						<input type="hidden" id="hdnContrastLeftValue" value="" />
+						<span id="contrastLeftWeb" class="web"></span><br>
+						<span id="contrastLeftRgb" class="rgb"></span><br>
+						<span id="contrastLeftHsl" class="hsl"></span><br>
+					</div>
+					<div id="contrastLeftColor" class="color"></div>
 				</div>
 
 				<div id="contrastRight" class="tile">
@@ -129,6 +132,7 @@
 					<div id="tintMark" class="mark" markmin="-5" markmax="45"></div>
 				</div>
 			</div>
+			<br style="clear: both;">
 		</article>
 	</body>
 </html>

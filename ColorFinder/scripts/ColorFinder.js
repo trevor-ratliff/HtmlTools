@@ -117,7 +117,7 @@ var ColorObject = function (vstrID) {
 			break;
 	}
 	
-	return self;
+	return;
 };
 
 
@@ -220,7 +220,11 @@ function MarkerAddMouseMove() {
 	if (!!console.log && document.location.search.indexOf('debug') >= 0)
 		console.log(this.id + ' added "mousemove"');
 
-	this.addEventListener('mousemove', MoveMarker, true);
+	if (this.className.indexOf('mark') >= 0) {
+		this.parentNode.addEventListener('mousemove', MoveMarker, true);
+	} else {
+		this.addEventListener('mousemove', MoveMarker, true);
+	}
 
 	return;
 }
@@ -247,7 +251,11 @@ function MarkerRemoveMouseMove() {
 	if (!!console.log && document.location.search.indexOf('debug') >= 0)
 		console.log(this.id + ' removed "mousemove"');
 
-	this.removeEventListener('mousemove', MoveMarker);
+	if (this.className.indexOf('mark') >= 0) {
+		this.parentNode.removeEventListener('mousemove', MoveMarker, true);
+	} else {
+		this.removeEventListener('mousemove', MoveMarker, true);
+	}
 
 	return;
 }
@@ -405,15 +413,16 @@ window.addEventListener('load', function () {
 		//----
 		// mouse down/mouse over
 		//----
-		//~ arrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
-		arrMark[ii].parentNode.addEventListener('mouseover', MarkerAddMouseMove, true);
+		arrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
+		//~ arrMark[ii].parentNode.addEventListener('mouseover', MarkerAddMouseMove, true);
 		//~ arrMark[ii].addEventListener('click', MarkerAddMouseMove, true);
 
 		//----
 		// mouse up/mouse out
 		//----
-		//~ arrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
-		arrMark[ii].parentNode.addEventListener('mouseout', MarkerRemoveMouseMove, true);
+		arrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
+		//~ arrMark[ii].addEventListener('mouseout', MarkerRemoveMouseMove, true);
+		//~ arrMark[ii].parentNode.addEventListener('mouseleave', MarkerRemoveMouseMove, true);
 	}
 	
 	//----

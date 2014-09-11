@@ -24,19 +24,19 @@ body {
 	font-size: 0.5cm;
 	height: 100%;
 	padding: 2ex;
-	margin: 0ex;
+	margin: 0ex auto;
 }
 
 article {
 	margin-left: 21ex;
-	height: 100%;
+	/* height: 100%; */
 	width: 74ex;
 }
 
 aside {
-	height: 100%;
-	width: 20ex;
 	float: left;
+	/* height: 100%; */
+	width: 20ex;
 }
 
 
@@ -57,6 +57,13 @@ aside {
 	width: 360px;
 }
 
+#title {
+	margin: 2ex auto;
+}
+
+#title h3 {
+	margin-top: 0ex;
+}
 
 /****
 * classes
