@@ -46,7 +46,7 @@ aside {
 #color {
 	color: hsla(120, 90%, 10%, 1.0);
 	font-size: 0.95ex;
-	margin-top: 2ex;
+	margin-top: 2rem;
 }
 
 #color .tile {
@@ -77,7 +77,7 @@ aside {
 	border-radius: 3px;
 	color: hsla(0, 50%, 50%, 1.0);
 	height: 2ex;
-	width: calc(255px * 1);
+	width: calc(100px * 1);
 }
 
 .display {
