@@ -62,10 +62,13 @@ var ColorObject = function (vstrID) {
 	// set properties
 	//----
 	this.Alpha = 1.0;
+	this.Blue = null;
 	this.Hue = lobjHueMark.style.left != "" ? 
 		parseInt(lobjHueMark.style.left) - gintMarkerOffset : 0;
+	this.Green = null;
 	this.Id = vstrID;
 	this.Level = null;
+	this.Red = null;
 	this.Saturation = null;
 	this.Tile = document.getElementById(vstrID);
 	this.Display = this.Tile.querySelector('.display');
@@ -77,6 +80,9 @@ var ColorObject = function (vstrID) {
 	//----
 	if (this.Mark) this.Mark.style.left = this.Mark.style.left == "" ? gintMarkerOffset + 'px' : this.Mark.style.left;
 	
+	//----
+	// calculate hue, saturation and level
+	//----
 	switch (this.Id) {
 		case 'contrast':		// opposite of hue on color wheel
 			this.Hue = (this.Hue + 180) % 360;
@@ -117,7 +123,57 @@ var ColorObject = function (vstrID) {
 			break;
 	}
 	
+	//----
+	// calculate red, green, blue
+	//----
+	this.CalcRGB();
+	
 	return;
+};
+
+
+//====
+/// @fn ColorObject.CalcRGB()
+/// @brief gets the color in a rgba() format
+/// @author Trevor Ratliff
+/// @date 2014-09-11
+/// 
+/// HOW TO RETURN hsl.to.rgb(h, s, l): 
+/// 	SELECT: 
+/// 		l<=0.5: PUT l*(s+1) IN m2
+/// 		ELSE: PUT l+s-l*s IN m2
+/// 	PUT l*2-m2 IN m1
+/// 	PUT hue.to.rgb(m1, m2, h+1/3) IN r
+/// 	PUT hue.to.rgb(m1, m2, h    ) IN g
+/// 	PUT hue.to.rgb(m1, m2, h-1/3) IN b
+/// 	RETURN (r, g, b)
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-11  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation from info found at 'http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color'  |
+/// @endverbatim
+//====
+ColorObject.prototype.CalcRGB = function () {
+	var ldblAdjLevel = 0.0;
+	var ldblAdjSaturation = 0.0;
+	var ldblLevel = parseInt(this.Level)/100;
+	var ldblSaturation = parseInt(this.Saturation)/100;
+	var ldblHue = (this.Hue % 360)/360;
+	
+	if (ldblLevel <= 0.5) {
+		ldblAdjSaturation = ldblLevel * (ldblSaturation + 1);
+	} else {
+		ldblAdjSaturation = (ldblLevel + ldblSaturation) - (ldblLevel * ldblSaturation);
+	}
+	
+	ldblAdjLevel = (ldblLevel * 2) - ldblAdjSaturation;
+	
+	this.Red = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue + (1/3));
+	this.Green = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue);
+	this.Blue = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue - (1/3));
 };
 
 
@@ -150,20 +206,66 @@ ColorObject.prototype.GetColor = function () {
 
 //====
 /// @fn ColorObject.GetColorRGB()
-/// @brief gets the color in a rgba() format
+/// @brief gets teh color in a rgba() format
 /// @author Trevor Ratliff
-/// @date 2014-09-11
+/// @date 2014-09-12
 /// @return object -- {'string': '', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
-/// 
-/// HOW TO RETURN hsl.to.rgb(h, s, l): 
-/// 	SELECT: 
-/// 		l<=0.5: PUT l*(s+1) IN m2
-/// 		ELSE: PUT l+s-l*s IN m2
-/// 	PUT l*2-m2 IN m1
-/// 	PUT hue.to.rgb(m1, m2, h+1/3) IN r
-/// 	PUT hue.to.rgb(m1, m2, h    ) IN g
-/// 	PUT hue.to.rgb(m1, m2, h-1/3) IN b
-/// 	RETURN (r, g, b)
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+ColorObject.prototype.GetColorRGB = function () {
+	return {
+		'string': 'rgba(' + this.Red + ', ' + this.Green + 
+			', ' + this.Blue + ', ' + this.Alpha + ')',
+		'r': this.Red,
+		'g': this.Green,
+		'b': this.Blue,
+		'a': this.Alpha
+	};
+};
+
+
+//====
+/// @fn ColorObject.GetColorWeb()
+/// @brief gets teh color in a #rrggbb format
+/// @author Trevor Ratliff
+/// @date 2014-09-12
+/// @return object -- {'string': '', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+ColorObject.prototype.GetColorWeb = function () {
+	return {
+		'string': '#' + this.Pad(this.Red.toString(16)) + this.Pad(this.Green.toString(16)) + this.Pad(this.Blue.toString(16)),
+		'r': this.Pad(this.Red.toString(16)),
+		'g': this.Pad(this.Green.toString(16)),
+		'b': this.Pad(this.Blue.toString(16)),
+		'a': this.Pad(this.Alpha.toString(16))
+	};
+};
+
+
+//====
+/// @fn ColorObject.HueToRGB(vdblAdjLevel, vdblAdjSaturation, vdblAdjHue)
+/// @brief converts a hue value to an rgb value
+/// @author Trevor Ratliff
+/// @date 2014-09-12
+/// @param vdblAdjLevel -- m1 in psuedo code below, an adjusted level
+/// @param vdblAdjSaturation -- m2 in the psuedo code below, an adjusted saturation
+/// @param vdblAdjHue -- h in psuedo code below, an adjusted hue
+/// @return double ldblReturn -- a color channel value r, g, or b based on vdblAdjHue
 /// 
 /// HOW TO RETURN hue.to.rgb(m1, m2, h): 
 /// 	IF h<0: PUT h+1 IN h
@@ -177,11 +279,84 @@ ColorObject.prototype.GetColor = function () {
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
-///     2014-09-11  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
 ///         function creation from info found at 'http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color'  |
 /// @endverbatim
 //====
+ColorObject.prototype.HueToRGB = function (vdblAdjLevel, vdblAdjSaturation, vdblAdjHue) {
+	var ldblReturn = vdblAdjLevel;
+	var ldblAdjHue = 0.0;
+	
+	//----
+	// set up hue
+	//----
+	if (vdblAdjHue < 0) {
+		ldblAdjHue = vdblAdjHue + 1;
+	}
+	
+	if (vdblAdjHue > 0) {
+		ldblAdjHue = vdblAdjHue - 1;
+	}
+	
+	//----
+	// set color channel value
+	//----
+	if (ldblAdjHue * 6 < 1) {
+		ldblReturn = vdblAdjLevel + (vdblAdjSaturation - vdblAdjLevel) * ldblAdjHue * 6;
+	}
+	
+	if (ldblAdjHue * 2 < 1) {
+		ldblReturn = vdblAdjSaturation;
+	}
+	
+	if (ldblAdjHue * 3 < 2) {
+		ldblReturn = vdblAdjLevel + (vdblAdjSaturation - vdblAdjLevel) * ((2/3) - ldblAdjHue) * 6;
+	}
+	
+	return Math.round(ldblReturn);
+};
 
+
+//====
+/// @fn ColorObject.Pad(vstrValue, vintPlaces, vstrCharacter, vblnLeft)
+/// @brief pads the passed in value with the passed in character to the specified places to the left or right
+/// @author Trevor Ratliff
+/// @date 2014-09-12
+/// @param vstrValue -- value to pad out
+/// @param vintPlaces -- number of places to pad out to
+/// @param vstrCharacter -- the character(s) to pad with
+/// @param vblnLeft -- flag for padding to left or right
+/// @return string -- padded out vstrValue
+//  
+//  Definitions:
+//  	lstrReturn -- string to return to caller
+//  	
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+ColorObject.prototype.Pad = function (vstrValue, vintPlaces, vstrCharacter, vblnLeft) {
+	//----
+	// set default values
+	//----
+	var lblnLeft = typeof vblnLeft == "undefined" ? true : false;
+	var lintPlaces = typeof vintPlaces == "undefined" ? 2 : vintPlaces;
+	var lstrCharacter = typeof vstrCharacter == "undefined" ? '0' : vstrCharacter;
+	var lstrReturn = typeof vstrValue != "string" ? vstrValue.toString() : vstrValue;
+	
+	while (lstrReturn.length < lintPlaces) {
+		if (lblnLeft) {
+			lstrReturn = lstrCharacter + lstrReturn;
+		} else {
+			lstrReturn = lstrReturn + lstrCharacter;
+		}
+	}
+	
+	return lstrReturn;
+};
 
 
 //====
@@ -222,8 +397,10 @@ function MarkerAddMouseMove() {
 
 	if (this.className.indexOf('mark') >= 0) {
 		this.parentNode.addEventListener('mousemove', MoveMarker, true);
+		this.parentNode.addEventListener('touchmove', MoveMarker, true);
 	} else {
 		this.addEventListener('mousemove', MoveMarker, true);
+		this.addEventListener('touchmove', MoveMarker, true);
 	}
 
 	return;
@@ -253,8 +430,10 @@ function MarkerRemoveMouseMove() {
 
 	if (this.className.indexOf('mark') >= 0) {
 		this.parentNode.removeEventListener('mousemove', MoveMarker, true);
+		this.parentNode.removeEventListener('touchmove', MoveMarker, true);
 	} else {
 		this.removeEventListener('mousemove', MoveMarker, true);
+		this.removeEventListener('touchmove', MoveMarker, true);
 	}
 
 	return;
@@ -386,6 +565,44 @@ function UpdateScreen(vobjColors) {
 
 
 //====
+/// @fn window.addEventListener('beforeunload')
+/// @brief this will store set values so it can be loaded when user returns to the page
+/// @author Trevor Ratliff
+/// @date 2014-09-12
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+var gblnSaveData = true;
+window.addEventListener('beforeunload', function () {
+	//----
+	// gather data
+	//----
+	var lobjHue = new ColorObject('hue');
+	var lobjShade = new ColorObject('shade');
+	var lobjTint = new ColorObject('tint');
+	var lobjTone = new ColorObject('tone');
+	
+	//----
+	// save data
+	//----
+	if(localStorage && JSON) {
+		localStorage.hue = JSON.stringify(lobjHue.GetColor());
+		localStorage.shade = JSON.stringify(lobjShade.GetColor());
+		localStorage.tint = JSON.stringify(lobjTint.GetColor());
+		localStorage.tone = JSON.stringify(lobjTone.GetColor());
+	}
+	
+	return;
+});
+
+
+//====
 /// @fn window.addEventListener('load')
 /// @brief the document load event listener - sets up other events
 /// @author Trevor Ratliff
@@ -402,8 +619,16 @@ function UpdateScreen(vobjColors) {
 //====
 window.addEventListener('load', function () {
 	//----
-	// set up events
+	// set up values
 	//----
+	var lobjHue =   null;
+	var lobjShade = null;
+	var lobjTint =  null;
+	var lobjTone =  null;
+	var lobjColorHue =   null;
+	var lobjColorShade = null;
+	var lobjColorTint =  null;
+	var lobjColorTone =  null;
 	var arrMark = document.querySelectorAll('.mark');
 	
 	//----
@@ -414,21 +639,57 @@ window.addEventListener('load', function () {
 		// mouse down/mouse over
 		//----
 		arrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
-		//~ arrMark[ii].parentNode.addEventListener('mouseover', MarkerAddMouseMove, true);
-		//~ arrMark[ii].addEventListener('click', MarkerAddMouseMove, true);
+		arrMark[ii].addEventListener('touchstart', MarkerAddMouseMove, true);
 
 		//----
 		// mouse up/mouse out
 		//----
 		arrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
-		//~ arrMark[ii].addEventListener('mouseout', MarkerRemoveMouseMove, true);
-		//~ arrMark[ii].parentNode.addEventListener('mouseleave', MarkerRemoveMouseMove, true);
+		arrMark[ii].addEventListener('touchend', MarkerRemoveMouseMove, true);
 	}
 	
 	//----
-	// mouse move
+	// restore colors
 	//----
-	for(var ii = 0; ii < arrMark.length; ii++) {
-		//~ arrMark[ii].addEventListener('mousemove', MoveMarker, false);
+	if (localStorage && JSON) {
+		try {
+			//----
+			// parse data
+			//----
+			lobjHue = JSON.parse(localStorage.hue);
+			lobjShade = JSON.parse(localStorage.shade);
+			lobjTint = JSON.parse(localStorage.tint);
+			lobjTone = JSON.parse(localStorage.tone);
+		} catch (err) {
+			alert('something went wrong with restoring your colors.\n\n' + err.toString());
+		}
+		
+		//----
+		// process data
+		//----
+		if (typeof lobjHue == "object") {
+			document.getElementById('hueMark').style.left = (lobjHue.h + gintMarkerOffset) + 'px';
+		}
+		if (typeof lobjShade == "object") {
+			document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
+		}
+		if (typeof lobjTint == "object") {
+			document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
+		}
+		if (typeof lobjTone == "object") {
+			document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
+		}
+		
+		lobjColorHue =   new ColorObject('hue');
+		lobjColorShade = new ColorObject('shade');
+		lobjColorTint =  new ColorObject('tint');
+		lobjColorTone =  new ColorObject('tone');
+		
+		//----
+		// refresh screen
+		//----
+		UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone]);
 	}
+	
+	return;
 });
