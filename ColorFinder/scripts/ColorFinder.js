@@ -456,6 +456,14 @@ function MoveMarker(){
 	var event = (typeof(event) == "undefined") ? arguments[0] : event;
 	var lobjE = this.querySelector('.mark');
 	
+    //----
+    // check for clientX & touch event
+    //----
+    if (!event.clientX && event.type == "touchmove") {
+        event.clientX = event.touches[0].clientX;
+        event.clientY = event.touches[0].clientY;
+    }
+	
 	var lintMin = parseInt(lobjE.getAttribute('markmin'));
 	var lintMax = parseInt(lobjE.getAttribute('markmax'));
 	var lintX = lobjE.style.left == '' ? gintMarkerOffset : parseInt(lobjE.style.left);
@@ -486,7 +494,7 @@ function MoveMarker(){
 		//----
 		lobjE.style.left = lintNewX + 'px';
 	}
-	
+    
 	//----
 	// adjust gintMouseX and gintMouseY
 	//----
