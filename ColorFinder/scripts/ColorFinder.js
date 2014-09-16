@@ -648,12 +648,14 @@ window.addEventListener('load', function () {
 		//----
 		arrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
 		arrMark[ii].addEventListener('touchstart', MarkerAddMouseMove, true);
+		arrMark[ii].parentNode.addEventListener('touchstart', MarkerAddMouseMove, true);
 
 		//----
 		// mouse up/mouse out
 		//----
 		arrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
 		arrMark[ii].addEventListener('touchend', MarkerRemoveMouseMove, true);
+		arrMark[ii].parentNode.addEventListener('touchend', MarkerRemoveMouseMove, true);
 	}
 	
 	//----
@@ -664,40 +666,41 @@ window.addEventListener('load', function () {
 			//----
 			// parse data
 			//----
-			lobjHue = JSON.parse(localStorage.hue);
-			lobjShade = JSON.parse(localStorage.shade);
-			lobjTint = JSON.parse(localStorage.tint);
-			lobjTone = JSON.parse(localStorage.tone);
+			if (localStorage.hue) lobjHue = JSON.parse(localStorage.hue);
+			if (localStorage.shade) lobjShade = JSON.parse(localStorage.shade);
+			if (localStorage.tint) lobjTint = JSON.parse(localStorage.tint);
+			if (localStorage.tone) lobjTone = JSON.parse(localStorage.tone);
+
+			//----
+			// process data
+			//----
+			if (typeof lobjHue == "object") {
+				document.getElementById('hueMark').style.left = (lobjHue.h + gintMarkerOffset) + 'px';
+			}
+			if (typeof lobjShade == "object") {
+				document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
+			}
+			if (typeof lobjTint == "object") {
+				document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
+			}
+			if (typeof lobjTone == "object") {
+				document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
+			}
+
+			lobjColorHue =   new ColorObject('hue');
+			lobjColorShade = new ColorObject('shade');
+			lobjColorTint =  new ColorObject('tint');
+			lobjColorTone =  new ColorObject('tone');
+
+			//----
+			// refresh screen
+			//----
+			UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone]);
+
 		} catch (err) {
 			alert('something went wrong with restoring your colors.\n\n' + err.toString());
 		}
-		
-		//----
-		// process data
-		//----
-		if (typeof lobjHue == "object") {
-			document.getElementById('hueMark').style.left = (lobjHue.h + gintMarkerOffset) + 'px';
-		}
-		if (typeof lobjShade == "object") {
-			document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
-		}
-		if (typeof lobjTint == "object") {
-			document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
-		}
-		if (typeof lobjTone == "object") {
-			document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
-		}
-		
-		lobjColorHue =   new ColorObject('hue');
-		lobjColorShade = new ColorObject('shade');
-		lobjColorTint =  new ColorObject('tint');
-		lobjColorTone =  new ColorObject('tone');
-		
-		//----
-		// refresh screen
-		//----
-		UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone]);
 	}
-	
+
 	return;
 });
