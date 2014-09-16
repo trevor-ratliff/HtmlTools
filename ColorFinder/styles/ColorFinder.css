@@ -130,5 +130,6 @@ aside {
 }
 
 .value {
-	width: 13ex;
+	margin: 0px 5px;
+	width: 90%;
 }

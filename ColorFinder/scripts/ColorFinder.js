@@ -454,15 +454,16 @@ function MarkerRemoveMouseMove() {
 //====
 function MoveMarker(){
 	var event = (typeof(event) == "undefined") ? arguments[0] : event;
+	event.preventDefault();
 	var lobjE = this.querySelector('.mark');
 	
-    //----
-    // check for clientX & touch event
-    //----
-    if (!event.clientX && event.type == "touchmove") {
-        event.clientX = event.touches[0].clientX;
-        event.clientY = event.touches[0].clientY;
-    }
+	//----
+	// check for clientX & touch event
+	//----
+	if (!event.clientX && event.type == "touchmove") {
+		event.clientX = event.touches[0].clientX;
+		event.clientY = event.touches[0].clientY;
+	}
 	
 	var lintMin = parseInt(lobjE.getAttribute('markmin'));
 	var lintMax = parseInt(lobjE.getAttribute('markmax'));
@@ -494,7 +495,7 @@ function MoveMarker(){
 		//----
 		lobjE.style.left = lintNewX + 'px';
 	}
-    
+	
 	//----
 	// adjust gintMouseX and gintMouseY
 	//----
@@ -564,11 +565,85 @@ function UpdateScreen(vobjColors) {
 			//----
 			// set description data
 			//----
+			vobjColors[lintII].Display.querySelector('.rgb').innerHTML = vobjColors[lintII].GetColorRGB().string;
 			vobjColors[lintII].Display.querySelector('.hsl').innerHTML = vobjColors[lintII].GetColor().string;
 		}
 	}
 	
 	return;
+}
+
+
+//====
+/// @fn ValueAddMouseMove()
+/// @brief adds the mouse move event to input range fields
+/// @author Trevor Ratliff
+/// @date 2014-09-16
+/// @param 
+/// @return 
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-16  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+function ValueAddMouseMove() {
+	this.addEventListener('mousemove', ValueMouseMove, true);
+}
+
+
+//====
+/// @fn ValueMouseMove()
+/// @brief updates items based on input ranges moving
+/// @author Trevor Ratliff
+/// @date 2014-09-16
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-16  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+function ValueMouseMove() {
+	//----
+	// set objects
+	//----
+	var lobjContrast = new ColorObject('contrast');
+	var lobjContrastLeft = new ColorObject('contrastLeft');
+	var lobjContrastRight = new ColorObject('contrastRight');
+	
+	//----
+	// update the screen with the new offset values
+	//----
+	UpdateScreen([lobjContrast, lobjContrastLeft, lobjContrastRight]);
+	
+	return;
+}
+
+
+//====
+/// @fn ValueRemoveMouseMove
+/// @brief removes the mousemove event from input range fields
+/// @author Trevor Ratliff
+/// @date 
+/// @param 
+/// @return 
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2014-09-16  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+function ValueRemoveMouseMove() {
+	this.removeEventListener('mousemove', ValueMouseMove, true);
 }
 
 
@@ -637,25 +712,38 @@ window.addEventListener('load', function () {
 	var lobjColorShade = null;
 	var lobjColorTint =  null;
 	var lobjColorTone =  null;
-	var arrMark = document.querySelectorAll('.mark');
+	var larrMark = document.querySelectorAll('.mark');
+	var larrValue = document.querySelectorAll('.value');
 	
 	//----
 	// loop through markers
 	//----
-	for(var ii = 0; ii < arrMark.length; ii++) {
+	for(var ii = 0; ii < larrMark.length; ii++) {
 		//----
 		// mouse down/mouse over
 		//----
-		arrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
-		arrMark[ii].addEventListener('touchstart', MarkerAddMouseMove, true);
-		arrMark[ii].parentNode.addEventListener('touchstart', MarkerAddMouseMove, true);
+		larrMark[ii].addEventListener('mousedown', MarkerAddMouseMove, true);
+		larrMark[ii].addEventListener('touchstart', MarkerAddMouseMove, true);
+		larrMark[ii].parentNode.addEventListener('touchstart', MarkerAddMouseMove, true);
 
 		//----
 		// mouse up/mouse out
 		//----
-		arrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
-		arrMark[ii].addEventListener('touchend', MarkerRemoveMouseMove, true);
-		arrMark[ii].parentNode.addEventListener('touchend', MarkerRemoveMouseMove, true);
+		larrMark[ii].addEventListener('mouseup', MarkerRemoveMouseMove, true);
+		larrMark[ii].addEventListener('touchend', MarkerRemoveMouseMove, true);
+		larrMark[ii].parentNode.addEventListener('touchend', MarkerRemoveMouseMove, true);
+	}
+	
+	//----
+	// loop through value ranges
+	//----
+	for(var ii = 0; ii < larrValue.length; ii++) {
+		//----
+		// set events for touchmove and to add/remove the mousemove
+		//----
+		larrValue[ii].addEventListener('touchmove', ValueMouseMove, true);
+		larrValue[ii].addEventListener('mousedown', ValueAddMouseMove, true);
+		larrValue[ii].addEventListener('mouseup', ValueRemoveMouseMove, true);
 	}
 	
 	//----
