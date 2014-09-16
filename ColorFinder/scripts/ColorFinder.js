@@ -56,6 +56,7 @@ var gintMarkerOffset = -5;
 var ColorObject = function (vstrID) {
 	var self = this;
 	var lobjHueMark = document.getElementById('hueMark');
+	var lobjHueValue = document.getElementById('txtHueValue');
 	var lobjContrastOffset = document.getElementById('txtContrastOffset');
 	
 	//----
@@ -63,8 +64,9 @@ var ColorObject = function (vstrID) {
 	//----
 	this.Alpha = 1.0;
 	this.Blue = null;
-	this.Hue = lobjHueMark.style.left != "" ? 
-		parseInt(lobjHueMark.style.left) - gintMarkerOffset : 0;
+	//~ this.Hue = lobjHueMark.style.left != "" ? 
+		//~ parseInt(lobjHueMark.style.left) - gintMarkerOffset : 0;
+	this.Hue = parseInt(lobjHueValue.value);
 	this.Green = null;
 	this.Id = vstrID;
 	this.Level = null;
@@ -108,18 +110,18 @@ var ColorObject = function (vstrID) {
 			break;
 		
 		case 'shade':			// Pure color mixed with black (level < 50%)
-			this.Level = ((parseInt(this.Mark.style.left) % 50) - gintMarkerOffset) + '%';
+			this.Level = parseInt(document.getElementById('txtShadeValue').value) + '%';
 			this.Saturation = '100%';
 			break;
 		
 		case 'tint':			// Pure color mixed with white (level > 50%)
-			this.Level = ((parseInt(this.Mark.style.left) - gintMarkerOffset) % 50 + 50) + '%';
+			this.Level = parseInt(document.getElementById('txtTintValue').value) + '%';
 			this.Saturation = '100%';
 			break;
 		
 		case 'tone':			// Pure color desaturated (saturation < 100%)
-			this.Level = '50%';
-			this.Saturation = (parseInt(this.Mark.style.left) - gintMarkerOffset) + '%';
+			this.Level = parseInt(document.getElementById('txtToneLevel').value) + '%';
+			this.Saturation = parseInt(document.getElementById('txtToneValue').value) + '%';
 			break;
 	}
 	
@@ -294,7 +296,7 @@ ColorObject.prototype.HueToRGB = function (vdblAdjLevel, vdblAdjSaturation, vdbl
 		ldblAdjHue = vdblAdjHue + 1;
 	}
 	
-	if (vdblAdjHue > 0) {
+	if (vdblAdjHue > 1) {
 		ldblAdjHue = vdblAdjHue - 1;
 	}
 	
@@ -529,7 +531,7 @@ function SetColors() {
 	//----
 	// get references to tiles
 	//----
-	var lobjHueTile = document.getElementByID('hue');
+	var lobjHueTile = document.getElementById('hue');
 }
 
 
@@ -613,6 +615,10 @@ function ValueMouseMove() {
 	//----
 	// set objects
 	//----
+	var lobjColorHue = new ColorObject('hue');
+	var lobjColorShade = new ColorObject('shade');
+	var lobjColorTint = new ColorObject('tint');
+	var lobjColorTone = new ColorObject('tone');
 	var lobjContrast = new ColorObject('contrast');
 	var lobjContrastLeft = new ColorObject('contrastLeft');
 	var lobjContrastRight = new ColorObject('contrastRight');
@@ -620,7 +626,7 @@ function ValueMouseMove() {
 	//----
 	// update the screen with the new offset values
 	//----
-	UpdateScreen([lobjContrast, lobjContrastLeft, lobjContrastRight]);
+	UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone, lobjContrast, lobjContrastLeft, lobjContrastRight]);
 	
 	return;
 }
@@ -764,15 +770,20 @@ window.addEventListener('load', function () {
 			//----
 			if (typeof lobjHue == "object") {
 				document.getElementById('hueMark').style.left = (lobjHue.h + gintMarkerOffset) + 'px';
+				document.getElementById('txtHueValue').value = lobjHue.h;
 			}
 			if (typeof lobjShade == "object") {
 				document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
+				document.getElementById('txtShadeValue').value = lobjShade.l;
 			}
 			if (typeof lobjTint == "object") {
 				document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
+				document.getElementById('txtTintValue').value = lobjTint.l;
 			}
 			if (typeof lobjTone == "object") {
 				document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
+				document.getElementById('txtToneValue').value = lobjTone.s;
+				document.getElementById('txtToneLevel').value = lobjTone.l;
 			}
 
 			lobjColorHue =   new ColorObject('hue');

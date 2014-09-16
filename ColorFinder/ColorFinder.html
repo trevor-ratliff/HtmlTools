@@ -79,7 +79,7 @@
 		<article>
 			<div id="hue" class="tile">
 				<div id="hueDisplay" class="display">
-					<span>Hue:</span><input type="text" id="txtHueValue" class="value" /><br>
+					<span>Hue:</span><br>
 					<input type="hidden" id="hdnHueValue" value="" />
 					<span id="hueWeb" class="web"></span><br>
 					<span id="hueRgb" class="rgb"></span><br>
@@ -89,11 +89,12 @@
 				<div id="hueControls" class="controls">
 					<div id="hueMark" class="mark" markmin="-5" markmax="354"></div>
 				</div>
+				<input type="range" id="txtHueValue" min="0" max="359" class="value" />
 			</div>
 
 			<div id="shade" class="tile">
 				<div id="shadeDisplay" class="display">
-					<span>Shade:</span><input type="text" id="txtShadeValue" class="value" /><br>
+					<span>Shade:</span><br>
 					<input type="hidden" id="hdnShadeValue" value="" />
 					<span id="shadeWeb" class="web"></span><br>
 					<span id="shadeRgb" class="rgb"></span><br>
@@ -103,11 +104,12 @@
 				<div id="shadeControls" class="controls">
 					<div id="shadeMark" class="mark" markmin="-5" markmax="45"></div>
 				</div>
+				<input type="range" id="txtShadeValue" min="0" max="49" class="value" />
 			</div>
 
 			<div id="tone" class="tile">
 				<div id="toneDisplay" class="display">
-					<span>Tone:</span><input type="text" id="txtToneValue" class="value" /><br>
+					<span>Tone:</span><br>
 					<input type="hidden" id="hdnToneValue" value="" />
 					<span id="toneWeb" class="web"></span><br>
 					<span id="toneRgb" class="rgb"></span><br>
@@ -117,11 +119,13 @@
 				<div id="toneControls" class="controls">
 					<div id="toneMark" class="mark" markmin="-5" markmax="95"></div>
 				</div>
+				<input type="range" id="txtToneValue" min="0" max="100" class="value" />
+				<input type="range" id="txtToneLevel" min="0" max="100" class="value" />
 			</div>
 
 			<div id="tint" class="tile">
 				<div id="tintDisplay" class="display">
-					<span>Tint:</span><input type="text" id="txtTintValue" class="value" /><br>
+					<span>Tint:</span><br>
 					<input type="hidden" id="hdnTintValue" value="" />
 					<span id="tintWeb" class="web"></span><br>
 					<span id="tintRgb" class="rgb"></span><br>
@@ -131,6 +135,7 @@
 				<div id="tintControls" class="controls">
 					<div id="tintMark" class="mark" markmin="-5" markmax="45"></div>
 				</div>
+				<input type="range" id="txtTintValue" min="51" max="100" class="value" />
 			</div>
 			<br style="clear: both;">
 		</article>

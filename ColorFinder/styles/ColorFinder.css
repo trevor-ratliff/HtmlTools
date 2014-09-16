@@ -123,13 +123,13 @@ aside {
 	border-radius: 3px;
 	color: hsla(120, 50%, 50%, 1.0);
 	float: left;
-	height: 21ex;
+	/* height: 21ex; */
 	margin: 0ex 1ex 1ex 0ex;
 	padding: 0.4ex;
 	width: 35ex;
 }
 
 .value {
-	margin: 0px 5px;
-	width: 90%;
+	margin: 0px 0px;
+	width: 100%;
 }
