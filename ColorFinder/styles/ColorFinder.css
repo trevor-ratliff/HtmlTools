@@ -81,8 +81,9 @@ aside {
 .controls {
 	background-color: hsla(0, 10%, 90%, 1.0);
 	border: 1px solid hsla(0, 50%, 50%, 1.0);
-	border-radius: 3px;
+	border-radius: 4px;
 	color: hsla(0, 50%, 50%, 1.0);
+	display: none;
 	height: 2ex;
 	width: calc(100px * 1);
 }
@@ -103,10 +104,11 @@ aside {
 	border-left: 0.5ex solid hsla(0, 50%, 50%, 0.0);
 	border-right: 0.5ex solid hsla(0, 50%, 50%, 0.0);
 	border-top: 0ex solid hsla(0, 50%, 50%, 0.0);
+	border-radius: 2px;
 	height: 0ex;
 	left: -5px;
 	position: relative;
-	width: 1ex;
+	width: 0.5ex;
 	z-index: 10;
 }
 

@@ -20,7 +20,7 @@
 //====
 var gintMouseX = 0;
 var gintMouseY = 0;
-var gintMarkerOffset = -5;
+var gintMarkerOffset = -2;
 
 //====
 /// @class ColorObject
@@ -491,7 +491,7 @@ function MoveMarker(){
 	//----
 	// if the event object exists move mark
 	//----
-	if(!isNaN(lintOffsetX) && (lintMin < lintNewX) && (lintNewX < lintMax)) {
+	if(!isNaN(lintOffsetX) && (lintMin < (lintNewX - gintMarkerOffset)) && (lintNewX < (lintMax + gintMarkerOffset))) {
 		//----
 		// move 'this' left or right with the mouse
 		//----
@@ -567,6 +567,7 @@ function UpdateScreen(vobjColors) {
 			//----
 			// set description data
 			//----
+			vobjColors[lintII].Display.querySelector('.web').innerHTML = vobjColors[lintII].GetColorWeb().string;
 			vobjColors[lintII].Display.querySelector('.rgb').innerHTML = vobjColors[lintII].GetColorRGB().string;
 			vobjColors[lintII].Display.querySelector('.hsl').innerHTML = vobjColors[lintII].GetColor().string;
 		}
@@ -774,16 +775,16 @@ window.addEventListener('load', function () {
 			}
 			if (typeof lobjShade == "object") {
 				document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
-				document.getElementById('txtShadeValue').value = lobjShade.l;
+				document.getElementById('txtShadeValue').value = parseInt(lobjShade.l);
 			}
 			if (typeof lobjTint == "object") {
 				document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
-				document.getElementById('txtTintValue').value = lobjTint.l;
+				document.getElementById('txtTintValue').value = parseInt(lobjTint.l);
 			}
 			if (typeof lobjTone == "object") {
 				document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
-				document.getElementById('txtToneValue').value = lobjTone.s;
-				document.getElementById('txtToneLevel').value = lobjTone.l;
+				document.getElementById('txtToneValue').value = parseInt(lobjTone.s);
+				document.getElementById('txtToneLevel').value = parseInt(lobjTone.l);
 			}
 
 			lobjColorHue =   new ColorObject('hue');
@@ -794,7 +795,8 @@ window.addEventListener('load', function () {
 			//----
 			// refresh screen
 			//----
-			UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone]);
+			//~ UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone]);
+			ValueMouseMove();
 
 		} catch (err) {
 			alert('something went wrong with restoring your colors.\n\n' + err.toString());
