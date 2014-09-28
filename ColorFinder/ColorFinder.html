@@ -41,29 +41,127 @@
 					<span>Contrast Offset:</span><br><input type="range" id="txtContrastOffset" value="45" min="15" max="120" class="value" />
 				</div>
 
-				<div id="contrast" class="tile">
-					<div>Contrast</div>
-					<div id="contrastDisplay" class="display">
-						<input type="hidden" id="hdnContrastValue" value="" />
-						<span id="contrastWeb" class="web"></span><br>
-						<span id="contrastRgb" class="rgb"></span><br>
-						<span id="contrastHsl" class="hsl"></span><br>
+				<div id="contrastContainer" class="container">
+					<p>Contrast</p>
+					<div id="contrast" class="tile wide">
+						<div id="contrastDisplay" class="display">
+							<input type="hidden" id="hdnContrastValue" value="" />
+							<span id="contrastWeb" class="web"></span><br>
+							<span id="contrastRgb" class="rgb"></span><br>
+							<span id="contrastHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastColor" class="color"></div>
 					</div>
-					<div id="contrastColor" class="color"></div>
+					<div id="contrastShade" class="tile">
+						<div id="contrastShadeDisplay" class="display">
+							<input type="hidden" id="hdncontrastShadeValue" value="" />
+							<span id="contrastShadeWeb" class="web"></span><br>
+							<span id="contrastShadeRgb" class="rgb"></span><br>
+							<span id="contrastShadeHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastShadeColor" class="color"></div>
+					</div>
+					<div id="contrastTone" class="tile">
+						<div id="contrastToneDisplay" class="display">
+							<input type="hidden" id="hdncontrastToneValue" value="" />
+							<span id="contrastToneWeb" class="web"></span><br>
+							<span id="contrastToneRgb" class="rgb"></span><br>
+							<span id="contrastToneHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastToneColor" class="color"></div>
+					</div>
+					<div id="contrastTint" class="tile last">
+						<div id="contrastTintDisplay" class="display">
+							<input type="hidden" id="hdncontrastTintValue" value="" />
+							<span id="contrastTintWeb" class="web"></span><br>
+							<span id="contrastTintRgb" class="rgb"></span><br>
+							<span id="contrastTintHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastTintColor" class="color"></div>
+					</div>
 				</div>
 
-				<div id="contrastLeft" class="tile">
-					<div>Contrast Left</div>
-					<div id="contrastLeftDisplay" class="display">
-						<input type="hidden" id="hdnContrastLeftValue" value="" />
-						<span id="contrastLeftWeb" class="web"></span><br>
-						<span id="contrastLeftRgb" class="rgb"></span><br>
-						<span id="contrastLeftHsl" class="hsl"></span><br>
+				<div id="contrastLeftContainer" class="container">
+					<p>Left of Contrast</p>
+					<div id="contrastLeft" class="tile wide">
+						<div id="contrastLeftDisplay" class="display">
+							<input type="hidden" id="hdnContrastLeftValue" value="" />
+							<span id="contrastLeftWeb" class="web"></span><br>
+							<span id="contrastLeftRgb" class="rgb"></span><br>
+							<span id="contrastLeftHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastLeftColor" class="color"></div>
 					</div>
-					<div id="contrastLeftColor" class="color"></div>
+					<div id="contrastLeftShade" class="tile">
+						<div id="contrastLeftShadeDisplay" class="display">
+							<input type="hidden" id="hdncontrastLeftShadeValue" value="" />
+							<span id="contrastLeftShadeWeb" class="web"></span><br>
+							<span id="contrastLeftShadeRgb" class="rgb"></span><br>
+							<span id="contrastLeftShadeHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastLeftShadeColor" class="color"></div>
+					</div>
+					<div id="contrastLeftTone" class="tile">
+						<div id="contrastLeftToneDisplay" class="display">
+							<input type="hidden" id="hdncontrastLeftToneValue" value="" />
+							<span id="contrastLeftToneWeb" class="web"></span><br>
+							<span id="contrastLeftToneRgb" class="rgb"></span><br>
+							<span id="contrastLeftToneHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastLeftToneColor" class="color"></div>
+					</div>
+					<div id="contrastLeftTint" class="tile last">
+						<div id="contrastLeftTintDisplay" class="display">
+							<input type="hidden" id="hdncontrastLeftTintValue" value="" />
+							<span id="contrastLeftTintWeb" class="web"></span><br>
+							<span id="contrastLeftTintRgb" class="rgb"></span><br>
+							<span id="contrastLeftTintHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastLeftTintColor" class="color"></div>
+					</div>
 				</div>
 
-				<div id="contrastRight" class="tile">
+				<div id="contrastRightContainer" class="container">
+					<p>Right of Contrast</p>
+					<div id="contrastRight" class="tile wide">
+						<div id="contrastRightDisplay" class="display">
+							<input type="hidden" id="hdncontrastRightValue" value="" />
+							<span id="contrastRightWeb" class="web"></span><br>
+							<span id="contrastRightRgb" class="rgb"></span><br>
+							<span id="contrastRightHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastRightColor" class="color"></div>
+					</div>
+					<div id="contrastRightShade" class="tile">
+						<div id="contrastRightShadeDisplay" class="display">
+							<input type="hidden" id="hdncontrastRightShadeValue" value="" />
+							<span id="contrastRightShadeWeb" class="web"></span><br>
+							<span id="contrastRightShadeRgb" class="rgb"></span><br>
+							<span id="contrastRightShadeHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastRightShadeColor" class="color"></div>
+					</div>
+					<div id="contrastRightTone" class="tile">
+						<div id="contrastRightToneDisplay" class="display">
+							<input type="hidden" id="hdncontrastRightToneValue" value="" />
+							<span id="contrastRightToneWeb" class="web"></span><br>
+							<span id="contrastRightToneRgb" class="rgb"></span><br>
+							<span id="contrastRightToneHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastRightToneColor" class="color"></div>
+					</div>
+					<div id="contrastRightTint" class="tile last">
+						<div id="contrastRightTintDisplay" class="display">
+							<input type="hidden" id="hdncontrastRightTintValue" value="" />
+							<span id="contrastRightTintWeb" class="web"></span><br>
+							<span id="contrastRightTintRgb" class="rgb"></span><br>
+							<span id="contrastRightTintHsl" class="hsl"></span><br>
+						</div>
+						<div id="contrastRightTintColor" class="color"></div>
+					</div>
+				</div>
+
+				<!-- <div id="contrastRight" class="tile">
 					<div>Contrast Right</div>
 					<div id="contrastRightDisplay" class="display">
 						<input type="hidden" id="hdnContrastRightValue" value="" />
@@ -72,12 +170,12 @@
 						<span id="contrastRightHsl" class="hsl"></span><br>
 					</div>
 					<div id="contrastRightColor" class="color"></div>
-				</div>
+				</div> -->
 			</div>
 		</aside>
 
 		<article>
-			<div id="hue" class="tile">
+			<div id="hue" class="tile wide">
 				<div id="hueDisplay" class="display">
 					<span>Hue:</span><br>
 					<input type="hidden" id="hdnHueValue" value="" />
@@ -123,7 +221,7 @@
 				<input type="range" id="txtToneLevel" min="0" max="100" class="value" />
 			</div>
 
-			<div id="tint" class="tile">
+			<div id="tint" class="tile last">
 				<div id="tintDisplay" class="display">
 					<span>Tint:</span><br>
 					<input type="hidden" id="hdnTintValue" value="" />

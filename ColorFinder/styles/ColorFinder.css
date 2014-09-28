@@ -53,6 +53,10 @@ aside {
 	color: hsla(120, 90%, 10%, 1.0);
 }
 
+#hue {
+	min-width: 360px;
+}
+
 #hue .controls {
 	width: 360px;
 }
@@ -65,6 +69,10 @@ aside {
 	margin-top: 0ex;
 }
 
+#tint {
+	margin-right: 0ex;
+}
+
 /****
 * classes
 ****/
@@ -74,17 +82,31 @@ aside {
 	border-radius: 3px;
 	color: hsla(60, 50%, 50%, 1.0);
 	height: 18ex;
+	left: 0px;
 	margin-bottom: 0.4ex;
-	width: 18ex;
+	position: relative;
+	/* top: 0px; */
+	width: calc(100% - 2px);
+	z-index: 10;
+}
+
+.container .tile {
+	height: 6em;
+}
+
+.container .color {
+	height: calc(100% - 4px);
 }
 
 .controls {
 	background-color: hsla(0, 10%, 90%, 1.0);
 	border: 1px solid hsla(0, 50%, 50%, 1.0);
 	border-radius: 4px;
+	bottom: 0px;
 	color: hsla(0, 50%, 50%, 1.0);
 	display: none;
 	height: 2ex;
+	position: absolute;
 	width: calc(100px * 1);
 }
 
@@ -93,10 +115,18 @@ aside {
 	border: 1px solid hsla(180, 50%, 50%, 1.0);
 	border-radius: 3px;
 	color: hsla(180, 0%, 0%, 1.0);
-	float: right;
-	height: 18ex;
+	/* float: right; */
+	height: calc(80% - 1em);
+	left: 10%;
 	margin-bottom: 0.4ex;
-	width: 16ex;
+	top: 10%;
+	width: 80%;
+	position: absolute;
+	z-index: 1;
+}
+
+.last {
+	margin-right: 0ex !important;
 }
 
 .mark {
@@ -123,15 +153,21 @@ aside {
 	background-color: hsla(120, 10%, 90%, 1.0);
 	border: 1px solid hsla(120, 50%, 50%, 1.0);
 	border-radius: 3px;
+	box-sizing: border-box;
 	color: hsla(120, 50%, 50%, 1.0);
 	float: left;
-	/* height: 21ex; */
+	height: 21ex;
 	margin: 0ex 1ex 1ex 0ex;
 	padding: 0.4ex;
-	width: 35ex;
+	width: calc(33.3% - 0.68ex);
+	position: relative;
 }
 
 .value {
 	margin: 0px 0px;
 	width: 100%;
+}
+
+.wide {
+	width: 100% !important;
 }

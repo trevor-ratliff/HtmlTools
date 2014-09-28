@@ -361,6 +361,36 @@ ColorObject.prototype.Pad = function (vstrValue, vintPlaces, vstrCharacter, vbln
 };
 
 
+function ColorClick (event) {
+    var lobjDisplay = event.currentTarget.parentNode.querySelector('.display');
+    lobjDisplay.style.zIndex = 10;
+    event.currentTarget.style.zIndex = 1;
+}
+
+
+function ColorTouchStart(event) {
+}
+
+
+function ColorTouchEnd  (event) {
+}
+
+
+function DisplayClick  (event) {
+    var lobjColor = event.currentTarget.parentNode.querySelector('.color');
+    lobjColor.style.zIndex = 10;
+    event.currentTarget.style.zIndex = 1;
+}
+
+
+function DisplayTouchStart(event) {
+}
+
+
+function DisplayTouchEnd  (event) {
+}
+
+
 //====
 /// @fn MarkerAddMouseMove()
 /// @brief adds the MoveMarker event listener to the marker
@@ -721,11 +751,12 @@ window.addEventListener('load', function () {
 	var lobjColorTone =  null;
 	var larrMark = document.querySelectorAll('.mark');
 	var larrValue = document.querySelectorAll('.value');
+    var larrTile = document.querySelectorAll('.tile');
 	
 	//----
 	// loop through markers
 	//----
-	for(var ii = 0; ii < larrMark.length; ii++) {
+	for (var ii = 0; ii < larrMark.length; ii++) {
 		//----
 		// mouse down/mouse over
 		//----
@@ -744,7 +775,7 @@ window.addEventListener('load', function () {
 	//----
 	// loop through value ranges
 	//----
-	for(var ii = 0; ii < larrValue.length; ii++) {
+	for (var ii = 0; ii < larrValue.length; ii++) {
 		//----
 		// set events for touchmove and to add/remove the mousemove
 		//----
@@ -752,6 +783,29 @@ window.addEventListener('load', function () {
 		larrValue[ii].addEventListener('mousedown', ValueAddMouseMove, true);
 		larrValue[ii].addEventListener('mouseup', ValueRemoveMouseMove, true);
 	}
+    
+    //----
+    // loop through tiles attaching mouseover/touchstart & mouseout/touchend
+    //   to 'color' and 'display' elements
+    //----
+    for (var ii = 0; ii < larrTile.length; ii++) {
+        var lobjColor = larrTile[ii].querySelector('.color');
+        var lobjDisplay = larrTile[ii].querySelector('.display');
+        
+        //----
+        // add listeners to color
+        //----
+        lobjColor.addEventListener('click',  ColorClick, true);
+        lobjColor.addEventListener('touchstart', ColorTouchStart, true);
+        lobjColor.addEventListener('touchend',   ColorTouchEnd, true);
+        
+        //----
+        // add listeners to display
+        //----
+        lobjDisplay.addEventListener('click',   DisplayClick, true);
+        lobjDisplay.addEventListener('touchstart', DisplayTouchStart, true);
+        lobjDisplay.addEventListener('touchend',   DisplayTouchEnd, true);
+    }
 	
 	//----
 	// restore colors
