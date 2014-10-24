@@ -128,7 +128,7 @@ var ColorObject = function (vstrID) {
 	//----
 	// calculate red, green, blue
 	//----
-	this.CalcRGB();
+	this.CalcRGB2();
 	
 	return;
 };
@@ -176,6 +176,26 @@ ColorObject.prototype.CalcRGB = function () {
 	this.Red = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue + (1/3));
 	this.Green = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue);
 	this.Blue = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue - (1/3));
+};
+
+ColorObject.prototype.CalcRGB2 = function () {
+	var H = this.Hue; 
+	var S = parseInt(this.Saturation) / 100; 
+	var L = parseInt(this.Level) / 100; 
+	
+	var R1 = Math.sin(H) * L; 
+	var G1 = Math.sin(H + 120) * L; 
+	var B1 = Math.sin(H + 240) * L; 
+	
+	var Average = (R1 + G1 + B1) / 3; 
+	
+	var R2 = ((R1 - Average) * S) + Average; 
+	var G2 = ((G1 - Average) * S) + Average; 
+	var B2 = ((B1 - Average) * S) + Average; 
+	
+	this.Red =   Math.round(R2 * 255); 
+	this.Green = Math.round(G2 * 255); 
+	this.Blue =  Math.round(B2 * 255);
 };
 
 
