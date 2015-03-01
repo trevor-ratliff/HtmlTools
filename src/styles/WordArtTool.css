@@ -120,12 +120,14 @@
 * ids
 ****/
 #alphaTray {
-	float: right;
-	margin-right: 10px;
-	width: 10ex;
 	border: 1px solid #009900;
+	float: right;
 	font-family: arial;
 	font-size: 10ex;
+	height: calc(100% - 5rem);
+	margin-right: 10px;
+	overflow: auto;
+	width: 10ex;
 }
 
 
@@ -151,6 +153,21 @@
 }
 
 
+#input {
+	font-size: 1rem;
+}
+
+
+#input>input {
+	width: calc(100% - 6em);
+}
+
+
+#input>button {
+	width: 5em;
+}
+
+
 #toolbox {
 	float: right;
 	margin-right: 10px;
@@ -171,7 +188,24 @@
 body {
 	font-family: arial;
 	font-size: 2ex;
+	height: calc(100% - 2rem);
+	margin: 1rem;
+	top: 5rem;
 	-webkit-print-color-adjust:exact;
+	width: calc(100% - 2rem);
+}
+
+
+div {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+
+html {
+	height: 100%;
+	padding: 0ex;
+	margin: 0ex;
 }
 
 

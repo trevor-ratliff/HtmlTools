@@ -53,24 +53,24 @@ jQuery(document).ready(function() {
 		 gintY = e.pageY;
 		 //~ $('#mousePos').html(e.pageX +', '+ e.pageY);
 		 $('#mousePos').html('mouse: ' + gintX.toString() +', '+ 
-			  gintY.toString());
+				gintY.toString());
 		 
 		 $('#debug_message').html(
-			  "Letter Count: " + gintLetterCount.toString() + '<br />' +
-			  "HasLetter: " + gblnHasLetter.toString() + '<br />' +
-			  "CurrentLetter: '" + gstrCurrentLetter + "'" + '<br />' +
-			  "IsRotating: " + gblnIsRotating.toString() + '<br />' +
-			  "RotStartY: " + gintRotStartY.toString() + '<br />' +
-			  "Rotation: " + (gintRotStartY - gintY).toString());
+				"Letter Count: " + gintLetterCount.toString() + '<br />' +
+				"HasLetter: " + gblnHasLetter.toString() + '<br />' +
+				"CurrentLetter: '" + gstrCurrentLetter + "'" + '<br />' +
+				"IsRotating: " + gblnIsRotating.toString() + '<br />' +
+				"RotStartY: " + gintRotStartY.toString() + '<br />' +
+				"Rotation: " + (gintRotStartY - gintY).toString());
 		 
 		 //----
 		 // if gblnHasLetter then move the element
 		 //----
 		 if (gblnHasLetter) {
-			  $('#' + gstrCurrentLetter)[0].style['top'] = (gintY - Math.floor(
+				$('#' + gstrCurrentLetter)[0].style['top'] = (gintY - Math.floor(
 					$('#' + gstrCurrentLetter)[0].offsetHeight / 2)).toString() +
 					'px';
-			  $('#' + gstrCurrentLetter)[0].style['left'] = (gintX - Math.floor(
+				$('#' + gstrCurrentLetter)[0].style['left'] = (gintX - Math.floor(
 					$('#' + gstrCurrentLetter)[0].offsetHeight / 2)).toString() +
 					'px';
 		 }
@@ -79,9 +79,9 @@ jQuery(document).ready(function() {
 		 // if gblnIsRotating then rotate the element
 		 //----
 		 if (gblnIsRotating) {
-			  //~ $('#' + gstrCurrentLetter).css('-webkit-transform', 'rotate(' + 
+				//~ $('#' + gstrCurrentLetter).css('-webkit-transform', 'rotate(' + 
 					//~ gintRotStartY - gintY + 'deg)');
-			  $('#' + gstrCurrentLetter)[0].style.webkitTransform = 
+				$('#' + gstrCurrentLetter)[0].style.webkitTransform = 
 					"rotate(" + (gintY - gintRotStartY).toString() + "deg)";
 		 }
 	} );
@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
 	// letter click
 	//----
 	$('.letter').each( function( lintIndex ) { 
-			  this.addEventListener('click', LetterStart, false);
+				this.addEventListener('click', LetterStart, false);
 		 }
 	);
 	
@@ -141,6 +141,34 @@ jQuery(document).ready(function() {
 	//----
 	$('#board')[0].addEventListener('click', RotateLetterEnd, false);
 });
+
+
+//====
+/// @fn ImportText()
+/// @brief adds the letters in the txtImport element to the board
+/// @author Trevor Ratliff
+/// @date 2015-02-28
+/// @return 
+// 
+// 
+// 
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2015-02-28  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  | 
+///         function creation  |
+/// @endverbatim
+//====
+function ImportText() {
+	var lstrText = $('#txtImport')[0].value;
+	
+	try {
+	} catch (ex) {
+		//----
+		// 
+		//----
+	}
+	
+	return;
+}
 
 
 //====
@@ -327,9 +355,9 @@ function LetterBgColor(vobjMouseEvent) {
 //====
 function LetterBorder(vobjMouseEvent) {
 	$('.letter').each( function( lintIndex ) { 
-			  this.style['borderColor'] = $('#watBorderColor')[0].value; 
-			  this.style['borderWidth'] = $('#watBorderSize')[0].value + 'px'; 
-			  this.style['borderStyle'] = $('#watBorderStyle')[0].value; 
+				this.style['borderColor'] = $('#watBorderColor')[0].value; 
+				this.style['borderWidth'] = $('#watBorderSize')[0].value + 'px'; 
+				this.style['borderStyle'] = $('#watBorderStyle')[0].value; 
 		 }
 	);
 }
@@ -398,7 +426,7 @@ function BoardBorder(vobjMouseEvent) {
 		 $('#watBoardBorderSize')[0].value +'px';
 	//~ $('#board')[0].style['borderStyle'] = 
 		 //~ $('#watBoardBorderStyle')[0].options[
-			  //~ $('#watBoardBorderStyle')[0].selectedIndex].value;
+				//~ $('#watBoardBorderStyle')[0].selectedIndex].value;
 	$('#board')[0].style['borderStyle'] = 
 		 $('#watBoardBorderStyle')[0].value;
 }
