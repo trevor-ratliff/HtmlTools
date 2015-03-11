@@ -82,7 +82,7 @@
 				//----
 				// generate music
 				//----
-				var gobjMusic = new List.LI(new MusicNotes.Note(
+				gobjMusic = new List.LI(new MusicNotes.Note(
 					MusicNotes.MaxMinRandom(400, 400, 400),		//frequency
 					MusicNotes.MaxMinRandom(250, 750, 240),		//duration
 					MusicNotes.MaxMinRandom(200, 100,  100),		//max_dev
@@ -108,7 +108,7 @@
 				//----
 				// add a button for playing the music
 				//----
-				gobjMusic.Play = function () {
+				List.LI.prototype.Play = function () {
 					while (gobjMusic._prev) gobjMusic = gobjMusic.MovePrev();
 					while (gobjMusic._next) {
 						gobjMusic._value.Play();
