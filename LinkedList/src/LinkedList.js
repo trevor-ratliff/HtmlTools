@@ -34,10 +34,11 @@ var List = List || {};
 ///       function creation  |
 //====
 List.LI_Int = function (vintValue) {
-  this._value = parseInt(vintValue);
-  if (isNaN(this.value)) { this.value = 0 }
+  'use strict';
+  this._value = parseInt(vintValue, 10);
+  if (isNaN(this.value)) { this.value = 0; }
   return this;
-}
+};
 
 
 //====
@@ -74,6 +75,7 @@ List.LI_Int = function (vintValue) {
 ///       function creation  |
 //====
 List.LI = function (vobjValue) {
+  'use strict';
   //----
   // set _value
   //----
@@ -85,8 +87,7 @@ List.LI = function (vobjValue) {
   this._next = null;
   this._prev = null;
   return this;
-}
-
+};
 
 //====
 /// @property _next
@@ -129,6 +130,7 @@ List.LI = function (vobjValue) {
 /// @endverbatim
 //====
 List.LI.prototype.MoveNext = function () {
+  'use strict';
   //----
   // test for _next property
   //----
@@ -137,7 +139,7 @@ List.LI.prototype.MoveNext = function () {
   } else {
     return this;
   }
-}
+};
 
 
 //====
@@ -157,6 +159,7 @@ List.LI.prototype.MoveNext = function () {
 /// @endverbatim
 //====
 List.LI.prototype.MovePrev = function () {
+  'use strict';
   //----
   // test for _prev property
   //----
@@ -165,7 +168,7 @@ List.LI.prototype.MovePrev = function () {
   } else {
     return this;
   }
-}
+};
 
 
 //====
@@ -186,15 +189,16 @@ List.LI.prototype.MovePrev = function () {
 /// @endverbatim
 //====
 List.LI.prototype.Next = function (robjItem) {
-  var lblnReturn = false;
-  var lobjNextOld = this._next;
+  'use strict';
+  var lblnReturn = false,
+    lobjNextOld = this._next;
 
   try {
     //----
     // make sure robjItem is a List Item
     //----
-    if (typeof robjItem._prev == 'undefined') throw "new object not a List Item";
-    if (typeof robjItem._next == 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._prev === 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._next === 'undefined') throw "new object not a List Item";
 
     //----
     // link in new item
@@ -210,11 +214,11 @@ List.LI.prototype.Next = function (robjItem) {
     lblnReturn = true;
 
   } catch (err) {
-    if(!!console && !!console.log) console.log(err + '\n');
+    if (!!console && !!console.log) console.log(err + '\n');
   }
 
   return lblnReturn;
-}
+};
 
 
 //====
@@ -234,14 +238,15 @@ List.LI.prototype.Next = function (robjItem) {
 /// @endverbatim
 //====
 List.LI.prototype.Next_D = function (robjItem) {
+  'use strict';
   var lblnReturn = false;
 
   try {
     //----
     // test for List Item
     //----
-    if (typeof robjItem._prev == 'undefined') throw "new object not a List Item";
-    if (typeof robjItem._next == 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._prev === 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._next === 'undefined') throw "new object not a List Item";
 
     //----
     // set next item
@@ -259,7 +264,7 @@ List.LI.prototype.Next_D = function (robjItem) {
   }
 
   return lblnReturn;
-}
+};
 
 
 //====
@@ -280,15 +285,16 @@ List.LI.prototype.Next_D = function (robjItem) {
 /// @endverbatim
 //====
 List.LI.prototype.Prev = function (robjItem) {
-  var lblnReturn = false;
-  var lobjPrevOld = this._prev;
+  'use strict';
+  var lblnReturn = false,
+    lobjPrevOld = this._prev;
 
   try {
     //----
     // make sure robjItem is a List Item
     //----
-    if (typeof robjItem._prev == 'undefined') throw "new object not a List Item";
-    if (typeof robjItem._next == 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._prev === 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._next === 'undefined') throw "new object not a List Item";
 
     //----
     // link in new item
@@ -304,11 +310,11 @@ List.LI.prototype.Prev = function (robjItem) {
     lblnReturn = true;
 
   } catch (err) {
-    if(!!console && !!console.log) console.log(err + '\n');
+    if (!!console && !!console.log) console.log(err + '\n');
   }
 
   return lblnReturn;
-}
+};
 
 
 //====
@@ -328,14 +334,15 @@ List.LI.prototype.Prev = function (robjItem) {
 /// @endverbatim
 //====
 List.LI.prototype.Prev_D = function (robjItem) {
+  'use strict';
   var lblnReturn = false;
 
   try {
     //----
     // test for List Item
     //----
-    if (typeof robjItem._prev == 'undefined') throw "new object not a List Item";
-    if (typeof robjItem._next == 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._prev === 'undefined') throw "new object not a List Item";
+    if (typeof robjItem._next === 'undefined') throw "new object not a List Item";
 
     //----
     // link in as previous item
@@ -353,5 +360,25 @@ List.LI.prototype.Prev_D = function (robjItem) {
   }
 
   return lblnReturn;
-}
+};
 
+
+//====
+/// @fn toString()
+/// @brief calls toString on _value and returns that
+/// @author Trevor Ratliff
+/// @date 2015-03-09
+/// @return string -- the value of this list item in a string
+//  
+//  Definitions:
+//  
+/// @verbatim
+///   History:  Date  |  Author  |  Contact  |  Description  |
+///     2015-03-11  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///       method creation  |
+/// @endverbatim
+//====
+List.LI.prototype.toString = function () {
+  'use strict';
+  return this._value.toString();
+};
