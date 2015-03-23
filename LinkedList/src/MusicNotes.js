@@ -114,6 +114,15 @@ MusicNotes.Note.prototype.GenerateNext = function () {
 /// @endverbatim
 //====
 MusicNotes.Note.prototype.Play = function () {
+	/*var context = new webkitAudioContext();	//audio in Chrome
+	var osc = context.createOscillator();
+	var vol = context.createGainNode();
+
+	vol.gain.value = 0.1; // from 0 to 1, 1 full volume, 0 is muted
+	osc.connect(vol); // connect osc to vol
+	vol.connect(context.destination); // connect vol to context distination
+	osc.start(context.currentTime + 3); // start it three seconds from now*/
+
 	if (!!console && !!console.log) console.log('playing: ' + this.toString());
 };
 
