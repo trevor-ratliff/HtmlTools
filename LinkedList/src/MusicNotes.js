@@ -123,9 +123,22 @@ MusicNotes.Note.prototype.Play = function () {
 	vol.connect(context.destination); // connect vol to context distination
 	osc.start(context.currentTime + 3); // start it three seconds from now*/
 
+	var context = null;
+
+	if (AudioContext) {
+		context = new AudioContext();
+	} else if (webkitAudioContext) {
+		context = new webkitAudioContext;
+	} else {
+		if (!!console && !!console.log) console.log('playing: ' + 
+			this.toString());
+	}
+
+	var osc = (!!context.createOscillator) ? context.createOscillator() : null;
+	var vol = (!!context.createGainNode) ? context.createGainNode() : null;
+
 	if (!!console && !!console.log) console.log('playing: ' + this.toString());
 };
-
 
 //====
 ///	@fn MusicNotes.Note.toString()

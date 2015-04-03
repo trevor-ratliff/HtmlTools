@@ -116,7 +116,7 @@ aside {
 	border-radius: 3px;
 	color: hsla(180, 0%, 0%, 1.0);
 	/* float: right; */
-	height: calc(80% - 1em);
+	/* height: calc(80% - 1em); */
 	left: 10%;
 	margin-bottom: 0.4ex;
 	top: 10%;
@@ -156,7 +156,7 @@ aside {
 	box-sizing: border-box;
 	color: hsla(120, 50%, 50%, 1.0);
 	float: left;
-	height: 21ex;
+	/* height: 21ex; */
 	margin: 0ex 1ex 1ex 0ex;
 	padding: 0.4ex;
 	width: calc(33.3% - 0.68ex);

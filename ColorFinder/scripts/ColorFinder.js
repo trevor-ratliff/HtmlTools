@@ -128,7 +128,7 @@ var ColorObject = function (vstrID) {
 	//----
 	// calculate red, green, blue
 	//----
-	this.CalcRGB2();
+	this.CalcRGB();
 	
 	return;
 };
@@ -140,15 +140,15 @@ var ColorObject = function (vstrID) {
 /// @author Trevor Ratliff
 /// @date 2014-09-11
 /// 
-/// HOW TO RETURN hsl.to.rgb(h, s, l): 
-/// 	SELECT: 
-/// 		l<=0.5: PUT l*(s+1) IN m2
-/// 		ELSE: PUT l+s-l*s IN m2
-/// 	PUT l*2-m2 IN m1
-/// 	PUT hue.to.rgb(m1, m2, h+1/3) IN r
-/// 	PUT hue.to.rgb(m1, m2, h    ) IN g
-/// 	PUT hue.to.rgb(m1, m2, h-1/3) IN b
-/// 	RETURN (r, g, b)
+/// HOW TO RETURN hsl.to.rgb(h, s, l): 	//h, s, l are normalized to 0..1
+///     SELECT: 
+///         l<=0.5: PUT l*(s+1) IN m2
+///         ELSE: PUT l+s-l*s IN m2
+///     PUT l*2-m2 IN m1
+///     PUT hue.to.rgb(m1, m2, h+1/3) IN r
+///     PUT hue.to.rgb(m1, m2, h    ) IN g
+///     PUT hue.to.rgb(m1, m2, h-1/3) IN b
+///     RETURN (r, g, b)
 //  
 //  Definitions:
 //  
@@ -159,29 +159,34 @@ var ColorObject = function (vstrID) {
 /// @endverbatim
 //====
 ColorObject.prototype.CalcRGB = function () {
-	var ldblAdjLevel = 0.0;
-	var ldblAdjSaturation = 0.0;
+	var ldblM1 = 0.0;		//m1
+	var ldblM2 = 0.0;	//m2
 	var ldblLevel = parseInt(this.Level)/100;
 	var ldblSaturation = parseInt(this.Saturation)/100;
 	var ldblHue = (this.Hue % 360)/360;
 	
 	if (ldblLevel <= 0.5) {
-		ldblAdjSaturation = ldblLevel * (ldblSaturation + 1);
+		ldblM2 = ldblLevel * (ldblSaturation + 1);
 	} else {
-		ldblAdjSaturation = (ldblLevel + ldblSaturation) - (ldblLevel * ldblSaturation);
+		ldblM2 = (ldblLevel + ldblSaturation - (ldblLevel * ldblSaturation));
 	}
 	
-	ldblAdjLevel = (ldblLevel * 2) - ldblAdjSaturation;
+	ldblM1 = (ldblLevel * 2) - ldblM2;
 	
-	this.Red = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue + (1/3));
-	this.Green = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue);
-	this.Blue = this.HueToRGB(ldblAdjLevel, ldblAdjSaturation, ldblHue - (1/3));
+	//~ this.Red =   this.HueToRGB(ldblM1, ldblM2, ldblHue + (1/3));
+	//~ this.Green = this.HueToRGB(ldblM1, ldblM2, ldblHue);
+	//~ this.Blue =  this.HueToRGB(ldblM1, ldblM2, ldblHue - (1/3));
+	this.Red =   Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue + (1/3)) * 255);
+	this.Green = Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue) * 255);
+	this.Blue =  Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue - (1/3)) * 255);
+	
+	return;
 };
 
-ColorObject.prototype.CalcRGB2 = function () {
-	var H = this.Hue; 
-	var S = parseInt(this.Saturation) / 100; 
-	var L = parseInt(this.Level) / 100; 
+/* ColorObject.prototype.CalcRGB2 = function () {
+	var H = this.Hue;		// already in degrees (this.Hue * 360) / 100; 
+	var S = parseInt(this.Saturation);		// / 100; 
+	var L = parseInt(this.Level);		// / 100; 
 	
 	var R1 = Math.sin(H) * L; 
 	var G1 = Math.sin(H + 120) * L; 
@@ -197,6 +202,97 @@ ColorObject.prototype.CalcRGB2 = function () {
 	this.Green = Math.round(G2 * 255); 
 	this.Blue =  Math.round(B2 * 255);
 };
+
+ColorObject.prototype.CalcRGB3 = function () {
+	var lintChroma = (1-Math.abs(2*(parseInt(this.Level)/100))) * (parseInt(this.Saturation)/100);
+	var lintHueMod = (this.Hue % 360) / 60;
+	var lint2ndLargest = lintChroma * (1 - Math.abs(lintHueMod % 2 - 1));
+	var lintLightMatch = (parseInt(this.Level)/100) - (0.5 * lintChroma);
+	var lintR = 0;
+	var lintG = 0;
+	var lintB = 0;
+	
+	//----
+	// set lintR, lintG, lintB based on lintHueMod's value
+	//----
+	if (0 <= lintHueMod && lintHueMod < 1) {
+		lintR = lintChroma;
+		lintG = lint2ndLargest;
+		lintB = 0;
+	}
+	
+	if (1 <= lintHueMod && lintHueMod < 2) {
+		lintR = lint2ndLargest;
+		lintG = lintChroma;
+		lintB = 0;
+	}
+	
+	if (2 <= lintHueMod && lintHueMod < 3) {
+		lintR = 0;
+		lintG = lintChroma;
+		lintB = lint2ndLargest;
+	}
+	
+	if (3 <= lintHueMod && lintHueMod < 4) {
+		lintR = 0;
+		lintG = lint2ndLargest;
+		lintB = lintChroma;
+	}
+	
+	if (4 <= lintHueMod && lintHueMod < 5) {
+		lintR = lint2ndLargest;
+		lintG = 0;
+		lintB = lintChroma;
+	}
+	
+	if (5 <= lintHueMod && lintHueMod < 6) {
+		lintR = lintChroma;
+		lintG = 0;
+		lintB = lint2ndLargest;
+	}
+	
+	//----
+	// add lightMatch
+	//----
+	if (isFinite(lintLightMatch)) {
+		lintR += lintLightMatch;
+		lintG += lintLightMatch;
+		lintB += lintLightMatch;
+	}
+	
+	//----
+	// set color RGB
+	//----
+	this.Red = lintR;
+	this.Green = lintG;
+	this.Blue = lintB;
+};
+
+
+ColorObject.prototype.ConvertHslToRgb = function (iHsl) {
+    var min, sv, sextant, fract, vsf;
+
+    var v = (iHsl.l <= 0.5) ? (iHsl.l * (1 + iHsl.s)) : (iHsl.l + iHsl.s - iHsl.l * iHsl.s);
+    if (v === 0)
+        return { Red: 0, Green: 0, Blue: 0 };
+
+    min = 2 * iHsl.l - v;
+    sv = (v - min) / v;
+    var h = (6 * iHsl.h) % 6;
+    sextant = Math.floor(h);
+    fract = h - sextant;
+    vsf = v * sv * fract;
+
+    switch (sextant)
+    {
+        case 0: return { r: v, g: min + vsf, b: min };
+        case 1: return { r: v - vsf, g: v, b: min };
+        case 2: return { r: min, g: v, b: min + vsf };
+        case 3: return { r: min, g: v - vsf, b: v };
+        case 4: return { r: min + vsf, g: min, b: v };
+        case 5: return { r: v, g: min, b: v - vsf };
+    }
+}; */
 
 
 //====
@@ -284,20 +380,22 @@ ColorObject.prototype.GetColorWeb = function () {
 /// @brief converts a hue value to an rgb value
 /// @author Trevor Ratliff
 /// @date 2014-09-12
-/// @param vdblAdjLevel -- m1 in psuedo code below, an adjusted level
-/// @param vdblAdjSaturation -- m2 in the psuedo code below, an adjusted saturation
+/// @param vdblM1 -- an adjusted color saturation value
+/// @param vdblM2 -- an adjusted color lightness value
 /// @param vdblAdjHue -- h in psuedo code below, an adjusted hue
-/// @return double ldblReturn -- a color channel value r, g, or b based on vdblAdjHue
+/// @return double ldblReturn -- a color channel value in the range [0..1]
 /// 
 /// HOW TO RETURN hue.to.rgb(m1, m2, h): 
-/// 	IF h<0: PUT h+1 IN h
-/// 	IF h>1: PUT h-1 IN h
-/// 	IF h*6<1: RETURN m1+(m2-m1)*h*6
-/// 	IF h*2<1: RETURN m2
-/// 	IF h*3<2: RETURN m1+(m2-m1)*(2/3-h)*6
-/// 	RETURN m1
+///     IF h<0: PUT h+1 IN h
+///     IF h>1: PUT h-1 IN h
+///     IF h*6<1: RETURN m1+(m2-m1)*h*6
+///     IF h*2<1: RETURN m2
+///     IF h*3<2: RETURN m1+(m2-m1)*(2/3-h)*6
+///     RETURN m1
 //  
 //  Definitions:
+//		ldblReturn -- return value
+//		ldblAdjHue -- and adjusted hue value
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
@@ -305,9 +403,9 @@ ColorObject.prototype.GetColorWeb = function () {
 ///         function creation from info found at 'http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color'  |
 /// @endverbatim
 //====
-ColorObject.prototype.HueToRGB = function (vdblAdjLevel, vdblAdjSaturation, vdblAdjHue) {
-	var ldblReturn = vdblAdjLevel;
-	var ldblAdjHue = 0.0;
+ColorObject.prototype.HueToRGB = function (vdblM1, vdblM2, vdblAdjHue) {
+	var ldblReturn = vdblM1;
+	var ldblAdjHue = vdblAdjHue;
 	
 	//----
 	// set up hue
@@ -324,18 +422,21 @@ ColorObject.prototype.HueToRGB = function (vdblAdjLevel, vdblAdjSaturation, vdbl
 	// set color channel value
 	//----
 	if (ldblAdjHue * 6 < 1) {
-		ldblReturn = vdblAdjLevel + (vdblAdjSaturation - vdblAdjLevel) * ldblAdjHue * 6;
+		//~ ldblReturn = vdblM1 + (vdblM2 - vdblM1) * ldblAdjHue * 6;
+		return vdblM1 + (vdblM2 - vdblM1) * ldblAdjHue * 6;
 	}
 	
 	if (ldblAdjHue * 2 < 1) {
-		ldblReturn = vdblAdjSaturation;
+		//~ ldblReturn = vdblM2;
+		return vdblM2;
 	}
 	
 	if (ldblAdjHue * 3 < 2) {
-		ldblReturn = vdblAdjLevel + (vdblAdjSaturation - vdblAdjLevel) * ((2/3) - ldblAdjHue) * 6;
+		//~ ldblReturn = vdblM1 + (vdblM2 - vdblM1) * ((2/3) - ldblAdjHue) * 6;
+		return vdblM1 + (vdblM2 - vdblM1) * ((2/3) - ldblAdjHue) * 6;
 	}
 	
-	return Math.round(ldblReturn);
+	return Math.round((ldblReturn) * 255);
 };
 
 
@@ -381,33 +482,73 @@ ColorObject.prototype.Pad = function (vstrValue, vintPlaces, vstrCharacter, vbln
 };
 
 
+//====
+/// @fn ColorClick (event)
+/// @brief when clicking on a color display the  color's info
+/// @author Trevor Ratliff
+/// @date 
+/// @param event -- the node that triggered the event
+/// @return null
+//  
+//  Definitions:
+//      lobjDisplay -- color information node
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     _  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
 function ColorClick (event) {
-    var lobjDisplay = event.currentTarget.parentNode.querySelector('.display');
-    lobjDisplay.style.zIndex = 10;
-    event.currentTarget.style.zIndex = 1;
+	var lobjDisplay = event.currentTarget.parentNode.querySelector('.display');
+	lobjDisplay.style.zIndex = 10;
+	event.currentTarget.style.zIndex = 1;
+	return;
 }
 
 
 function ColorTouchStart(event) {
+	return;
 }
 
 
 function ColorTouchEnd  (event) {
+	return;
 }
 
 
+//====
+/// @fn DisplayClick (event)
+/// @brief hides the color's info
+/// @author Trevor Ratliff
+/// @date 
+/// @param event -- the node that triggered the event
+/// @return null
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     _  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         function creation  |
+/// @endverbatim
+//====
+
 function DisplayClick  (event) {
-    var lobjColor = event.currentTarget.parentNode.querySelector('.color');
-    lobjColor.style.zIndex = 10;
-    event.currentTarget.style.zIndex = 1;
+	var lobjColor = event.currentTarget.parentNode.querySelector('.color');
+	lobjColor.style.zIndex = 10;
+	event.currentTarget.style.zIndex = 1;
+	return;
 }
 
 
 function DisplayTouchStart(event) {
+	return;
 }
 
 
 function DisplayTouchEnd  (event) {
+	return;
 }
 
 
@@ -494,11 +635,13 @@ function MarkerRemoveMouseMove() {
 
 //====
 /// @fn MoveMarker()
-/// @brief 
-/// @author 
+/// @brief moves the color value marker
+/// @author Trevor Ratliff
 /// @date 
 //  
 //  Definitions:
+//      event -- event arguments
+//      lobjE -- the child node with the mark class
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
@@ -771,7 +914,7 @@ window.addEventListener('load', function () {
 	var lobjColorTone =  null;
 	var larrMark = document.querySelectorAll('.mark');
 	var larrValue = document.querySelectorAll('.value');
-    var larrTile = document.querySelectorAll('.tile');
+	var larrTile = document.querySelectorAll('.tile');
 	
 	//----
 	// loop through markers
@@ -802,30 +945,31 @@ window.addEventListener('load', function () {
 		larrValue[ii].addEventListener('touchmove', ValueMouseMove, true);
 		larrValue[ii].addEventListener('mousedown', ValueAddMouseMove, true);
 		larrValue[ii].addEventListener('mouseup', ValueRemoveMouseMove, true);
+		//~ larrValue[ii].addEventListener('change', ValueMouseMove, true);
 	}
-    
-    //----
-    // loop through tiles attaching mouseover/touchstart & mouseout/touchend
-    //   to 'color' and 'display' elements
-    //----
-    for (var ii = 0; ii < larrTile.length; ii++) {
-        var lobjColor = larrTile[ii].querySelector('.color');
-        var lobjDisplay = larrTile[ii].querySelector('.display');
-        
-        //----
-        // add listeners to color
-        //----
-        lobjColor.addEventListener('click',  ColorClick, true);
-        lobjColor.addEventListener('touchstart', ColorTouchStart, true);
-        lobjColor.addEventListener('touchend',   ColorTouchEnd, true);
-        
-        //----
-        // add listeners to display
-        //----
-        lobjDisplay.addEventListener('click',   DisplayClick, true);
-        lobjDisplay.addEventListener('touchstart', DisplayTouchStart, true);
-        lobjDisplay.addEventListener('touchend',   DisplayTouchEnd, true);
-    }
+	
+	//----
+	// loop through tiles attaching mouseover/touchstart & mouseout/touchend
+	//   to 'color' and 'display' elements
+	//----
+	for (var ii = 0; ii < larrTile.length; ii++) {
+		var lobjColor = larrTile[ii].querySelector('.color');
+		var lobjDisplay = larrTile[ii].querySelector('.display');
+		
+		//----
+		// add listeners to color
+		//----
+		lobjColor.addEventListener('click',  ColorClick, true);
+		lobjColor.addEventListener('touchstart', ColorTouchStart, true);
+		lobjColor.addEventListener('touchend',   ColorTouchEnd, true);
+		
+		//----
+		// add listeners to display
+		//----
+		lobjDisplay.addEventListener('click',   DisplayClick, true);
+		lobjDisplay.addEventListener('touchstart', DisplayTouchStart, true);
+		lobjDisplay.addEventListener('touchend',   DisplayTouchEnd, true);
+	}
 	
 	//----
 	// restore colors
