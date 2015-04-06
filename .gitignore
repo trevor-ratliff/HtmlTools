@@ -1,0 +1,55 @@
+######
+## Compiled source
+######
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+
+######
+## blender temp files
+######
+*.blend[1-9]
+**/[Rr]ender/*
+# !**/[Rr]ender/*ico
+# !**/[Rr]ender/*xcf
+# ![Rr]ender/**/*.ico
+# ![Rr]ender/**/*.xcf
+# [Bb]lender/**/[Rr]ender/*.jpg
+# [Bb]lender/**/[Rr]ender/*.gif
+# [Bb]lender/**/[Rr]ender/*.png
+
+
+######
+## OS generated files
+######
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+######
+## always add .ico or .xcf files
+######
+!*.ico
+!*.xcf
+
+
+######
+## jekyll ignore group
+######
+**/_site
+
+
+######
+## vim backups/swaps
+######
+*~
+*.swp

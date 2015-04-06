@@ -149,6 +149,10 @@ aside {
 	border-top: 0ex solid hsla(210, 50%, 50%, 0.0);
 }
 
+.no-show {
+    display: none !important;
+}
+
 .tile {
 	background-color: hsla(120, 10%, 90%, 1.0);
 	border: 1px solid hsla(120, 50%, 50%, 1.0);

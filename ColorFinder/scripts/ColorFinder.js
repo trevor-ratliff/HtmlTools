@@ -92,9 +92,45 @@ var ColorObject = function (vstrID) {
 			this.Saturation = '100%';
 			break;
 		
+		case 'contrastTint':		// opposite of hue on color wheel
+			this.Hue = (this.Hue + 180) % 360;
+			this.Level = parseInt(document.getElementById('txtTintValue').value) + '%';
+			this.Saturation = '100%';
+			break;
+		
+		case 'contrastTone':		// opposite of hue on color wheel
+			this.Hue = (this.Hue + 180) % 360;
+			this.Level = parseInt(document.getElementById('txtToneLevel').value) + '%';
+			this.Saturation = parseInt(document.getElementById('txtToneValue').value) + '%';
+			break;
+		
+		case 'contrastShade':		// opposite of hue on color wheel
+			this.Hue = (this.Hue + 180) % 360;
+			this.Level = parseInt(document.getElementById('txtShadeValue').value) + '%';
+			this.Saturation = '100%';
+			break;
+		
 		case 'contrastLeft':	// opposite of hue minus a set value ~15-30 degrees usually
 			this.Hue = ((this.Hue + 180 - parseInt(lobjContrastOffset.value)) % 360);
 			this.Level = '50%';
+			this.Saturation = '100%';
+			break;
+		
+		case 'contrastLeftTint':	// opposite of hue minus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 - parseInt(lobjContrastOffset.value)) % 360);
+			this.Level = parseInt(document.getElementById('txtTintValue').value) + '%';
+			this.Saturation = '100%';
+			break;
+		
+		case 'contrastLeftTone':	// opposite of hue minus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 - parseInt(lobjContrastOffset.value)) % 360);
+			this.Level = parseInt(document.getElementById('txtToneLevel').value) + '%';
+			this.Saturation = parseInt(document.getElementById('txtToneValue').value) + '%';
+			break;
+		
+		case 'contrastLeftShade':	// opposite of hue minus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 - parseInt(lobjContrastOffset.value)) % 360);
+			this.Level = parseInt(document.getElementById('txtShadeValue').value) + '%';
 			this.Saturation = '100%';
 			break;
 		
@@ -104,13 +140,26 @@ var ColorObject = function (vstrID) {
 			this.Saturation = '100%';
 			break;
 		
-		case 'hue':				// Pure color
-			this.Level = '50%';
+		case 'contrastRightTint':	// opposite of hue plus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 + parseInt(lobjContrastOffset.value)) % 360);
+			this.Level = parseInt(document.getElementById('txtTintValue').value) + '%';
 			this.Saturation = '100%';
 			break;
 		
-		case 'shade':			// Pure color mixed with black (level < 50%)
+		case 'contrastRightTone':	// opposite of hue plus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 + parseInt(lobjContrastOffset.value)) % 360);
+			this.Level = parseInt(document.getElementById('txtToneLevel').value) + '%';
+			this.Saturation = parseInt(document.getElementById('txtToneValue').value) + '%';
+			break;
+		
+		case 'contrastRightShade':	// opposite of hue plus a set value ~15-30 degrees usually
+			this.Hue = ((this.Hue + 180 + parseInt(lobjContrastOffset.value)) % 360);
 			this.Level = parseInt(document.getElementById('txtShadeValue').value) + '%';
+			this.Saturation = '100%';
+			break;
+		
+		case 'hue':				// Pure color
+			this.Level = '50%';
 			this.Saturation = '100%';
 			break;
 		
@@ -123,184 +172,138 @@ var ColorObject = function (vstrID) {
 			this.Level = parseInt(document.getElementById('txtToneLevel').value) + '%';
 			this.Saturation = parseInt(document.getElementById('txtToneValue').value) + '%';
 			break;
+		
+		case 'shade':			// Pure color mixed with black (level < 50%)
+			this.Level = parseInt(document.getElementById('txtShadeValue').value) + '%';
+			this.Saturation = '100%';
+			break;
+
+		default:
+			this.Hue = 0;
+			this.Level = "0%";
+			this.Saturation = "0%";
+			break;
 	}
 	
 	//----
 	// calculate red, green, blue
 	//----
-	this.CalcRGB();
+	this.ConvHls2Rgb();
 	
 	return;
 };
 
 
 //====
-/// @fn ColorObject.CalcRGB()
-/// @brief gets the color in a rgba() format
+/// @fn ColorObject.prototype.ConvHls2Rgb ()
+/// @brief modified from code at: http://stackoverflow.com/a/15750713
 /// @author Trevor Ratliff
-/// @date 2014-09-11
-/// 
-/// HOW TO RETURN hsl.to.rgb(h, s, l): 	//h, s, l are normalized to 0..1
-///     SELECT: 
-///         l<=0.5: PUT l*(s+1) IN m2
-///         ELSE: PUT l+s-l*s IN m2
-///     PUT l*2-m2 IN m1
-///     PUT hue.to.rgb(m1, m2, h+1/3) IN r
-///     PUT hue.to.rgb(m1, m2, h    ) IN g
-///     PUT hue.to.rgb(m1, m2, h-1/3) IN b
-///     RETURN (r, g, b)
+/// @date 2015-04-06
+/// @return bool --lblnReturn
 //  
 //  Definitions:
+//      lblnReturn -- true if successful
 //  
 /// @verbatim
 /// History:  Date  |  Programmer  |  Contact  |  Description  |
-///     2014-09-11  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
-///         function creation from info found at 'http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color'  |
+///     2015-04-06  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |
+///         function creation  |
 /// @endverbatim
 //====
-ColorObject.prototype.CalcRGB = function () {
-	var ldblM1 = 0.0;		//m1
-	var ldblM2 = 0.0;	//m2
-	var ldblLevel = parseInt(this.Level)/100;
-	var ldblSaturation = parseInt(this.Saturation)/100;
-	var ldblHue = (this.Hue % 360)/360;
-	
-	if (ldblLevel <= 0.5) {
-		ldblM2 = ldblLevel * (ldblSaturation + 1);
-	} else {
-		ldblM2 = (ldblLevel + ldblSaturation - (ldblLevel * ldblSaturation));
+ColorObject.prototype.ConvHls2Rgb = function () {	//returns bool
+	"use strict"
+	var lblnReturn = false;
+	var ldblHue = (this.Hue % 360);
+	var ldblSaturation = parseInt(this.Saturation) / 100;
+	var ldblLightness = parseInt(this.Level) / 100;
+	var min, sv, sextant, fract, vsf;
+
+	//----
+	// convert function found on-line to work with current objects
+	//----
+	try {
+		//----
+		// do some stuff
+		//----
+		var v = (ldblLightness <= 0.5) ? 
+			(ldblLightness * (1 + ldblSaturation)) : 
+			(ldblLightness + ldblSaturation - 
+				ldblLightness * ldblSaturation);
+
+		if (v === 0) {
+		    this.Red = 0;
+		    this.Green = 0;
+		    this.Blue = 0;
+
+		    lblnReturn = true;
+		    return lblnReturn;
+		}
+
+		min = 2 * ldblLightness - v;
+		sv = (v - min) / v;
+		var h = ((ldblHue % 360)/60) % 6;
+		sextant = Math.floor(h);
+		fract = h - sextant;
+		vsf = v * sv * fract;
+
+		switch (sextant) {
+			case 0:
+				this.Red =   Math.round(v * 255);
+				this.Green = Math.round((min + vsf) * 255);
+				this.Blue =  Math.round(min * 255);
+				break;
+			case 1:
+				this.Red =   Math.round((v - vsf) * 255);
+				this.Green = Math.round(v * 255);
+				this.Blue =  Math.round(min * 255);
+				break;
+			case 2:
+				this.Red =   Math.round(min * 255);
+				this.Green = Math.round(v * 255);
+				this.Blue =  Math.round((min + vsf) * 255);
+				break;
+			case 3:
+				this.Red =   Math.round(min * 255);
+				this.Green = Math.round((v - vsf) * 255);
+				this.Blue =  Math.round(v * 255);
+				break;
+			case 4:
+				this.Red =   Math.round((min + vsf) * 255);
+				this.Green = Math.round(min * 255);
+				this.Blue =  Math.round(v * 255);
+				break;
+			case 5:
+				this.Red =   Math.round(v * 255);
+				this.Green = Math.round(min * 255);
+				this.Blue =  Math.round((v - vsf) * 255);
+				break;
+			defalut:
+				this.Red = 0;
+				this.Green = 0;
+				this.Blue = 0;
+				break;
+		}
+
+		lblnReturn = true;
+
+	} catch (err) {
+		//----
+		// report error
+		//----
+		if (!!console && !!console.log) 
+			console.log('Error: ' + err.toString());
 	}
-	
-	ldblM1 = (ldblLevel * 2) - ldblM2;
-	
-	//~ this.Red =   this.HueToRGB(ldblM1, ldblM2, ldblHue + (1/3));
-	//~ this.Green = this.HueToRGB(ldblM1, ldblM2, ldblHue);
-	//~ this.Blue =  this.HueToRGB(ldblM1, ldblM2, ldblHue - (1/3));
-	this.Red =   Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue + (1/3)) * 255);
-	this.Green = Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue) * 255);
-	this.Blue =  Math.round(this.HueToRGB(ldblM1, ldblM2, ldblHue - (1/3)) * 255);
-	
-	return;
+
+	return lblnReturn;
 };
-
-/* ColorObject.prototype.CalcRGB2 = function () {
-	var H = this.Hue;		// already in degrees (this.Hue * 360) / 100; 
-	var S = parseInt(this.Saturation);		// / 100; 
-	var L = parseInt(this.Level);		// / 100; 
-	
-	var R1 = Math.sin(H) * L; 
-	var G1 = Math.sin(H + 120) * L; 
-	var B1 = Math.sin(H + 240) * L; 
-	
-	var Average = (R1 + G1 + B1) / 3; 
-	
-	var R2 = ((R1 - Average) * S) + Average; 
-	var G2 = ((G1 - Average) * S) + Average; 
-	var B2 = ((B1 - Average) * S) + Average; 
-	
-	this.Red =   Math.round(R2 * 255); 
-	this.Green = Math.round(G2 * 255); 
-	this.Blue =  Math.round(B2 * 255);
-};
-
-ColorObject.prototype.CalcRGB3 = function () {
-	var lintChroma = (1-Math.abs(2*(parseInt(this.Level)/100))) * (parseInt(this.Saturation)/100);
-	var lintHueMod = (this.Hue % 360) / 60;
-	var lint2ndLargest = lintChroma * (1 - Math.abs(lintHueMod % 2 - 1));
-	var lintLightMatch = (parseInt(this.Level)/100) - (0.5 * lintChroma);
-	var lintR = 0;
-	var lintG = 0;
-	var lintB = 0;
-	
-	//----
-	// set lintR, lintG, lintB based on lintHueMod's value
-	//----
-	if (0 <= lintHueMod && lintHueMod < 1) {
-		lintR = lintChroma;
-		lintG = lint2ndLargest;
-		lintB = 0;
-	}
-	
-	if (1 <= lintHueMod && lintHueMod < 2) {
-		lintR = lint2ndLargest;
-		lintG = lintChroma;
-		lintB = 0;
-	}
-	
-	if (2 <= lintHueMod && lintHueMod < 3) {
-		lintR = 0;
-		lintG = lintChroma;
-		lintB = lint2ndLargest;
-	}
-	
-	if (3 <= lintHueMod && lintHueMod < 4) {
-		lintR = 0;
-		lintG = lint2ndLargest;
-		lintB = lintChroma;
-	}
-	
-	if (4 <= lintHueMod && lintHueMod < 5) {
-		lintR = lint2ndLargest;
-		lintG = 0;
-		lintB = lintChroma;
-	}
-	
-	if (5 <= lintHueMod && lintHueMod < 6) {
-		lintR = lintChroma;
-		lintG = 0;
-		lintB = lint2ndLargest;
-	}
-	
-	//----
-	// add lightMatch
-	//----
-	if (isFinite(lintLightMatch)) {
-		lintR += lintLightMatch;
-		lintG += lintLightMatch;
-		lintB += lintLightMatch;
-	}
-	
-	//----
-	// set color RGB
-	//----
-	this.Red = lintR;
-	this.Green = lintG;
-	this.Blue = lintB;
-};
-
-
-ColorObject.prototype.ConvertHslToRgb = function (iHsl) {
-    var min, sv, sextant, fract, vsf;
-
-    var v = (iHsl.l <= 0.5) ? (iHsl.l * (1 + iHsl.s)) : (iHsl.l + iHsl.s - iHsl.l * iHsl.s);
-    if (v === 0)
-        return { Red: 0, Green: 0, Blue: 0 };
-
-    min = 2 * iHsl.l - v;
-    sv = (v - min) / v;
-    var h = (6 * iHsl.h) % 6;
-    sextant = Math.floor(h);
-    fract = h - sextant;
-    vsf = v * sv * fract;
-
-    switch (sextant)
-    {
-        case 0: return { r: v, g: min + vsf, b: min };
-        case 1: return { r: v - vsf, g: v, b: min };
-        case 2: return { r: min, g: v, b: min + vsf };
-        case 3: return { r: min, g: v - vsf, b: v };
-        case 4: return { r: min + vsf, g: min, b: v };
-        case 5: return { r: v, g: min, b: v - vsf };
-    }
-}; */
 
 
 //====
 /// @fn ColorObject.GetColor()
-/// @brief gets the color in a hsla() format
+/// @brief gets the color in a hsl() format
 /// @author Trevor Ratliff
 /// @date 2014-09-10
-/// @return object -- {'string': 'hsla([hue], [saturation], [level], [alpha])', 'h': [hue], 's': [saturation], 'l': [level], 'a': [alpha]}
+/// @return object -- {'string': 'hsl([hue], [saturation], [level])', 'h': [hue], 's': [saturation], 'l': [level], 'a': [alpha]}
 //  
 //  Definitions:
 //  
@@ -312,8 +315,8 @@ ColorObject.prototype.ConvertHslToRgb = function (iHsl) {
 //====
 ColorObject.prototype.GetColor = function () {
 	return {
-		'string': 'hsla(' + this.Hue + ', ' + this.Saturation +
-			', ' + this.Level + ', '+ this.Alpha + ')',
+		'string': 'hsl(' + this.Hue + ', ' + this.Saturation +
+			', ' + this.Level + ')',
 		'h': this.Hue,
 		's': this.Saturation,
 		'l': this.Level,
@@ -324,10 +327,10 @@ ColorObject.prototype.GetColor = function () {
 
 //====
 /// @fn ColorObject.GetColorRGB()
-/// @brief gets teh color in a rgba() format
+/// @brief gets the color in a rgb() format
 /// @author Trevor Ratliff
 /// @date 2014-09-12
-/// @return object -- {'string': '', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
+/// @return object -- {'string': 'rgb([red], [green], [blue])', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
 //  
 //  Definitions:
 //  
@@ -339,8 +342,8 @@ ColorObject.prototype.GetColor = function () {
 //====
 ColorObject.prototype.GetColorRGB = function () {
 	return {
-		'string': 'rgba(' + this.Red + ', ' + this.Green + 
-			', ' + this.Blue + ', ' + this.Alpha + ')',
+		'string': 'rgb(' + this.Red + ', ' + this.Green + 
+			', ' + this.Blue + ')',
 		'r': this.Red,
 		'g': this.Green,
 		'b': this.Blue,
@@ -351,10 +354,10 @@ ColorObject.prototype.GetColorRGB = function () {
 
 //====
 /// @fn ColorObject.GetColorWeb()
-/// @brief gets teh color in a #rrggbb format
+/// @brief gets the color in a hex format
 /// @author Trevor Ratliff
 /// @date 2014-09-12
-/// @return object -- {'string': '', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
+/// @return object -- {'string': '#rrggbb', 'r': [red], 'g': [green], 'b': [blue], 'a': [alpha]}
 //  
 //  Definitions:
 //  
@@ -372,71 +375,6 @@ ColorObject.prototype.GetColorWeb = function () {
 		'b': this.Pad(this.Blue.toString(16)),
 		'a': this.Pad(this.Alpha.toString(16))
 	};
-};
-
-
-//====
-/// @fn ColorObject.HueToRGB(vdblAdjLevel, vdblAdjSaturation, vdblAdjHue)
-/// @brief converts a hue value to an rgb value
-/// @author Trevor Ratliff
-/// @date 2014-09-12
-/// @param vdblM1 -- an adjusted color saturation value
-/// @param vdblM2 -- an adjusted color lightness value
-/// @param vdblAdjHue -- h in psuedo code below, an adjusted hue
-/// @return double ldblReturn -- a color channel value in the range [0..1]
-/// 
-/// HOW TO RETURN hue.to.rgb(m1, m2, h): 
-///     IF h<0: PUT h+1 IN h
-///     IF h>1: PUT h-1 IN h
-///     IF h*6<1: RETURN m1+(m2-m1)*h*6
-///     IF h*2<1: RETURN m2
-///     IF h*3<2: RETURN m1+(m2-m1)*(2/3-h)*6
-///     RETURN m1
-//  
-//  Definitions:
-//		ldblReturn -- return value
-//		ldblAdjHue -- and adjusted hue value
-//  
-/// @verbatim
-/// History:  Date  |  Programmer  |  Contact  |  Description  |
-///     2014-09-12  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
-///         function creation from info found at 'http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color'  |
-/// @endverbatim
-//====
-ColorObject.prototype.HueToRGB = function (vdblM1, vdblM2, vdblAdjHue) {
-	var ldblReturn = vdblM1;
-	var ldblAdjHue = vdblAdjHue;
-	
-	//----
-	// set up hue
-	//----
-	if (vdblAdjHue < 0) {
-		ldblAdjHue = vdblAdjHue + 1;
-	}
-	
-	if (vdblAdjHue > 1) {
-		ldblAdjHue = vdblAdjHue - 1;
-	}
-	
-	//----
-	// set color channel value
-	//----
-	if (ldblAdjHue * 6 < 1) {
-		//~ ldblReturn = vdblM1 + (vdblM2 - vdblM1) * ldblAdjHue * 6;
-		return vdblM1 + (vdblM2 - vdblM1) * ldblAdjHue * 6;
-	}
-	
-	if (ldblAdjHue * 2 < 1) {
-		//~ ldblReturn = vdblM2;
-		return vdblM2;
-	}
-	
-	if (ldblAdjHue * 3 < 2) {
-		//~ ldblReturn = vdblM1 + (vdblM2 - vdblM1) * ((2/3) - ldblAdjHue) * 6;
-		return vdblM1 + (vdblM2 - vdblM1) * ((2/3) - ldblAdjHue) * 6;
-	}
-	
-	return Math.round((ldblReturn) * 255);
 };
 
 
@@ -502,6 +440,7 @@ ColorObject.prototype.Pad = function (vstrValue, vintPlaces, vstrCharacter, vbln
 function ColorClick (event) {
 	var lobjDisplay = event.currentTarget.parentNode.querySelector('.display');
 	lobjDisplay.style.zIndex = 10;
+	lobjDisplay.className = lobjDisplay.className.replace(' no-show', '');
 	event.currentTarget.style.zIndex = 1;
 	return;
 }
@@ -538,6 +477,7 @@ function DisplayClick  (event) {
 	var lobjColor = event.currentTarget.parentNode.querySelector('.color');
 	lobjColor.style.zIndex = 10;
 	event.currentTarget.style.zIndex = 1;
+	event.currentTarget.className += " no-show";
 	return;
 }
 
@@ -809,18 +749,34 @@ function ValueMouseMove() {
 	//----
 	// set objects
 	//----
-	var lobjColorHue = new ColorObject('hue');
-	var lobjColorShade = new ColorObject('shade');
+	/*var lobjColorHue = new ColorObject('hue');
 	var lobjColorTint = new ColorObject('tint');
 	var lobjColorTone = new ColorObject('tone');
+	var lobjColorShade = new ColorObject('shade');
 	var lobjContrast = new ColorObject('contrast');
+	var lobjContrastTint = new ColorObject('contrastTint');
+	var lobjContrastTone = new ColorObject('contrastTone');
+	var lobjContrastShade = new ColorObject('contrastShade');
 	var lobjContrastLeft = new ColorObject('contrastLeft');
-	var lobjContrastRight = new ColorObject('contrastRight');
+	var lobjContrastRight = new ColorObject('contrastRight');*/
+	//----
+	// get all tiles and create ColorObjects for them in a new array
+	//----
+	larrColors = [];
+	lobjColors = document.querySelectorAll('.tile');
+
+	//----
+	// loop through lobjColors to create ColorObjects
+	//----
+	for (var lintII = 0; lintII < lobjColors.length; lintII++) {
+		larrColors[lintII] = new ColorObject(lobjColors[lintII].id);
+	}
 	
 	//----
 	// update the screen with the new offset values
 	//----
-	UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone, lobjContrast, lobjContrastLeft, lobjContrastRight]);
+	/*UpdateScreen([lobjColorHue, lobjColorShade, lobjColorTint, lobjColorTone, lobjContrast, lobjContrastLeft, lobjContrastRight]);*/
+	UpdateScreen(larrColors);
 	
 	return;
 }
