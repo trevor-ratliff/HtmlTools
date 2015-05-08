@@ -19,7 +19,9 @@ html {
 }
 
 body {
+	background-color: hsl(240, 0%, 20%);
 	box-sizing: border-box;
+	color: hsl(240, 0%, 80%);
 	font-family: verdana, arial;
 	font-size: 0.5cm;
 	height: 100%;
@@ -44,7 +46,7 @@ aside {
 * ids
 ****/
 #color {
-	color: hsla(120, 90%, 10%, 1.0);
+	color: hsla(120, 40%, 45%, 1.0);
 	font-size: 0.95ex;
 	margin-top: 2rem;
 }
@@ -78,7 +80,7 @@ aside {
 ****/
 .color {
 	background-color: hsla(60, 10%, 90%, 1.0);
-	border: 1px solid hsla(60, 50%, 50%, 1.0);
+	border: 1px solid hsla(60, 0%, 20%, 1.0);
 	border-radius: 3px;
 	color: hsla(60, 50%, 50%, 1.0);
 	height: 18ex;
@@ -154,8 +156,8 @@ aside {
 }
 
 .tile {
-	background-color: hsla(120, 10%, 90%, 1.0);
-	border: 1px solid hsla(120, 50%, 50%, 1.0);
+	/* background-color: hsla(120, 10%, 20%, 1.0); */
+	/* border: 1px solid hsla(120, 40%, 45%, 1.0); */
 	border-radius: 3px;
 	box-sizing: border-box;
 	color: hsla(120, 50%, 50%, 1.0);
@@ -168,7 +170,9 @@ aside {
 }
 
 .value {
+	left: -2px;
 	margin: 0px 0px;
+	position: relative;
 	width: 100%;
 }
 
