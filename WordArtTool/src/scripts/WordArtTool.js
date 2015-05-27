@@ -46,6 +46,8 @@ jQuery(document).ready(function() {
 	/// History:  Date  |  Programmer  |  Contact  |  Description  |
 	///     2013-02-06  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
 	///         function creation  |
+	///     2015-05-27  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+	///         finish implementing rotation for modern browsers 
 	/// @endverbatim
 	//====
 	$(document).mousemove(function(e) {
@@ -66,7 +68,7 @@ jQuery(document).ready(function() {
 		 //----
 		 // if gblnHasLetter then move the element
 		 //----
-		 if (gblnHasLetter) {
+		 if (gblnHasLetter && !gblnIsRotating) {
 				$('#' + gstrCurrentLetter)[0].style['top'] = (gintY - Math.floor(
 					$('#' + gstrCurrentLetter)[0].offsetHeight / 2)).toString() +
 					'px';
@@ -82,6 +84,10 @@ jQuery(document).ready(function() {
 				//~ $('#' + gstrCurrentLetter).css('-webkit-transform', 'rotate(' + 
 					//~ gintRotStartY - gintY + 'deg)');
 				$('#' + gstrCurrentLetter)[0].style.webkitTransform = 
+					"rotate(" + (gintY - gintRotStartY).toString() + "deg)";
+				$('#' + gstrCurrentLetter)[0].style.MozTransform = 
+					"rotate(" + (gintY - gintRotStartY).toString() + "deg)";
+				$('#' + gstrCurrentLetter)[0].style.transform = 
 					"rotate(" + (gintY - gintRotStartY).toString() + "deg)";
 		 }
 	} );
@@ -508,7 +514,7 @@ function RotateLetterStart(vobjMouseEvent) {
 	gintRotStartY = gintY;
 	gstrCurrentLetter = this.parentNode.id;
 	
-	event.stopPropagation();
+	vobjMouseEvent.stopPropagation();
 }
 
 
@@ -528,8 +534,9 @@ function RotateLetterStart(vobjMouseEvent) {
 //====
 function RotateLetterEnd(vobjMouseEvent) {
 	if(gblnIsRotating) {
-		 gblnIsRotating = false;
-		 gstrCurrentLetter = '';
+		gblnIsRotating = false;
+		gblnHasLetter = false;
+		gstrCurrentLetter = '';
 	}
 }
 
@@ -551,5 +558,5 @@ function RotateLetterEnd(vobjMouseEvent) {
 function DeleteLetter(vobjMouseEvent) {
 	this.parentNode.parentNode.removeChild(this.parentNode);
 	
-	event.stopPropagation();
+	vobjMouseEvent.stopPropagation();
 }
