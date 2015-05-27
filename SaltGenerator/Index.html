@@ -1,0 +1,41 @@
+<!DOCTYPE html>    <!-- HTML 5.0 doctype -->
+
+<!--
+//====
+/// @file Index.html
+/// @brief Demonstrates the SaltGenerator
+/// @author Trevor Ratliff
+/// @date 2015-05-27
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///		2015-05-27  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///			file creation  |
+/// @endverbatim
+//====
+-->
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="styles/SaltGenerator.css" />
+		<script type="text/javascript" src="scripts/SaltGenerator.js"></script>
+		<script type="text/javascript" src="scripts/UseSalt.js"></script>
+		
+		<noscript>
+			Turning JavaScript on in your browser makes for a much better experience!
+		</noscript>
+	</head>
+	
+	<body>
+		<div id="content">
+			<p>
+				Focusing on the textarea will display the generated salt.
+				<span><button type="button" id="btnReset">Reset</button></span>
+			</p>
+			<textarea id="txtSalt" ></textarea>
+		</div>
+	</body>
+</html>
