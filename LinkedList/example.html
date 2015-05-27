@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<!--
+//====
+/// @file example.html
+/// @brief runs an example of the linked list
+/// @author Trevor Ratliff
+/// @date 2015-03-09
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+/// 	2015-03-09  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |
+/// 		file creation  |
+/// @endverbatim
+//====
+-->
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="styles/example.css" />
+		
+		<script type="text/javascript" src="src/MusicNotes.js"></script>
+		<script type="text/javascript" src="src/LinkedList.js"></script>
+		
+		<script type="text/javascript">
+			<!--
+			var gobjMusic = null;
+			window.addEventListener('load', function (e) {
+				//----
+				// create and populate a linked list
+				//----
+				var lstrContents = "";
+				var lobjContent = document.getElementById('content');
+				var lobjCurr = new List.LI(0);
+				for (var lintII = 1; lintII < 10; lintII++) {
+					lobjCurr.Next(new List.LI(lintII));
+					lobjCurr = lobjCurr.MoveNext();
+				}
+				
+				//----
+				// move to first item and add values to screen
+				//----
+				lstrContents += '<div class="test"><ul>';
+				while (lobjCurr._prev) lobjCurr = lobjCurr.MovePrev();
+				while (lobjCurr._next) {
+					lstrContents += '<li>' + lobjCurr.toString() + '</li>';
+					lobjCurr = lobjCurr.MoveNext();
+				}
+				lstrContents += '<li>' + lobjCurr.toString() + '</li>';
+				lstrContents += '</ul></div>'
+				
+				lobjContent.innerHTML += lstrContents;
+				
+				//----
+				// move 3 back and insert items with values of 'a', 'b', 'c'
+				//----
+				lobjCurr = lobjCurr.MovePrev().MovePrev().MovePrev();
+				lobjCurr.Next(new List.LI('a'));
+				lobjCurr = lobjCurr.MoveNext();
+				lobjCurr.Next(new List.LI('b'));
+				lobjCurr = lobjCurr.MoveNext();
+				lobjCurr.Next(new List.LI('c'));
+				lobjCurr = lobjCurr.MoveNext();
+				
+				//----
+				// move to last then display backwards
+				//----
+				lstrContents = '<div class="test"><ul>';
+				while (lobjCurr._next) lobjCurr = lobjCurr.MoveNext();
+				while (lobjCurr._prev) {
+					lstrContents += '<li>' + lobjCurr.toString() + '</li>';
+					lobjCurr = lobjCurr.MovePrev();
+				}
+				lstrContents += '<li>' + lobjCurr.toString() + '</li>';
+				lstrContents += '</ul></div>';
+				
+				lobjContent.innerHTML += lstrContents;
+				
+				//----
+				// generate music
+				//----
+				gobjMusic = new List.LI(new MusicNotes.Note(
+					MusicNotes.MaxMinRandom(400, 400, 400),		//frequency
+					MusicNotes.MaxMinRandom(250, 750, 240),		//duration
+					MusicNotes.MaxMinRandom(200, 100,  100),		//max_dev
+					MusicNotes.MaxMinRandom(200, 100,  100)		//mix_dev
+				));
+				
+				for (var lintII = 0; lintII < 200; lintII++) {
+					gobjMusic.Next(new List.LI(gobjMusic._value.GenerateNext()));
+					gobjMusic = gobjMusic.MoveNext();
+				}
+				
+				lstrContents = '<div class="test"><ul>';
+				while(gobjMusic._prev) gobjMusic = gobjMusic.MovePrev();
+				while(gobjMusic._next) {
+					lstrContents += '<li>' + gobjMusic._value.toString() + '</li>';
+					gobjMusic = gobjMusic.MoveNext();
+				}
+				lstrContents += '<li>' + gobjMusic._value.toString() + '</li>';
+				lstrContents += '</ul></div>';
+				
+				lobjContent.innerHTML += lstrContents;
+				
+				//----
+				// add a button for playing the music
+				//----
+				List.LI.prototype.Play = function () {
+					while (gobjMusic._prev) gobjMusic = gobjMusic.MovePrev();
+					while (gobjMusic._next) {
+						gobjMusic._value.Play();
+						gobjMusic = gobjMusic.MoveNext();
+					}
+					gobjMusic._value.Play();
+				};
+				lobjContent.innerHTML += '<li><button type="button" id="btnPlay" onclick="gobjMusic.Play();">Play</button>';
+				
+				return;
+			});
+			//-->
+		</script>
+		
+		<noscript>
+			Turning JavaScript on in your browser makes for a much better experience!
+		</noscript>
+	</head>
+	
+	<body>
+		<div id="content"></div>
+	</body>
+</html>

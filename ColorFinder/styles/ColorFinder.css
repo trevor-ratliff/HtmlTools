@@ -1,0 +1,181 @@
+/****
+* @file ColorFinder.css
+* @brief holds the css for ColorFinder
+* @author Trevor Ratliff
+* @date 2014-09-09
+* 
+* @verbatim
+* History:  Date  |  Programmer  |  Contact  |  Description  |
+*	2014-09-09  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+*		file creation  |
+* @endverbatim
+****/
+
+/****
+* elements
+****/
+html {
+	height: 100%;
+}
+
+body {
+	background-color: hsl(240, 0%, 20%);
+	box-sizing: border-box;
+	color: hsl(240, 0%, 80%);
+	font-family: verdana, arial;
+	font-size: 0.5cm;
+	height: 100%;
+	padding: 2ex;
+	margin: 0ex auto;
+}
+
+article {
+	margin-left: 21ex;
+	/* height: 100%; */
+	width: 74ex;
+}
+
+aside {
+	float: left;
+	/* height: 100%; */
+	width: 20ex;
+}
+
+
+/****
+* ids
+****/
+#color {
+	color: hsla(120, 40%, 45%, 1.0);
+	font-size: 0.95ex;
+	margin-top: 2rem;
+}
+
+#color .tile {
+	color: hsla(120, 90%, 10%, 1.0);
+}
+
+#hue {
+	min-width: 360px;
+}
+
+#hue .controls {
+	width: 360px;
+}
+
+#title {
+	margin: 2ex auto;
+}
+
+#title h3 {
+	margin-top: 0ex;
+}
+
+#tint {
+	margin-right: 0ex;
+}
+
+/****
+* classes
+****/
+.color {
+	background-color: hsla(60, 10%, 90%, 1.0);
+	border: 1px solid hsla(60, 0%, 20%, 1.0);
+	border-radius: 3px;
+	color: hsla(60, 50%, 50%, 1.0);
+	height: 18ex;
+	left: 0px;
+	margin-bottom: 0.4ex;
+	position: relative;
+	/* top: 0px; */
+	width: calc(100% - 2px);
+	z-index: 10;
+}
+
+.container .tile {
+	height: 6em;
+}
+
+.container .color {
+	height: calc(100% - 4px);
+}
+
+.controls {
+	background-color: hsla(0, 10%, 90%, 1.0);
+	border: 1px solid hsla(0, 50%, 50%, 1.0);
+	border-radius: 4px;
+	bottom: 0px;
+	color: hsla(0, 50%, 50%, 1.0);
+	display: none;
+	height: 2ex;
+	position: absolute;
+	width: calc(100px * 1);
+}
+
+.display {
+	background-color: hsla(180, 10%, 90%, 1.0);
+	border: 1px solid hsla(180, 50%, 50%, 1.0);
+	border-radius: 3px;
+	color: hsla(180, 0%, 0%, 1.0);
+	/* float: right; */
+	/* height: calc(80% - 1em); */
+	left: 10%;
+	margin-bottom: 0.4ex;
+	top: 10%;
+	width: 80%;
+	position: absolute;
+	z-index: 1;
+}
+
+.last {
+	margin-right: 0ex !important;
+}
+
+.mark {
+	border-bottom: 2.6ex solid hsla(0, 50%, 50%, 1.0);
+	border-left: 0.5ex solid hsla(0, 50%, 50%, 0.0);
+	border-right: 0.5ex solid hsla(0, 50%, 50%, 0.0);
+	border-top: 0ex solid hsla(0, 50%, 50%, 0.0);
+	border-radius: 2px;
+	height: 0ex;
+	left: -5px;
+	position: relative;
+	width: 0.5ex;
+	z-index: 10;
+}
+
+.mark:hover {
+	border-bottom: 2.6ex solid hsla(210, 50%, 50%, 1.0);
+	border-left: 0.5ex solid hsla(210, 50%, 50%, 0.0);
+	border-right: 0.5ex solid hsla(210, 50%, 50%, 0.0);
+	border-top: 0ex solid hsla(210, 50%, 50%, 0.0);
+}
+
+.no-show {
+    display: none !important;
+}
+
+.tile {
+	/* background-color: hsla(120, 10%, 20%, 1.0); */
+	/* border: 1px solid hsla(120, 40%, 45%, 1.0); */
+	border-radius: 3px;
+	box-sizing: border-box;
+	color: hsla(120, 50%, 50%, 1.0);
+	float: left;
+	/* height: 21ex; */
+	margin: 0ex 1ex 1ex 0ex;
+	padding: 0.4ex;
+	width: calc(33.3% - 0.68ex);
+	position: relative;
+}
+
+.value {
+	left: -2px;
+	margin: 0px 0px;
+	position: relative;
+	width: 100%;
+}
+
+.wide {
+	width: 100% !important;
+}
