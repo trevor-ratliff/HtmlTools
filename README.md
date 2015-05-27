@@ -79,12 +79,23 @@ BreadCrumb.Delete() -- removes the BreadCrumb object from the session storage.
 
 ## ColorFinder ##
 
-This is a tool for finding a color and it's shades, tones and tints
+This is a tool for finding a color and it's shades, tones and tints.  Just move 
+the various sliders and watch their effects.  Clicking on a color will display 
+the color information.
 
 
 ## LayoutTests ##
 
-These are various layout tests I've played with over the years ... hopefully I'll add more of them soon
+These are various layout tests I've played with over the years ... hopefully 
+I'll add more of them soon.
+
+
+## LinkedList ##
+
+I was playing around with the idea of a linked list, just for fun.  I have an 
+example where I generate a number of musical tones at random as a music 
+generator of sorts.  I hope to use this as a background music generator for 
+games.
 
 
 ## SimpleEncode ##
@@ -142,3 +153,17 @@ SimpleEncode.DecodeString( Data, Offset, Width) -- decodes to an string
   - Data: the string to decode
   - Offset: amount to shift by to get the calculated value
   - Width: the width of the encoded 'characters'
+
+
+## WordArtTool ##
+
+An html 5 tool to help you create word art.
+
+point your browser to WordArtTool.htm, once it is loaded you can change the 
+font, size, color and border of each letters using the tools on the right.  You 
+can add letters to your board by clicking and dragging.  You can also rotate 
+the letters once they've been placed.
+
+If you have an internet connection the application should pull the latest jQuery
+otherwise you will need to change the script tag to point to the minified 
+library in the scripts folder.
