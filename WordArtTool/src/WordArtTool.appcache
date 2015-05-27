@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# 2013-08-01 v1.0.0
+/images/buttonGreen.png
+#/images/buttonGreenDark.png
+/images/buttonRed.png
+#/images/buttonRedDark.png
+/styles/WordArtTool.css
+/scripts/WordArtTool.js
+/scripts/jquery-1.10.2.min.js
