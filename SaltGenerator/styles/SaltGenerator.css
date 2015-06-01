@@ -43,6 +43,7 @@ p > span {
 }
 
 #content > textarea {
+	border-radius: 9px;
 	height: calc(100% - 4em);
 	width: 100%;
 }
