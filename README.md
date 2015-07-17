@@ -98,9 +98,14 @@ generator of sorts.  I hope to use this as a background music generator for
 games.
 
 
+## SaltGenerator ##
+
+A tool to generate a random salt using the user's mouse movements.
+
+
 ## SimpleEncode ##
 
-A simple encoding and decoding library to obfuscate 'sensitive' data
+A simple encoding and decoding library to obfuscate 'sensitive' data.
 
 ### Use ###
 
@@ -153,6 +158,15 @@ SimpleEncode.DecodeString( Data, Offset, Width) -- decodes to an string
   - Data: the string to decode
   - Offset: amount to shift by to get the calculated value
   - Width: the width of the encoded 'characters'
+
+
+## Time Inputs ##
+
+An example of how time can be validated and manipulated.
+
+Most of the methods I found online were too restrictive in the allowed time 
+inputs.  I figured out a regex to allow what I wanted then ran caclulations 
+based off the the matches from the regex.
 
 
 ## WordArtTool ##

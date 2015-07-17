@@ -1,0 +1,61 @@
+<!DOCTYPE html>    <!-- HTML 5.0 doctype -->
+
+<!--
+//====
+/// @file TimeInputs
+/// @brief Some interesting things I've done with time input fields
+/// @author Trevor Ratliff
+/// @date 2015-07-16
+//  
+//  Definitions:
+//  
+/// @verbatim
+/// History:  Date  |  Programmer  |  Contact  |  Description  |
+///     2015-07-16  |  Trevor Ratliff  |  trevor.w.ratliff@gmail.com  |  
+///         file creation  |
+/// @endverbatim
+//====
+-->
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="styles/TimeInputs.css" title="main" />
+		
+		<script type="text/javascript" src="src/TimeInputs.js"></script>
+		
+		<noscript>
+			Turning JavaScript on in your browser makes for a much better experience!
+		</noscript>
+	</head>
+	
+	<body>
+		<div id="page_error" class="editor-field-valid"></div>
+		<form action="#" method="post">
+			<div class="table">
+				<div class="row">
+					<div class="cell editor-field w1-3">
+						<label class="editor-label required">start time</label>
+						<input type="text" id="start_time" name="start_time" 
+							pattern="^((?:2[0-3]|[0-1]?[0-9])|(?:1[0-2]|0?[0-9]))(?::([0-5][0-9]))?(?::([0-5][0-9]))?(?: *([aApP][mM]?))?$" 
+							title="hh:mm[:ss am|pm] is a valid format" 
+							placeholder="1:00 pm" class="w1-1"
+							onchange="TimeInputs.UpdateTime(this);" />
+						<span id="start_time_valid" class="editor-field-valid w1-1">A valid time format is 'hh:mm[:ss am|pm]'.</span>
+					</div>
+					<div class="cell editor-field w1-3">
+						<label class="editor-label">end time</label><br />
+						<span id="time_end" class="w1-1">&nbsp;</span>
+					</div>
+					<div class="cell editor-field w1-3">
+						<label class="editor-label required">duration</label>
+						<input type="number" id="duration" name="duration" 
+							min="1" max="8" step="0.5" value="1" class="w1-1"
+							onchange="TimeInputs.UpdateTime(this);" />
+						<span id="duration_valid" class="editor-field-valid w1-1">The Duration needs to be a number/decimal.</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+html,
+body,
+form {
+	background-color: hsl(60, 0%, 0%);
+	height: 100%;
+	font-size: 1.2em;
+	margin: 0ex;
+	overflow: auto;
+	padding: 0ex;
+	width: 100%;
+}
+
+#page_error {
+	background-color: hsl(10, 80%, 85%);
+	border: 2px solid hsl(10, 80%, 40%);
+	border-radius: 18px 0px 0px 18px;
+	font-size: 1rem !important;
+	/* height: 20%; */
+	left: auto;
+	padding: 2ex 3ex 2ex 1.5ex;
+	position: fixed;
+	right: -1ex;
+	top: calc(6*1.2rem);
+	width: 8rem;
+}
+
+.cell {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.editor-field {
+	width: calc(100% - 1em);
+}
+
+.editor-field input, 
+.editor-field span {
+	font-size: 1rem;
+}
+
+.editor-field-valid {
+	display: none;
+	width: calc(100% - 1em;);
+}
+
+.editor-field-error {
+	color: hsl(10, 80%, 40%);
+	display: block;
+	font-size: 0.75rem !important;
+	width: calc(100% - 1em);
+}
+
+.editor-label {
+	font-weight: 700;
+}
+
+.editor-label::after {
+	content: ":";
+}
+
+.error {
+	background-color: hsl(10, 80%, 90%);
+	border-color: hsl(10, 80%, 40%);
+	color: hsl(10, 50%, 30%);
+}
+
+.row {
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+}
+
+.table {
+	background-color: hsla(60, 10%, 90%, 1.0);
+	border-radius: 9px;
+	box-shadow: 0px 0px 40px 15px hsla(60, 100%, 85%, 0.6);
+	display: block;
+	height: calc(100% - 20em);
+	margin: 8em auto 0em;
+	padding: 1em;
+	position: relative;
+	width: calc(100% - 20em);
+}
+
+.w1-1 {
+	width: calc(100% - 1em);
+}
+
+.w1-2 {
+	width: calc(100%/2 - 1em);
+}
+
+.w1-3 {
+	width: calc(100%/3 - 1em);
+}
+
+.w1-4 {
+	width: calc(100%/4 - 1em);
+}
