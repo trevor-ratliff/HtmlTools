@@ -94,10 +94,26 @@ TimeInputs.CalculateEndTime = function (vstrStartTime, vstrDuration) {
 		// convert hours
 		//----
 		if (larrMatches.length > 1 && larrMatches[1] != null) lintHours = parseInt(larrMatches[1]);
-		if (larrMatches.length > 4 && larrMatches[4] != null) {
-			lintHours += (larrMatches[4].indexOf('p') > 0 ? 12 : 0);
+		if (larrMatches.length > 4 && larrMatches[4] != null && lintHours < 13) {
+			//----
+			// check for 12 am and adjust lintHours to 0
+			//----
+			if (lintHours === 12 && larrMatches[4].indexOf('a') >= 0) {
+				lintHours = 0;
+			}
+
+			//----
+			// add 12 hours if it is pm and not 12 noon
+			//----
+			if (lintHours !== 12 && larrMatches[4].indexOf('p') >= 0) {
+				lintHours += 12;
+			}
 			lstrAmPm = larrMatches[4];
 		}
+
+		//----
+		// convert minutes and seconds
+		//----
 		if (larrMatches.length > 2 && larrMatches[2] != null) lintMinutes = parseInt(larrMatches[2]);
 		if (larrMatches.length > 3 && larrMatches[3] != null) lintSeconds = parseInt(larrMatches[3]);
 
@@ -130,7 +146,8 @@ TimeInputs.CalculateEndTime = function (vstrStartTime, vstrDuration) {
 				lstrAmPm = 'pm'
 			}
 
-			if (lintHours != 12) lintHours = lintHours % 12;
+			if (lintHours !== 12) lintHours = lintHours % 12;
+			if (lintHours === 0) lintHours = 12;
 			//~ }
 
 			lstrEndTime = TimeInputs.Pad(lintHours.toString(), "0", 2) + ":" +
