@@ -935,27 +935,27 @@ window.addEventListener('load', function () {
 			//----
 			// parse data
 			//----
-			if (localStorage.hue) lobjHue = JSON.parse(localStorage.hue);
-			if (localStorage.shade) lobjShade = JSON.parse(localStorage.shade);
-			if (localStorage.tint) lobjTint = JSON.parse(localStorage.tint);
-			if (localStorage.tone) lobjTone = JSON.parse(localStorage.tone);
+			if (!!localStorage.hue) lobjHue = JSON.parse(localStorage.hue);
+			if (!!localStorage.shade) lobjShade = JSON.parse(localStorage.shade);
+			if (!!localStorage.tint) lobjTint = JSON.parse(localStorage.tint);
+			if (!!localStorage.tone) lobjTone = JSON.parse(localStorage.tone);
 
 			//----
 			// process data
 			//----
-			if (typeof lobjHue == "object") {
+			if (!!lobjHue && !!lobjHue.h) {
 				document.getElementById('hueMark').style.left = (lobjHue.h + gintMarkerOffset) + 'px';
 				document.getElementById('txtHueValue').value = lobjHue.h;
 			}
-			if (typeof lobjShade == "object") {
+			if (!!lobjShade && !!lobjShade.l) {
 				document.getElementById('shadeMark').style.left = (parseInt(lobjShade.l) + gintMarkerOffset) + 'px';
 				document.getElementById('txtShadeValue').value = parseInt(lobjShade.l);
 			}
-			if (typeof lobjTint == "object") {
+			if (!!lobjTint && !!lobjTint.l) {
 				document.getElementById('tintMark').style.left = (parseInt(lobjTint.l) - 50 + gintMarkerOffset) + 'px';
 				document.getElementById('txtTintValue').value = parseInt(lobjTint.l);
 			}
-			if (typeof lobjTone == "object") {
+			if (!!lobjTone && !!lobjTone.s && !!lobjTone.l) {
 				document.getElementById('toneMark').style.left = (parseInt(lobjTone.s) + gintMarkerOffset) + 'px';
 				document.getElementById('txtToneValue').value = parseInt(lobjTone.s);
 				document.getElementById('txtToneLevel').value = parseInt(lobjTone.l);

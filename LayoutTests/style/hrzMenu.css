@@ -1,0 +1,180 @@
+/* Modified from http://codepen.io/ashishbhatt/pen/yeeEQo?editors=110 */
+
+#submenu > ul, #submenu > ul li, #submenu > ul ul { 
+	list-style: none;
+	margin: 0;
+	padding: 0;}
+#submenu > ul { 
+	position: relative;
+	z-index: 597;
+	float: left;
+}
+#submenu > ul li { 
+	float: left;
+	min-height: 1px;
+	line-height: 1.3em;
+	vertical-align: middle;
+	padding: 10px;
+	width: 19.0%;
+	text-align: center;
+}
+#submenu > ul li.hover, #submenu > ul li:hover { 
+	z-index: 599;
+	cursor: default;
+}
+, #submenu > ul li.active{ 
+	visibility: visible;
+}
+#submenu > ul ul { 
+	visibility: hidden;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 598;
+}
+#submenu > ul ul li { 
+	float: none;
+}
+#submenu > ul li:hover > ul {
+	visibility: visible;
+}
+#submenu > ul a:link { 
+	text-decoration: none;
+}
+#submenu > ul a:active {
+	color: #ffa500;
+}
+#submenu li { 
+	padding: 0;
+color: #000;
+}
+#submenu { 
+	font-family: 'Lato', sans-serif;
+	width: auto;
+	background:#323333 url(images/mainnavbase.png) repeat-x;
+	font-size: 18px;}
+#submenu > ul { 
+	padding: 0 5px;
+	display: block;
+	float: none;
+	zoom: 1;}
+#submenu > ul:before { 
+	content: '';
+	display: block;
+}
+#submenu > ul:after { 
+	content: '';
+	display: table;
+	clear: both;
+}
+#submenu > ul > li { 
+	padding: 0px 5px;
+	line-height:45px;
+}
+#submenu > ul > li > a, #submenu > ul > li > a:link, #submenu > ul > li > a:visited { 
+	text-shadow: 0 -1px 1px #004881;
+	color: #fff;
+	padding: 0px 20px;
+	display: block;
+}
+#submenu > ul > li > a:hover, #submenu > ul > li:hover > a { 
+	background-color: #ee2d23;
+}
+#submenu ul li .active a { 
+	background-color: #ee2d23;
+}
+#submenu li li a { 
+	color: #fff;
+	font-size: 13px;
+}
+#submenu li li a:hover { 
+	color: #fff;
+	border-color: #5c5c5c;
+}
+#submenu ul ul { 
+	margin: 0 10px;
+	padding: 0 10px;
+	float: none;
+	background: #ee2d23;
+	border-top: none;
+	right: 0;
+	left: 0;
+}
+#submenu ul > li > ul > li { 
+	margin: 0 10px 0 0;
+	position: relative;
+	padding: 0;
+	float: left;
+	width: auto;
+}
+#submenu ul > li > ul > li > a { 
+	padding: 10px 20px 10px 10px;
+	display: block;
+}
+#submenu ul > li > ul > li.has-sub:hover{
+	background-color: #6b6b6b}
+#submenu ul > li > ul > li.has-sub:hover:after{ 
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 45%;
+	border: 10px solid transparent;
+	border-top: 10px solid #6b6b6b;
+}
+#submenu ul > li > ul > li.has-sub > a:before {}
+#submenu ul > li > ul > li.has-sub > a:hover:before { 
+	border-top: 5px solid #5c5c5c;
+}
+#submenu ul ul ul { 
+	width: 200px;
+	top: 100%;
+	border: 2px solid #fff;
+}
+#submenu ul ul ul li {
+	float: none;
+}
+#submenu li.center > ul { 
+	text-align: center;
+}
+#submenu li.center > ul > li { 
+	float: none;
+	margin: auto;
+	display: inline-block;
+}
+#submenu li.center li.has-sub > ul {
+	position: absolute;
+	left: -50%;
+	/* right: -3.4em; */
+}
+#submenu li.last > ul { 
+	text-align: right;
+}
+#submenu li.last > ul > li { 
+	float: none;
+	margin: auto auto 0em;
+	display: inline-block;
+}
+#submenu li.last li.has-sub > ul {
+	position: absolute;
+	left: auto;
+	right: 0rem;
+}
+.page { 
+	background-color: #cccccc;
+	border: 2px solid #000000;
+	position: absolute;
+	top: 5rem;
+	right: 1vw;
+	bottom: 1vh;
+	left: 1vw;
+	border-radius: 5px;
+	padding: 2rem;
+	z-index: 10;
+}
+.page:target {
+	z-index: 100;
+}
+.no-show { 
+	display: none !important;
+}
+
