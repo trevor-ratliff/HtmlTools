@@ -17,6 +17,27 @@
 //====
 
 var MusicNotes = MusicNotes || {};
+MusicNotes.Context = {};
+
+//----
+// set musical context
+//----
+if (AudioContext) {
+	MusicNotes.Context = new AudioContext();
+} else if (webkitAudioContext) {
+	MusicNotes.Context = new webkitAudioContext;
+}
+
+//----
+// set volume and oscillator
+//----
+if (MusicNotes.Context != null) {
+	MusicNotes.osc = MusicNotes.Context.createOscillator();
+	MusicNotes.vol = MusicNotes.Context.createGain();
+	MusicNotes.osc.connect(MusicNotes.vol); // connect osc to vol
+	MusicNotes.vol.connect(MusicNotes.Context.destination); // connect vol to context destination
+	MusicNotes.vol.gain.value = 0.1; // from 0 to 1, 1 full volume, 0 is muted
+}
 
 //====
 ///	@class Note
@@ -114,28 +135,11 @@ MusicNotes.Note.prototype.GenerateNext = function () {
 /// @endverbatim
 //====
 MusicNotes.Note.prototype.Play = function () {
-	/*var context = new webkitAudioContext();	//audio in Chrome
-	var osc = context.createOscillator();
-	var vol = context.createGainNode();
+	"use strict";
 
-	vol.gain.value = 0.1; // from 0 to 1, 1 full volume, 0 is muted
-	osc.connect(vol); // connect osc to vol
-	vol.connect(context.destination); // connect vol to context distination
-	osc.start(context.currentTime + 3); // start it three seconds from now*/
-
-	var context = null;
-
-	if (AudioContext) {
-		context = new AudioContext();
-	} else if (webkitAudioContext) {
-		context = new webkitAudioContext;
-	} else {
-		if (!!console && !!console.log) console.log('playing: ' + 
-			this.toString());
-	}
-
-	var osc = (!!context.createOscillator) ? context.createOscillator() : null;
-	var vol = (!!context.createGainNode) ? context.createGainNode() : null;
+	MusicNotes.osc.frequency.value = this._freq;
+	MusicNotes.osc.start(MusicNotes.Context.currentTime); // start it three seconds from now
+	MusicNotes.osc.stop(MusicNotes.Context.currentTime + this._duration);
 
 	if (!!console && !!console.log) console.log('playing: ' + this.toString());
 };
