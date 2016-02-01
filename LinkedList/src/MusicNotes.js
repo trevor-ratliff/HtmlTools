@@ -139,9 +139,10 @@ MusicNotes.Note.prototype.Play = function () {
 
 	MusicNotes.osc.frequency.value = this._freq;
 	MusicNotes.osc.start(MusicNotes.Context.currentTime); // start it three seconds from now
-	MusicNotes.osc.stop(MusicNotes.Context.currentTime + this._duration);
+	MusicNotes.osc.stop(MusicNotes.Context.currentTime + (this._duration/1000));
 
 	if (!!console && !!console.log) console.log('playing: ' + this.toString());
+	MusicNotes.Context.resume().then(console.log('resuming now'));
 };
 
 //====
