@@ -110,9 +110,9 @@ MusicNotes.Note.prototype.GenerateNext = function () {
 		//~ MusicNotes.MaxMinRandom(this._maxDev, (200 - this._minDev),
 			//~ ((10 - this._minDev) * -1))		//min dev
 	return new MusicNotes.Note(
-		MusicNotes.MaxMinRandom(this._freq, this._maxDev, this._minDev),		//frequency
-		MusicNotes.MaxMinRandom(this._duration, (1000 - this._duration),
-			((10 - this._duration) * -1)),		//duration
+		Math.abs(MusicNotes.MaxMinRandom(this._freq, this._maxDev, this._minDev)),		//frequency
+		Math.abs(MusicNotes.MaxMinRandom(this._duration, (1000 - this._duration),
+			((10 - this._duration) * -1))),		//duration
 		this._maxDev,		//max dev
 		this._minDev		//min dev
 	);
@@ -138,8 +138,11 @@ MusicNotes.Note.prototype.Play = function () {
 	"use strict";
 
 	MusicNotes.osc.frequency.value = this._freq;
-	MusicNotes.osc.start(MusicNotes.Context.currentTime); // start it three seconds from now
-	MusicNotes.osc.stop(MusicNotes.Context.currentTime + (this._duration/1000));
+	//MusicNotes.osc.start(MusicNotes.Context.currentTime); // start it three seconds from now
+	//MusicNotes.osc.stop(MusicNotes.Context.currentTime + (this._duration/1000));
+	//----
+	// set up a callback to connect then disconnect the note from the oscillator
+	//----
 
 	if (!!console && !!console.log) console.log('playing: ' + this.toString());
 	MusicNotes.Context.resume().then(console.log('resuming now'));
